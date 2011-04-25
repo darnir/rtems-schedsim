@@ -1,0 +1,18 @@
+#
+#  $Id$
+#
+
+This is the RTEMS Scheduler Simulator.  It builds a subset of RTEMS in a
+manner such that it can be used to develop, test, and evaluate scheduling
+algorithms.
+
+It takes many of the same arguments as RTEMS with one addition:
+
+--enable-rtemsdir=DIRECTORY
+
+where DIRECTORY is the top of the RTEMS source tree.
+
+Other arguments are of interest are:
+
+--enable-posix
+--enable-smp
