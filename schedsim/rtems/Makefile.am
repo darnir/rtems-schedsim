@@ -8,6 +8,7 @@ lib_LIBRARIES = librtems.a
 
 cpukitdir=@rtems_srcdir@/cpukit
 librtems_a_CPPFLAGS  = -D__RTEMS_VIOLATE_KERNEL_VISIBILITY__
+librtems_a_CPPFLAGS += -I$(top_builddir)/score/include
 librtems_a_CPPFLAGS += -I$(srcdir)/sched_cpu
 librtems_a_CPPFLAGS += -I$(cpukitdir)/include
 librtems_a_CPPFLAGS += -I$(cpukitdir)/score/include
@@ -20,7 +21,9 @@ librtems_a_CPPFLAGS += -I$(cpukitdir)/libcsupport/include
 librtems_a_CPPFLAGS += -I$(cpukitdir)/libmisc/stringto
 
 ## Have own version of these
-librtems_a_SOURCES = rtems_init.c wkspace.c
+librtems_a_SOURCES = rtems_init.c
+librtems_a_SOURCES += wkspace.c
+librtems_a_SOURCES += debugio.c
 librtems_a_SOURCES += sched_cpu/cpu_asm.c
 librtems_a_SOURCES += sched_cpu/cpu.c
 
@@ -55,6 +58,7 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/coretodset.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodtickle.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodtickspersec.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodusectoticks.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/isr.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/objectallocate.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/objectapimaximumclass.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/objectclose.c
@@ -214,6 +218,8 @@ librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/assocremotebylocalbitfield.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/assocremotebylocal.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/assocremotebyname.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/error.c
+librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/printk.c
+librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/vprintk.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtodouble.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtofloat.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtoint.c
@@ -222,6 +228,18 @@ librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtopointer.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtounsignedchar.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtounsignedint.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtounsignedlong.c
+
+if HAS_SMP
+librtems_a_SOURCES += $(cpukitdir)/score/src/smp.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/smplock.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/isrsmp.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/threaddisabledispatch.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/threadenabledispatch.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/threaddispatchdisablelevel.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmpblock.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmpschedule.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmpunblock.c
+endif
 
 schedsim_includedir = $(includedir)/schedsim
 schedsim_rtems_includedir = $(includedir)/schedsim/rtems
@@ -331,7 +349,7 @@ schedsim_rtems_score_include_HEADERS = \
   $(cpukitdir)/score/inline/rtems/score/prioritybitmap.inl \
   $(cpukitdir)/score/inline/rtems/score/thread.inl \
   sched_cpu/rtems/score/cpu_asm.h \
-  sched_cpu/rtems/score/cpuopts.h \
+  $(top_builddir)/score/include/rtems/score/cpuopts.h \
   sched_cpu/rtems/score/cpu.h \
   sched_cpu/rtems/score/types.h \
   sched_cpu/rtems/score/no_cpu.h 

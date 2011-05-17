@@ -167,3 +167,15 @@ void *_CPU_Thread_Idle_body( uintptr_t ignored )
   for( ; ; )
     /* insert your "halt" instruction here */ ;
 }
+
+#include <stdio.h>
+void _SMP_cpu_swap( 
+  uint32_t *a,
+  uint32_t *value,
+  uint32_t *prev
+)
+{
+  *prev = *a;
+  *a = *value;
+  // printf( "(%d %d) ", *prev, *value );
+}

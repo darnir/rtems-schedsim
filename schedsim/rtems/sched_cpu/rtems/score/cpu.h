@@ -1257,6 +1257,23 @@ static inline uint32_t CPU_swap_u32(
 #define CPU_swap_u16( value ) \
   (((value&0xff) << 8) | ((value >> 8)&0xff))
 
+/*
+ *  SMP Support
+ */
+void __SMP_cpu_swap( 
+  uint32_t *a,
+  uint32_t *value,
+  uint32_t *prev
+);
+#define SMP_CPU_SWAP( _address, _value, _previous ) \
+  do { \
+    volatile unsigned int *_a = (volatile unsigned int *)_address; \
+    _previous = *(_a); \
+    *(_a) = _value; \
+  } while (0)
+
+#define _CPU_Context_switch_to_first_task_smp(_ignored) 
+
 #ifdef __cplusplus
 }
 #endif

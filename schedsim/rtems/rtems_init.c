@@ -48,9 +48,13 @@ void rtems_initialize_data_structures(void)
    */
   _Workspace_Handler_initialization();
 
+  #if defined(RTEMS_SMP)
+    _SMP_Handler_initialize();
+  #endif
+
   _User_extensions_Handler_initialization();
 
-  // _ISR_Handler_initialization();
+  _ISR_Handler_initialization();
 
   /*
    * Initialize the internal support API and allocator Mutex
@@ -78,6 +82,14 @@ void rtems_initialize_data_structures(void)
 
   _RTEMS_tasks_Manager_initialization();
   _Semaphore_Manager_initialization();
+
+  /*
+   * Discover and initialize the secondary cores in an SMP system.
+   */
+  #if defined(RTEMS_SMP)
+    _SMP_Processor_count =
+      bsp_smp_initialize( rtems_configuration_smp_maximum_processors );
+  #endif
 
   _System_state_Set( SYSTEM_STATE_BEFORE_MULTITASKING );
 
