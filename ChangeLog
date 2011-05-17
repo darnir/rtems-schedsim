@@ -1,3 +1,10 @@
+2011-05-17	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* configure.ac, aclocal/enable-smp.m4: Merge and update code.
+	Simulators for Deterministic Priority and SMP Simple Schedulers now
+	work.
+	* .cvsignore: New file.
+
 2011-04-25	Joel Sherrill <joel.sherrill@oarcorp.com>
 
 	* ChangeLog, README: New files.
