@@ -6,8 +6,12 @@ bin_PROGRAMS = schedsim
 schedsim_SOURCES = config.c \
     schedsim.cc wrap_thread_dispatch.c printheir_executing.c
 
+if HAS_SMP
+schedsim_SOURCES += smp_stub.c
+endif
 cpukitdir=@rtems_srcdir@/cpukit
-schedsim_CPPFLAGS  = -I$(srcdir)/sched_cpu
+schedsim_CPPFLAGS  = -I$(top_builddir)/score/include
+schedsim_CPPFLAGS += -I$(srcdir)/sched_cpu
 schedsim_CPPFLAGS += -I$(srcdir)/../../rtems
 schedsim_CPPFLAGS += -I$(cpukitdir)/include
 schedsim_CPPFLAGS += -I$(cpukitdir)/score/include

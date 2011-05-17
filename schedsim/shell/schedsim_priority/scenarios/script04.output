@@ -1,0 +1,21 @@
+*** TEST 04 ***
+  Thread Heir: 0x09010001 priority=255
+  Thread Executing: 0x09010001 priority=255
+Create 0x0a010001
+Creating task with:  Preemption: yes Timeslicing: no
+Task (TA1) created: id=0x0a010001, priority=1
+Task (TA1) starting: id=0x0a010001, priority=1
+  Thread Heir: 0x0a010001 priority=1
+  Thread Executing: 0x0a010001 priority=1
+Suspending task (0x0a010001)
+  Thread Heir: 0x09010001 priority=255
+  Thread Executing: 0x09010001 priority=255
+Creating task with:  Preemption: yes Timeslicing: no
+Task (TA1) created: id=0x0a010002, priority=2
+Task (TA1) starting: id=0x0a010002, priority=2
+  Thread Heir: 0x0a010002 priority=2
+  Thread Executing: 0x0a010002 priority=2
+Resuming task (0x0a010001)
+  Thread Heir: 0x0a010001 priority=1
+  Thread Executing: 0x0a010001 priority=1
+*** END OF TEST 04 ***
