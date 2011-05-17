@@ -1,0 +1,170 @@
+2011-05-17	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* .cvsignore, ChangeLog, Makefile.am, README, TODO, add_commands.c,
+	config.c, main_current_cpu.c, main_dispatch.c, main_dump_all_cpus.c,
+	main_dump_ready_tasks.c, printheir_executing.c, schedsim.cc,
+	smp_stub.c, wrap_thread_dispatch.c, scenarios/.cvsignore,
+	scenarios/cpus1_mode.expected, scenarios/cpus1_mode.scen,
+	scenarios/cpus1_priority.expected, scenarios/cpus1_priority.scen,
+	scenarios/cpus1_resume_on_primary.expected,
+	scenarios/cpus1_resume_on_primary.scen,
+	scenarios/cpus1_suspend_on_primary.expected,
+	scenarios/cpus1_suspend_on_primary.scen,
+	scenarios/cpus4_mode_case1.expected, scenarios/cpus4_mode_case1.scen,
+	scenarios/cpus4_mode_case2.expected, scenarios/cpus4_mode_case2.scen,
+	scenarios/cpus4_nonpreempt_case1.expected,
+	scenarios/cpus4_nonpreempt_case1.scen,
+	scenarios/cpus4_pick_older.expected, scenarios/cpus4_pick_older.scen,
+	scenarios/cpus4_priority.expected, scenarios/cpus4_priority.scen,
+	scenarios/cpus4_simple_nopreempt.expected,
+	scenarios/cpus4_simple_nopreempt.scen,
+	scenarios/cpus4_simple_preemption.expected,
+	scenarios/cpus4_simple_preemption.scen,
+	scenarios/cpus4_suspend_on_all.expected,
+	scenarios/cpus4_suspend_on_all.scen,
+	scenarios/cpus4_suspend_on_primary.expected,
+	scenarios/cpus4_suspend_on_primary.scen,
+	scenarios/cpus4_suspend_on_secondary.expected,
+	scenarios/cpus4_suspend_on_secondary.scen: New files.
+
+2011-04-22	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* smp_stub.c, scenarios/cpus4_mode_case1.expected,
+	scenarios/cpus4_mode_case2.expected,
+	scenarios/cpus4_nonpreempt_case1.expected,
+	scenarios/cpus4_pick_older.expected,
+	scenarios/cpus4_priority.expected,
+	scenarios/cpus4_simple_nopreempt.expected,
+	scenarios/cpus4_simple_preemption.expected,
+	scenarios/cpus4_suspend_on_all.expected,
+	scenarios/cpus4_suspend_on_primary.expected,
+	scenarios/cpus4_suspend_on_secondary.expected: Builds against latest
+	changes.
+
+2011-04-22	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* main_dispatch.c, main_dump_all_cpus.c: Builds again and passes all
+	tests.
+
+2011-04-20	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* config.c, scenarios/cpus1_resume_on_primary.expected,
+	scenarios/cpus1_suspend_on_primary.expected,
+	scenarios/cpus4_suspend_on_all.expected,
+	scenarios/cpus4_suspend_on_primary.expected,
+	scenarios/cpus4_suspend_on_secondary.expected: Now runs with Simple
+	SMP Scheduler merged into SuperCore.
+
+2011-04-20	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Begin to merge Scheduler Simple SMP to score.
+	* schedulersimplesmpblock.c, schedulersimplesmpschedule.c,
+	schedulersimplesmpunblock.c, rtems/score/schedulersimplesmp.h:
+	Removed.
+
+2011-04-20	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* scenarios/cpus4_pick_older.expected: Fix test name.
+
+2011-04-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* schedulersimplesmpschedule.c, scenarios/cpus4_mode_case1.expected,
+	scenarios/cpus4_mode_case1.scen,
+	scenarios/cpus4_nonpreempt_case1.expected,
+	scenarios/cpus4_nonpreempt_case1.scen: Preemptible tasks favored over
+	non-preemptible.
+
+2011-04-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* scenarios/cpus4_mode_case2.expected: New file.
+
+2011-04-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* TODO: Add test cases that work.
+
+2011-04-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* scenarios/cpus1_priority.expected, scenarios/cpus1_priority.scen,
+	scenarios/cpus1_resume_on_primary.expected,
+	scenarios/cpus1_resume_on_primary.scen: Add mode test cases. Fix use
+	of task_mode.
+	* scenarios/cpus1_mode.expected, scenarios/cpus1_mode.scen,
+	scenarios/cpus4_mode_case1.expected, scenarios/cpus4_mode_case1.scen,
+	scenarios/cpus4_mode_case2.scen: New files.
+
+2011-04-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* TODO, run_scenarios: New test case.
+	* scenarios/cpus4_suspend_on_all.expected,
+	scenarios/cpus4_suspend_on_all.scen: New files.
+
+2011-04-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* TODO, schedulersimplesmpschedule.c,
+	scenarios/cpus4_simple_nopreempt.expected,
+	scenarios/cpus4_simple_nopreempt.scen: More test cases working.
+	* scenarios/cpus4_nonpreempt_case1.expected,
+	scenarios/cpus4_nonpreempt_case1.scen,
+	scenarios/cpus4_priority.expected, scenarios/cpus4_priority.scen: New
+	files.
+
+2011-04-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* TODO, schedulersimplesmpschedule.c: Now behaves like Deterministic
+	Priority Scheduler on priority lowering.
+
+2011-04-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* TODO, run_scenarios, schedulersimplesmpschedule.c: Priority changes
+	on single CPU works like regular scheduler.
+	* scenarios/.cvsignore, scenarios/cpus1_priority.expected,
+	scenarios/cpus1_priority.scen: New files.
+
+2011-04-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* run_scenarios, scenarios/cpus1_resume_on_primary.expected,
+	scenarios/cpus1_suspend_on_primary.expected,
+	scenarios/cpus4_picker_older.expected,
+	scenarios/cpus4_simple_nopreempt.expected,
+	scenarios/cpus4_simple_preemption.expected,
+	scenarios/cpus4_suspend_on_primary.expected,
+	scenarios/cpus4_suspend_on_secondary.expected: All pass again after
+	placing them in a subdirectory.
+
+2011-04-18	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* .cvsignore, TODO, main_current_cpu.c, main_dispatch.c,
+	main_dump_all_cpus.c, main_dump_ready_tasks.c,
+	scen_cpus1_resume_on_primary, scen_cpus1_suspend_on_primary,
+	scen_cpus4_picker_older, scen_cpus4_simple_nopreempt,
+	scen_cpus4_suspend_on_secondary, schedsim.cc: Six scenrarios run
+	correctly. Added script to automate checking again.
+	* run_scenarios, scen_cpus1_resume_on_primary.expected,
+	scen_cpus1_suspend_on_primary.expected,
+	scen_cpus4_simple_nopreempt.expected,
+	scen_cpus4_simple_preemption.expected,
+	scen_cpus4_suspend_on_primary.expected,
+	scen_cpus4_suspend_on_secondary.expected: New files.
+
+2011-04-15	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile, add_commands.c, getcpuid.c, schedsim.cc,
+	schedulersimplesmpschedule.c, schedulersimplesmpunblock.c,
+	smp_stub.c, rtems/score/schedulersimplesmp.h: Now supports the first
+	scenarios for initial version of Simple SMP scheduler. Not all pass.
+	* .cvsignore, TODO, main_current_cpu.c, main_dispatch.c,
+	scen_cpus1_resume_on_primary, scen_cpus1_suspend_on_primary,
+	scen_cpus4_picker_older, scen_cpus4_simple_nopreempt,
+	scen_cpus4_simple_preemption, scen_cpus4_suspend_on_primary,
+	scen_cpus4_suspend_on_secondary, schedulersimplesmpblock.c: New
+	files.
+
+2011-04-12	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* ChangeLog, Makefile, README, add_commands.c, config.c, debugio.c,
+	example_script, getcpuid.c, main_dump_all_cpus.c,
+	main_dump_ready_tasks.c, printheir_executing.c, schedsim.cc,
+	schedulersimplesmpschedule.c, schedulersimplesmpunblock.c,
+	smp_stub.c, wrap_thread_dispatch.c, rtems/score/schedulersimplesmp.h:
+	New files.
+

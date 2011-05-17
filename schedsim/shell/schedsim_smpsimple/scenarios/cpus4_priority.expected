@@ -1,0 +1,115 @@
+Script File               : scenarios/cpus4_priority.scen
+verbose                   : 1
+==> 1: #
+==> 2: #  Check increasing and decrease priority
+==> 3: #
+==> 4: rtems_init 4
+  Thread Heir: 0x09010001 priority=255
+  Thread Executing: 0x09010001 priority=255
+==> 5: task_create smp1 5
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp1) created: id=0x0a010001, priority=5
+Task (smp1) starting: id=0x0a010001, priority=5
+  Thread Heir: 0x0a010001 priority=5
+  Thread Executing: 0x0a010001 priority=5
+==> 6: task_create smp2 8
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp2) created: id=0x0a010002, priority=8
+Task (smp2) starting: id=0x0a010002, priority=8
+==> 7: task_create smp3 8
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp3) created: id=0x0a010003, priority=8
+Task (smp3) starting: id=0x0a010003, priority=8
+==> 8: task_create smp4 8
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp4) created: id=0x0a010004, priority=8
+Task (smp4) starting: id=0x0a010004, priority=8
+==> 9: task_create smp5 8
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp5) created: id=0x0a010005, priority=8
+Task (smp5) starting: id=0x0a010005, priority=8
+==> 10: dispatch
+=== Invoke Thread Dispatch on CPU 1
+  Thread Heir: 0x0a010002 priority=8
+  Thread Executing: 0x09010002 priority=255
+  Thread Executing: 0x0a010002 priority=8
+=== Invoke Thread Dispatch on CPU 2
+  Thread Heir: 0x0a010003 priority=8
+  Thread Executing: 0x09010003 priority=255
+  Thread Executing: 0x0a010003 priority=8
+=== Invoke Thread Dispatch on CPU 3
+  Thread Heir: 0x0a010004 priority=8
+  Thread Executing: 0x09010004 priority=255
+  Thread Executing: 0x0a010004 priority=8
+==> 11: # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
+==> 12: # GOAL:   on CPUs 0 - 3 respectively
+==> 13: cpus
+=== CPU Status
+            EXECUTING    /     HEIR         /    IDLE        /  SWITCH NEEDED
+  CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5 / 0x09010001 @255         false
+  CPU 1: 0x0a010002 @  8 / 0x0a010002 @  8 / 0x09010002 @255         false
+  CPU 2: 0x0a010003 @  8 / 0x0a010003 @  8 / 0x09010003 @255         false
+  CPU 3: 0x0a010004 @  8 / 0x0a010004 @  8 / 0x09010004 @255         false
+=== End of Ready Set of Threads
+==> 14: 
+==> 15: task_priority smp1 4
+  Thread Heir: 0x0a010001 priority=4
+  Thread Executing: 0x0a010001 priority=4
+Task (0x0a010001) Change Priority from 5 to 4
+==> 16: dispatch
+==> 17: # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
+==> 18: # GOAL:   on CPUs 0 - 3 respectively (no change)
+==> 19: cpus
+=== CPU Status
+            EXECUTING    /     HEIR         /    IDLE        /  SWITCH NEEDED
+  CPU 0: 0x0a010001 @  4 / 0x0a010001 @  4 / 0x09010001 @255         false
+  CPU 1: 0x0a010002 @  8 / 0x0a010002 @  8 / 0x09010002 @255         false
+  CPU 2: 0x0a010003 @  8 / 0x0a010003 @  8 / 0x09010003 @255         false
+  CPU 3: 0x0a010004 @  8 / 0x0a010004 @  8 / 0x09010004 @255         false
+=== End of Ready Set of Threads
+==> 20: 
+==> 21: task_priority smp1 7
+Task (0x0a010001) Change Priority from 4 to 7
+==> 22: dispatch
+==> 23: # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
+==> 24: # GOAL:   on CPUs 0 - 3 respectively (no change)
+==> 25: cpus
+=== CPU Status
+            EXECUTING    /     HEIR         /    IDLE        /  SWITCH NEEDED
+  CPU 0: 0x0a010001 @  7 / 0x0a010001 @  7 / 0x09010001 @255         false
+  CPU 1: 0x0a010002 @  8 / 0x0a010002 @  8 / 0x09010002 @255         false
+  CPU 2: 0x0a010003 @  8 / 0x0a010003 @  8 / 0x09010003 @255         false
+  CPU 3: 0x0a010004 @  8 / 0x0a010004 @  8 / 0x09010004 @255         false
+=== End of Ready Set of Threads
+==> 26: 
+==> 27: task_priority smp1 8
+  Thread Heir: 0x0a010005 priority=8
+  Thread Executing: 0x0a010005 priority=8
+Task (0x0a010001) Change Priority from 7 to 8
+==> 28: dispatch
+==> 29: # GOAL: 0x0a010005, 0x0a010002 - 0x0a010004 are heir and executing
+==> 30: # GOAL:   on CPUs 0 - 3 respectively
+==> 31: cpus
+=== CPU Status
+            EXECUTING    /     HEIR         /    IDLE        /  SWITCH NEEDED
+  CPU 0: 0x0a010005 @  8 / 0x0a010005 @  8 / 0x09010001 @255         false
+  CPU 1: 0x0a010002 @  8 / 0x0a010002 @  8 / 0x09010002 @255         false
+  CPU 2: 0x0a010003 @  8 / 0x0a010003 @  8 / 0x09010003 @255         false
+  CPU 3: 0x0a010004 @  8 / 0x0a010004 @  8 / 0x09010004 @255         false
+=== End of Ready Set of Threads
+==> 32: 
+==> 33: task_priority smp1 5
+  Thread Heir: 0x0a010001 priority=5
+  Thread Executing: 0x0a010001 priority=5
+Task (0x0a010001) Change Priority from 8 to 5
+==> 34: dispatch
+==> 35: # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
+==> 36: # GOAL:   on CPUs 0 - 3 respectively
+==> 37: cpus
+=== CPU Status
+            EXECUTING    /     HEIR         /    IDLE        /  SWITCH NEEDED
+  CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5 / 0x09010001 @255         false
+  CPU 1: 0x0a010002 @  8 / 0x0a010002 @  8 / 0x09010002 @255         false
+  CPU 2: 0x0a010003 @  8 / 0x0a010003 @  8 / 0x09010003 @255         false
+  CPU 3: 0x0a010004 @  8 / 0x0a010004 @  8 / 0x09010004 @255         false
+=== End of Ready Set of Threads

@@ -1,0 +1,8 @@
+#
+#  $Id$
+#
+
+This is a scheduler simulator instance for developing the
+Simple SMP Scheduler.  Once this scheduler is completed,
+it will be integrated into the proper locations of the 
+main RTEMS development tree.

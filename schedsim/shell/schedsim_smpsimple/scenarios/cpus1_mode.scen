@@ -1,0 +1,14 @@
+#
+#  Check increasing and decrease priority self with no change
+#
+rtems_init 1
+task_create -p smp1 5
+# GOAL: 0x0a010001 is heir and executing on CPU 0
+cpus
+task_create smp2 4
+# GOAL: 0x0a010001 is executing and 0x0a010002 is heir on CPU 0
+cpus
+
+task_mode -P
+# GOAL: 0x0a010002 is heir and executing on CPU 0
+cpus

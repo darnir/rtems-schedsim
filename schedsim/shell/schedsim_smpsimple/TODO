@@ -1,0 +1,22 @@
+#
+#  $Id$
+#
+
+Working As of 19 April 2011
+===========================
+cpus1_mode
+cpus1_priority
+cpus1_resume_on_primary
+cpus1_suspend_on_primary
+
+cpus4_mode_case1
+cpus4_mode_case2
+cpus4_nonpreempt_case1
+cpus4_picker_older
+cpus4_priority
+cpus4_simple_nopreempt
+cpus4_simple_preemption
+cpus4_suspend_on_all
+cpus4_suspend_on_primary
+cpus4_suspend_on_secondary
+
