@@ -20,12 +20,29 @@
 #include <rtems.h>
 #include "shell.h"
 #include <schedsim_shell.h>
+#include <rtems/stringto.h>
+
+#if defined(RTEMS_SMP)
+  #include <rtems/score/smp.h>
+#endif
 
 int rtems_shell_main_rtems_init(
   int   argc,
   char *argv[]
 )
 {
+#if defined(RTEMS_SMP)
+  long cpus;
+
+  if ( argc >= 2 ) {
+    if ( rtems_string_to_long(argv[1], &cpus, NULL, 0) ) {
+      printf( "Number of CPUs argument (%s) is not a number\n", argv[1] );
+      return -1;
+    }
+    rtems_configuration_smp_maximum_processors = cpus;
+  }
+#endif
+
   //
   // Initialize RTEMS
   //
@@ -35,7 +52,7 @@ int rtems_shell_main_rtems_init(
 
 rtems_shell_cmd_t rtems_shell_RTEMS_INIT_Command = {
   "rtems_init",                 /* name */
-  "rtems_init",                 /* usage */
+  "rtems_init [cpus]",          /* usage */
   "rtems",                      /* topic */
   rtems_shell_main_rtems_init,  /* command */
   NULL,                         /* alias */

@@ -1,3 +1,9 @@
+2011-05-17	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile.am: Merge and update code. Simulators for Deterministic
+	Priority and SMP Simple Schedulers now work.
+	* run_scenarios: New file.
+
 2011-04-07	Joel Sherrill <joel.sherrill@oarcorp.com>
 
 	* shared/main_clocktick.c, shared/main_semcreate.c,

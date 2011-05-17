@@ -8,6 +8,7 @@ lib_LIBRARIES = libschedsim.a
 
 cpukitdir=@rtems_srcdir@/cpukit
 libschedsim_a_CPPFLAGS  = -D__RTEMS_VIOLATE_KERNEL_VISIBILITY__
+libschedsim_a_CPPFLAGS += -I$(top_builddir)/score/include
 libschedsim_a_CPPFLAGS += -I$(srcdir)/sched_cpu
 libschedsim_a_CPPFLAGS += -I$(srcdir)/../../rtems
 libschedsim_a_CPPFLAGS += -I$(cpukitdir)/include

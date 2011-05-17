@@ -1,0 +1,90 @@
+#! /bin/sh
+#
+#  $Id$
+#
+
+toggle()
+{
+  case $1 in
+    no)  echo "yes" ;;
+    yes) echo "no" ;;
+    *)   fatal "Unknown value to toggle ($1)" ;;
+  esac
+}
+
+usage()
+{
+cat <<EOF
+run_scenarios [options]
+  -1         - toggle running single CPU scenarios (default=no)
+  -4         - toggle running four CPU scenarios (default=no)
+  -A         - toggle all scenario flags
+EOF
+}
+
+vecho()
+{
+  if [ ${verbose} = "yes" ] ; then
+    echo "$*"
+  fi
+}
+
+verbose=no
+do_all=no
+do_one=no
+do_four=no
+schedsim_dir=
+
+while getopts vd:A14 OPT
+do
+  case "$OPT" in
+    v) verbose=`toggle ${verbose}` ;;
+    d) schedsim_dir=${OPTARG} ;;
+    A) do_all=`toggle ${do_all}`   ;;
+    1) do_one=`toggle ${do_one}`   ;;
+    4) do_four=`toggle ${do_four}` ;;
+    *) usage; exit 1;
+  esac
+done
+
+if [ "X${schedsim_dir}" != "X" ] ; then
+  test -d ${schedsim_dir} || fatal ${schedsim_dir} is not readable
+  schedsim_dir=${schedsim_dir}/
+fi
+
+if [ ${do_all} = "yes" ]; then
+  SCENARIOS="scenarios/*.scen"
+else
+  SCENARIOS=
+fi
+
+if [ ${do_one} = "yes" ]; then
+  SCENARIOS="${SCENARIOS} scenarios/cpus1*.scen"
+fi
+
+if [ ${do_four} = "yes" ]; then
+  SCENARIOS="${SCENARIOS} scenarios/cpus4*.scen"
+fi
+
+for scenario in `ls -1 ${SCENARIOS}`
+do
+  base=`echo ${scenario} | sed -s 's/\.scen$//'`
+  expected=${base}.expected
+  output=${base}.output
+  vecho Running ${scenario}
+  ${schedsim_dir}/schedsim $scenario  >${output}
+  if [ -r ${expected} ] ; then
+    diff ${output} ${expected} >/dev/null
+    if [ $? -ne 0 ] ; then
+      echo "FAIL - ${scenario}"
+      echo "    diff ${output} ${expected} "
+    else
+      echo "PASS - ${scenario}"
+    fi
+  else
+      echo "UNKNOWN - ${scenario}"
+      echo "    cp ${output} ${expected} "
+  fi
+done
+
+

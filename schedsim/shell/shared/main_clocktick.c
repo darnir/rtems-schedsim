@@ -51,7 +51,7 @@ int rtems_shell_main_clock_tick(
    *  Now delete the task
    */
   for ( t=1 ; t<=ticks ; t++ ) {
-    fprintf( stderr, "ClockTick (%d) ...\n", t );
+    printf( "ClockTick (%d) ...\n", t );
     status = rtems_clock_tick();
     if ( status != RTEMS_SUCCESSFUL ) {
       fprintf(

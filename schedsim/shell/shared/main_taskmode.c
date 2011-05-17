@@ -26,13 +26,12 @@
 #include <schedsim_shell.h>
 #include <rtems/error.h>
 
-void print_mode(
+static void print_mode(
   const char *prefix,
   rtems_mode  mode
 )
 {
-  fprintf(
-    stderr,
+  printf(
     "%sPreemption: %s Timeslicing: %s\n",
     prefix,
     ((mode & RTEMS_NO_PREEMPT) ? "no" : "yes"),
