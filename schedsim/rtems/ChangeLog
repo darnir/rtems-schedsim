@@ -1,3 +1,7 @@
+2011-06-20	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile.am: Update.
+
 2011-05-17	Joel Sherrill <joel.sherrill@oarcorp.com>
 
 	* Makefile.am, rtems_init.c, sched_cpu/cpu.c,
