@@ -3,6 +3,12 @@
 #  $Id$
 #
 
+fatal()
+{
+  echo "$*"
+  exit 1
+}
+
 toggle()
 {
   case $1 in
@@ -50,7 +56,11 @@ done
 if [ "X${schedsim_dir}" != "X" ] ; then
   test -d ${schedsim_dir} || fatal ${schedsim_dir} is not readable
   schedsim_dir=${schedsim_dir}/
+else
+  fatal "schedsim binary directory must be specified with -d option"
 fi
+
+test -d scenarios || fatal scenarios directory is not present
 
 if [ ${do_all} = "yes" ]; then
   SCENARIOS="scenarios/*.scen"
@@ -65,6 +75,8 @@ fi
 if [ ${do_four} = "yes" ]; then
   SCENARIOS="${SCENARIOS} scenarios/cpus4*.scen"
 fi
+
+test "X${SCENARIOS}" = "X" && fatal "No scenarios specified"
 
 for scenario in `ls -1 ${SCENARIOS}`
 do
