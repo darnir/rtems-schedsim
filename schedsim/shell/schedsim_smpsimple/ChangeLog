@@ -1,3 +1,7 @@
+2011-06-28	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile.am: Use name schedsim_smpsimple.
+
 2011-05-17	Joel Sherrill <joel.sherrill@oarcorp.com>
 
 	* .cvsignore, ChangeLog, Makefile.am, README, TODO, add_commands.c,
