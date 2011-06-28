@@ -22,9 +22,11 @@ usage()
 {
 cat <<EOF
 run_scenarios [options]
+  -s         - specify scheduler simulator executable (REQUIRED)
   -1         - toggle running single CPU scenarios (default=no)
   -4         - toggle running four CPU scenarios (default=no)
   -A         - toggle all scenario flags
+  -v         - toggle verbose output (default=no)
 EOF
 }
 
@@ -39,13 +41,13 @@ verbose=no
 do_all=no
 do_one=no
 do_four=no
-schedsim_dir=
+schedsim=
 
-while getopts vd:A14 OPT
+while getopts vs:A14 OPT
 do
   case "$OPT" in
     v) verbose=`toggle ${verbose}` ;;
-    d) schedsim_dir=${OPTARG} ;;
+    s) schedsim=${OPTARG} ;;
     A) do_all=`toggle ${do_all}`   ;;
     1) do_one=`toggle ${do_one}`   ;;
     4) do_four=`toggle ${do_four}` ;;
@@ -53,11 +55,10 @@ do
   esac
 done
 
-if [ "X${schedsim_dir}" != "X" ] ; then
-  test -d ${schedsim_dir} || fatal ${schedsim_dir} is not readable
-  schedsim_dir=${schedsim_dir}/
+if [ "X${schedsim}" != "X" ] ; then
+  type ${schedsim} >/dev/null 2>&1 || fatal ${schedsim} not found
 else
-  fatal "schedsim binary directory must be specified with -d option"
+  fatal "schedsim binary must be specified with -s option"
 fi
 
 test -d scenarios || fatal scenarios directory is not present
@@ -84,7 +85,7 @@ do
   expected=${base}.expected
   output=${base}.output
   vecho Running ${scenario}
-  ${schedsim_dir}/schedsim $scenario  >${output}
+  ${schedsim} $scenario  >${output}
   if [ -r ${expected} ] ; then
     diff ${output} ${expected} >/dev/null
     if [ $? -ne 0 ] ; then
