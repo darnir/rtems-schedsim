@@ -1,3 +1,7 @@
+2011-06-28	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile.am: Use name schedsim_priority.
+
 2011-05-17	Joel Sherrill <joel.sherrill@oarcorp.com>
 
 	* Makefile.am: Merge and update code. Simulators for Deterministic
