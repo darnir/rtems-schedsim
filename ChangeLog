@@ -1,3 +1,9 @@
+2011-07-06	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* aclocal/check-multiprocessing.m4, aclocal/check-networking.m4,
+	aclocal/check-posix.m4, aclocal/check-smp.m4,
+	aclocal/env-rtemscpu.m4: New files.
+
 2011-05-17	Joel Sherrill <joel.sherrill@oarcorp.com>
 
 	* configure.ac, aclocal/enable-smp.m4: Merge and update code.
