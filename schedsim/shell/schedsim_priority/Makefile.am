@@ -21,6 +21,10 @@ schedsim_priority_CPPFLAGS += -I$(cpukitdir)/libmisc/stringto
 schedsim_priority_CPPFLAGS += -I$(srcdir)/../../rtems/sched_cpu
 schedsim_priority_CPPFLAGS += -I$(srcdir)/../shared/include
 schedsim_priority_CPPFLAGS += -I$(srcdir)/../shared
+if HAS_PTHREADS
+schedsim_priority_CPPFLAGS += -I$(cpukitdir)/posix/include
+schedsim_priority_CPPFLAGS += -I$(cpukitdir)/posix/inline
+endif
 
 schedsim_priority_LDFLAGS =-Wl,--wrap=_Thread_Dispatch
 ## schedsim_priorityLDADD +=-Wl,--start-group
