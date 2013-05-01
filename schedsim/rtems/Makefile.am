@@ -51,9 +51,7 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/coresemseize.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coresemsurrender.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretod.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodget.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/coretodgetuptime.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodgetuptimetimespec.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/coretodmsecstoticks.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodset.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodtickle.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodtickspersec.c
@@ -87,6 +85,8 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityenqueue.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityenqueuefirst.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityextract.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityfree.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityprioritycompare.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityreleasejob.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityschedule.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityunblock.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityupdate.c
@@ -146,20 +146,14 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/timespecaddto.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/timespecdividebyinteger.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/timespecdivide.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/timespecfromticks.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/timespecgreaterthan.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/timespecisvalid.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/timespeclessthan.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/timespecsubtract.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/timespectoticks.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/userextaddset.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/userext.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/userextiterate.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/userextremoveset.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/userextthreadbegin.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/userextthreadcreate.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/userextthreaddelete.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/userextthreadrestart.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/userextthreadstart.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/userextthreadswitch.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/watchdogadjust.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/watchdogadjusttochain.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/watchdog.c
@@ -190,6 +184,7 @@ librtems_a_SOURCES += $(cpukitdir)/rtems/src/semident.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/semobtain.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/semrelease.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/semtranslatereturncode.c
+librtems_a_SOURCES += $(cpukitdir)/rtems/src/status.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/tasks.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/taskdata.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/taskmode.c
@@ -220,6 +215,7 @@ librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/assocremotebyname.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/error.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/printk.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/vprintk.c
+librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/rtems_heap_null_extend.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtodouble.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtofloat.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtoint.c
@@ -304,6 +300,7 @@ schedsim_rtems_score_include_HEADERS = \
   ${cpukitdir}/score/include/rtems/score/chain.h \
   ${cpukitdir}/score/include/rtems/score/apiext.h \
   ${cpukitdir}/score/include/rtems/score/userext.h \
+  ${cpukitdir}/score/include/rtems/score/userextimpl.h \
   ${cpukitdir}/score/include/rtems/score/threadq.h \
   ${cpukitdir}/score/include/rtems/score/apimutex.h \
   ${cpukitdir}/score/include/rtems/score/scheduler.h \
