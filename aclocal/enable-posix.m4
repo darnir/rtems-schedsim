@@ -1,3 +1,4 @@
+# ***** CHANGED FOR SCHEDULER SIMULATOR ***** 
 AC_DEFUN([RTEMS_ENABLE_POSIX],
 [
 ## AC_BEFORE([$0], [RTEMS_CHECK_POSIX_API])dnl
@@ -10,12 +11,12 @@ AC_ARG_ENABLE(posix,
   *)  AC_MSG_ERROR(bad value ${enableval} for enable-posix option) ;;
 esac],[RTEMS_HAS_POSIX_API=yes]) 
 
-case "${host}" in
-  no_cpu-*rtems*)
-	RTEMS_HAS_POSIX_API=no
-	;;
-  *) 
-	;;
-esac
+#case "${host}" in
+#  no_cpu-*rtems*)
+#	RTEMS_HAS_POSIX_API=no
+#	;;
+#  *) 
+#	;;
+#esac
 AC_SUBST(RTEMS_HAS_POSIX_API)
 ])
