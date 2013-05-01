@@ -30,7 +30,11 @@
 /*
  *  _Workspace_Handler_initialization
  */
-void _Workspace_Handler_initialization(void)
+void _Workspace_Handler_initialization(
+  Heap_Area *areas,
+  size_t area_count,
+  Heap_Initialization_or_extend_handler extend
+)
 {
 }
 
