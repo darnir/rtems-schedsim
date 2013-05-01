@@ -1,7 +1,3 @@
-##
-## $Id$
-##
-
 bin_PROGRAMS = schedsim_smpsimple
 schedsim_smpsimple_SOURCES = add_commands.c config.c \
   main_current_cpu.c main_dispatch.c main_dump_all_cpus.c \

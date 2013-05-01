@@ -1,5 +1,3 @@
-dnl $Id$
-
 dnl XXX
 dnl RTEMS_ENABLE_RTEMSDIR(rtems_dir)
 AC_DEFUN([RTEMS_ENABLE_RTEMSDIR],

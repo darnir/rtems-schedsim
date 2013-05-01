@@ -1,7 +1,3 @@
-##
-## $Id$
-##
-
 bin_PROGRAMS = schedsim_priority
 schedsim_priority_SOURCES = config.c \
     schedsim.cc wrap_thread_dispatch.c printheir_executing.c

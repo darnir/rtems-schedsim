@@ -1,7 +1,3 @@
-#
-#  $Id$
-#
-
 This is a simulation shell which wraps parts of the RTEMS SuperCore
 and provides a way to test scheduler implementations.
 
@@ -27,56 +23,6 @@ task_wake_after ticks
 
 clock_tick ticks
 
-@
-
-
-1.6
-log
-@2010-04-08	Joel Sherrill <joel.sherrill@@oarcorp.com>
-
-	* README: Add task suspend and resume.
-@
-text
-@d2 1
-a2 1
-#  $Id$
-d17 1
-a17 1
-task_delete [name|id]
-d23 3
-a25 3
-task_set_priority [name|id] priority
-task_resume [name|id]
-task_suspend [name|id]
-d30 15
-@
-
-
-1.5
-log
-@2010-04-08	Joel Sherrill <joel.sherrill@@oarcorp.com>
-
-	* README: Added task_mode command.
-@
-text
-@d2 1
-a2 1
-#  $Id$
-d17 1
-d24 2
-a26 1
-task_delete [name|id]
-@
-
-
-1.4
-log
-@2010-04-08	Joel Sherrill <joel.sherrill@@oarcorp.com>
-
-	* README: Add task set priority, task wake after, and clock tick.
-@
-text
-@d2 1
 semaphore_create [-bcsfpiC:V:] name
   -b          - binary mutex
   -c          - counting semaphore

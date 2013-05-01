@@ -21,10 +21,8 @@
  *  notice.  This file is freely distributable as long as the source
  *  of the file is noted.  This file is:
  *
- *  COPYRIGHT (c) 1994-2010.
+ *  COPYRIGHT (c) 1994-2013.
  *  On-Line Applications Research Corporation (OAR).
- *
- *  $Id$
  */
 
 #ifndef _RTEMS_ASM_H

@@ -1,7 +1,3 @@
-#
-#  $Id$
-#
-
 This is the RTEMS Scheduler Simulator.  It builds a subset of RTEMS in a
 manner such that it can be used to develop, test, and evaluate scheduling
 algorithms.

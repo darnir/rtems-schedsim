@@ -1,7 +1,3 @@
-##
-##  $Id$
-##
-
 ACLOCAL_AMFLAGS = -I ../../../aclocal
 
 lib_LIBRARIES = libschedsim.a
