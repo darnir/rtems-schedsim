@@ -359,6 +359,8 @@ extern "C" {
  */
 #define CPU_STRUCTURE_ALIGNMENT
 
+#define CPU_TIMESTAMP_USE_INT64_INLINE TRUE
+
 /**
  *  @defgroup CPUEndian Processor Dependent Endianness Support
  *
@@ -1204,6 +1206,17 @@ void _CPU_Context_restore_fp(
   Context_Control_fp **fp_context_ptr
 );
 
+typedef struct {
+  uint32_t trap;
+  CPU_Interrupt_frame *isf;
+} CPU_Exception_frame;
+
+static inline void _CPU_Exception_frame_print(
+  const CPU_Exception_frame *frame
+)
+{
+  /* printk( "Printing exception frame\n" ); */
+}
 /**
  *  @ingroup CPUEndian
  *  The following routine swaps the endian format of an unsigned int.
