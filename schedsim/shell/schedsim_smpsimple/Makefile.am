@@ -20,6 +20,10 @@ schedsim_smpsimple_CPPFLAGS += -I$(cpukitdir)/libmisc/stringto
 schedsim_smpsimple_CPPFLAGS += -I$(srcdir)/../../rtems/sched_cpu
 schedsim_smpsimple_CPPFLAGS += -I$(srcdir)/../shared/include
 schedsim_smpsimple_CPPFLAGS += -I$(srcdir)/../shared
+if HAS_PTHREADS
+schedsim_smpsimple_CPPFLAGS += -I$(cpukitdir)/posix/include
+schedsim_smpsimple_CPPFLAGS += -I$(cpukitdir)/posix/inline
+endif
 
 schedsim_smpsimple_LDFLAGS =-Wl,--wrap=_Thread_Dispatch
 ## schedsim_smpsimple_LDADD +=-Wl,--start-group
