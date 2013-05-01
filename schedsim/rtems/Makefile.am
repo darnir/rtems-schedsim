@@ -15,6 +15,10 @@ librtems_a_CPPFLAGS += -I$(cpukitdir)/sapi/include
 librtems_a_CPPFLAGS += -I$(cpukitdir)/sapi/inline
 librtems_a_CPPFLAGS += -I$(cpukitdir)/libcsupport/include
 librtems_a_CPPFLAGS += -I$(cpukitdir)/libmisc/stringto
+if HAS_PTHREADS
+librtems_a_CPPFLAGS += -I$(cpukitdir)/posix/include
+librtems_a_CPPFLAGS += -I$(cpukitdir)/posix/include
+endif
 
 ## Have own version of these
 librtems_a_SOURCES = rtems_init.c
@@ -212,6 +216,7 @@ librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/error.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/printk.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/vprintk.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/rtems_heap_null_extend.c
+librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/rtems_putc.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtodouble.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtofloat.c
 librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtoint.c
@@ -230,6 +235,7 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/threadenabledispatch.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threaddispatchdisablelevel.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmpblock.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmpschedule.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmptick.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmpunblock.c
 endif
 
@@ -268,6 +274,11 @@ schedsim_rtems_include_HEADERS  = \
   $(cpukitdir)/libcsupport/include/rtems/malloc.h \
   sched_cpu/rtems/stringto.h \
   sched_cpu/rtems/asm.h 
+
+if HAS_PTHREADS
+schedsim_rtems_include_HEADERS  += \
+  ${cpukitdir}/posix/include/rtems/posix/config.h
+endif
 
 schedsim_rtems_score_include_HEADERS = \
   ${cpukitdir}/score/include/rtems/score/address.h \
