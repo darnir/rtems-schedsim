@@ -1,7 +1,7 @@
 /*
  *  BASED UPON SOURCE IN RTEMS, MODIFIED FOR SIMULATOR
  *
- *  COPYRIGHT (c) 1989-2010.
+ *  COPYRIGHT (c) 1989-2013.
  *  On-Line Applications Research Corporation (OAR).
  *
  *  The license and distribution terms for this file may be
@@ -11,7 +11,6 @@
  *  $Id$
  */
 
-
 #define SAPI_INIT
 #define SCORE_INIT
 #define RTEMS_API_INIT
@@ -20,6 +19,7 @@
 #include <rtems/score/apiext.h>
 #include <rtems/score/bitfield.h>
 #include <rtems/score/apimutex.h>
+#include <rtems/score/userextimpl.h>
 #include <rtems/score/wkspace.h>
 
 Objects_Information *_Internal_Objects[ OBJECTS_INTERNAL_CLASSES_LAST + 1 ];
@@ -46,7 +46,7 @@ void rtems_initialize_data_structures(void)
    *  Before this is called, we are not allowed to allocate memory
    *  from the Workspace because it is not initialized.
    */
-  _Workspace_Handler_initialization();
+  _Workspace_Handler_initialization(NULL, 0, NULL);
 
   #if defined(RTEMS_SMP)
     _SMP_Handler_initialize();
