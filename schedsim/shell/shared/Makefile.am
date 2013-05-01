@@ -18,7 +18,10 @@ libschedsim_a_CPPFLAGS += -I$(cpukitdir)/libcsupport/include
 libschedsim_a_CPPFLAGS += -I$(cpukitdir)/libmisc/stringto
 libschedsim_a_CPPFLAGS += -I$(srcdir)/../../rtems/sched_cpu
 libschedsim_a_CPPFLAGS += -I$(srcdir)/include
-
+if HAS_PTHREADS
+libschedsim_a_CPPFLAGS += -I$(cpukitdir)/posix/include
+libschedsim_a_CPPFLAGS += -I$(cpukitdir)/posix/inline
+endif
 
 libschedsim_a_SOURCES = \
     commands.c \
