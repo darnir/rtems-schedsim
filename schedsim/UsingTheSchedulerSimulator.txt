@@ -1,0 +1,432 @@
+Using the RTEMS Scheduler Simulator
+===================================
+:doctype: book
+:toc3:
+:toclevels: 3
+:icons:
+:numbered:
+
+Joel Sherrill <joel.sherrill@oarcorp.com>
+
+1.0, 5 May 2013
+
+Introduction
+------------
+The Scheduler Simulator is designed allow one to debug and validate an
+algorithm before attempting to execute it in the more complex environment
+of the actual RTEMS run-time on real hardware or a CPU simulator.
+The Scheduler Simulator script language is designed to produce very
+reproducible event sequences which may not be easy to do with the
+scheduler and a real set of tasks.
+
+The Scheduler Simulator consists of a subset of the RTEMS SuperCore,
+Classic API, Shell, and a set of custom commands to access particular
+services.  These are provided in the form of a library which can be
+utilized to instance scheduler simulator variants for custom algorithms.
+
+Checking out from Source Code Repository
+----------------------------------------
+
+The RTEMS Scheduler Simulator is in its own CVS module named
+rtems-schedsim in the RTEMS git Repository.  It can be cloned as follows:
+
+-------------------------------------------------------------
+git://git.rtems.org/rtems-schedsim.git
+-------------------------------------------------------------
+
+The source code must then be bootstrapped using the bootstrap script from
+the RTEMS source tree.  After this is complete, it can be configured
+and built outside the source tree like RTEMS itself.  The following is
+an example bootstrap and configure command invocation:
+
+-------------------------------------------------------------
+# “$r” is an environment variable which points to top of RTEMS source tree
+$ cd rtems-schedsim/ 
+$ $r/bootstrap 
+. 
+configure.ac:18: installing `./config.guess' 
+configure.ac:18: installing `./config.sub' 
+configure.ac:19: installing `./install-sh' 
+configure.ac:19: installing `./missing' 
+./schedsim 
+rtems/Makefile.am: installing `../depcomp' 
+$ cd ..
+$ mkdir b-schedsim
+$ cd b-schedsim
+$ ../rtems-schedsim/configure --enable-maintainer-mode --prefix=/tmp/schedsim \
+    --enable-rtemsdir=/home/joel/rtems-4.11-work/build/rtems 
+-------------------------------------------------------------
+
+Unless the '–enable-smp' option is specified, it will not build the
+scheduler simulator instance for the Simple SMP Scheduler which is
+located in the schedsim/shell/schedsim_smpsimple subdirectory.
+
+After the tree is configured, it is a normal 'make' and 'make install' to
+build and install the RTEMS Scheduler Simulator.
+
+There are currently two scheduler simulator instances in this source
+tree. They are located in:
+
+* schedsim/shell/schedsim_smpsimple – Simple SMP Scheduler
+* schedsim/shell/schedsim_priority – Deterministic Priority Schedulers
+
+Under each is a directory named 'scenarios'  with .scen files and
+.expected files.  To run a single scenario, something like this works
+when in 'schedsim_priority'.
+
+The scenarios are in the source tree and the binary is in the build tree.
+This results in the simulator name often requiring a full path to execute.
+
+-------------------------------------------------------------
+$ cd 
+/home/joel/rtems-4.11-work/build/rtems-schedsim/schedsim/shell/schedsim_priority
+$ ../../../../b-schedsim/schedsim/shell/schedsim_priority/schedsim \
+     scenarios/script06.scen
+-------------------------------------------------------------
+
+There is a script in the directory 'rtems-schedsim/schedsim/shell' named
+'run_scenarios' which can run all or a subset of scenarios and tell you
+if they pass or fail. It must be provided with the name of the Scheduler
+Simulator instance to invoke.
+
+-------------------------------------------------------------
+$ pwd
+/home/joel/rtems-4.11-work/build/rtems-schedsim/schedsim/shell/schedsim_priority
+$ ../run_scenarios -A \
+-s ../../../../b-schedsim/schedsim/shell/schedsim_priority/schedsim_priority/schedsim_priority
+PASS - scenarios/script01.scen
+PASS - scenarios/script02.scen
+PASS - scenarios/script03.scen
+PASS - scenarios/script04.scen
+PASS - scenarios/script05.scen
+PASS – scenarios/script06.scen
+-------------------------------------------------------------
+
+The first time you run a scenario, there is no output to check against
+and the script will echo the cp command line required to turn the actual
+output into the expected output file.
+
+Scripting Language
+------------------
+The Scheduler Simulator has a small command set which is designed to
+allow the scheduler implementer to write simple script files to exercise
+a scheduling algorithm.
+
+This chapter describes each of these commands and their common
+characteristics.  Examples were executed using the Scheduler Simulator
+found in examples-v2/schedsim/schedsim_priority.  Any lines of output
+from this simulator instance which start with 'Thread Heir' and
+'Thread Executing' are printed by the '_Thread_Dispatch' wrapper
+
+Common Characteristics
+~~~~~~~~~~~~~~~~~~~~~~
+The commands use arguments of similar types. This section describes
+the command characteristics of the commands.
+
+Task Names
+^^^^^^^^^^
+Multiple commands take task names.  The task names are of Classic API
+form.  They can be up to four characters. They should not start with "0"
+since that is the test used to determine if it is a hexadecimal task id.
+
+Commands
+~~~~~~~~
+The commands supported by the RTEMS Scheduler Simulator are described
+in this section.
+
+echo Command
+^^^^^^^^^^^^
+*Usage*: echo [ARGS]
+
+This methods prints all of the arguments on its command line to standard
+output followed by a new line.
+
+help  Command
+^^^^^^^^^^^^^
+*Usage*: help [topic|command]
+
+This command is used to obtain information on commands within a category
+(e.g. misc, rtems, etc.) or on a specific command.
+
+exit Command
+^^^^^^^^^^^^
+*Usage*: exit
+
+This command is used to exit the Scheduler Simulator.
+
+rtems_init Command
+^^^^^^^^^^^^^^^^^^
+*Usage*: rtems_init
+
+This command initializes RTEMS using the configuration provided.
+
+task_create Command
+^^^^^^^^^^^^^^^^^^^
+*Usage*: task_create name priority
+
+This command creates and starts a Classic API task with the specified name
+and initial priority. It also starts the task.  This is the equivalent
+of the rtems_task_create and rtems_task_start Classic API directives.
+The following is the output from the invocation 'task_create joel 5':
+
+-------------------------------------------------------------
+Task (joel) created: id=0x0a010001, priority=5 
+Task (joel) starting: id=0x0a010001, priority=5 
+  Thread Heir: 0x0a010001 priority=5 
+  Thread Executing: 0x0a010001 priority=5 
+-------------------------------------------------------------
+
+task_delete Command
+^^^^^^^^^^^^^^^^^^^
+*Usage*: task_delete name|id
+
+This command deletes the specified task.  It is the equivalent of the
+rtems_task_delete directive in the Classic API.
+
+The following is the output from the invocation task_delete joel :
+
+-------------------------------------------------------------
+  Thread Heir: 0x09010001 priority=255 
+  Thread Executing: 0x09010001 priority=255 
+Task (0x0a010001) deleted 
+-------------------------------------------------------------
+
+task_mode Command
+^^^^^^^^^^^^^^^^^
+*Usage*: task_mode [-tTpP]
+
+This command is used to modified the current mode of the currently
+executing task.  It is the equivalent of the rtems_task_mode directive
+in the Classic API.
+
+The command line arguments are processed as follows:
+
+* -t - disable timeslicing
+* -T - enable timeslicing
+* -p - disable preemption
+* -p - enable preemption
+
+task_priority Command
+^^^^^^^^^^^^^^^^^^^^^
+*Usage*: task_set_priority name|id priority
+
+This command is used to modified the current priority of the currently
+executing task.  It is the equivalent of the rtems_task_priority directive
+in the Classic API.  When priority is 0, then the current priority of
+the specified task is returned.
+
+The following is the output from the invocation task_priority joel 0:
+
+-------------------------------------------------------------
+Task (0x0a010001) Current Priority is 0 
+-------------------------------------------------------------
+
+The following is the output from the invocation task_priority joel 5:
+
+-------------------------------------------------------------
+Task (0x0a010001) Change Priority from 1 to 5 
+-------------------------------------------------------------
+
+task_resume Command
+^^^^^^^^^^^^^^^^^^^
+*Usage*: task_resume name|id
+
+This command is used to suspend the specified task.  It is the equivalent
+of the rtems_task_suspend directive in the Classic API.
+
+task_suspend Command
+^^^^^^^^^^^^^^^^^^^^
+*Usage*: task_suspend name|id
+
+This command is used to resume the specified task.  It is the equivalent
+of the rtems_task_resume directive in the Classic API.
+
+task_wake_after Command
+^^^^^^^^^^^^^^^^^^^^^^^
+*Usage*: task_wake_after ticks
+
+This command is used to cause the currently executing task to sleep
+for the specified number of ticks.  It is the equivalent of the
+rtems_task_wake_after directive in the Classic API.
+
+clock_tick Command
+^^^^^^^^^^^^^^^^^^
+*Usage*: clock_tick ticks
+This command is used to cause the specified number of ticks to pass.
+
+It is the equivalent of calling the  rtems_clock_tick directive tick
+times in the Classic API.
+
+semaphore_create Command
+^^^^^^^^^^^^^^^^^^^^^^^^
+*Usage*: semaphore_create [-bcsfpiC:V:] name
+
+This method creates a semaphore named name with the specified attributes.  It is the equivalent of the rtems_semaphore_create directive in the Classic API.
+
+The command line arguments are processed as follows:
+
+* -b - binary mutex
+* -c - counting semaphore
+* -s - simple binary semaphore
+* -f - FIFO Blockin* 
+* -p - Priority Blocking
+* -i - Priority Inheritance
+* -C priority - Priority Ceiling and priority
+* -V initial  - Initial value (default=0)
+
+semaphore_delete Command
+^^^^^^^^^^^^^^^^^^^^^^^^
+*Usage*: semaphore_delete name|id
+
+This method deletes the specified semaphore.  It is the equivalent of
+the rtems_semaphore_delete directive in the Classic API.
+
+semaphore_obtain Command
+^^^^^^^^^^^^^^^^^^^^^^^^
+*Usage*: semaphore_obtain name|id ticks
+
+This method causes the currently executing thread to attempt to obtain the
+specified semaphore.  It is the equivalent of the rtems_semaphore_obtain
+directive in the Classic API.
+
+*NOTE*: no polling supported yet
+
+semaphore_release Command
+^^^^^^^^^^^^^^^^^^^^^^^^^
+*Usage*: semaphore_release name|id
+
+This method causes the currently executing thread to release the specified
+semaphore.  It is the equivalent of the rtems_semaphore_release directive
+in the Classic API.
+
+semaphore_flush Command
+^^^^^^^^^^^^^^^^^^^^^^^
+*Usage*: semaphore_flush name|id
+
+This method causes the currently executing thread to flush the specified
+semaphore.  It is the equivalent of the rtems_semaphore_flush directive
+in the Classic API.
+
+
+executing Command
+^^^^^^^^^^^^^^^^^
+*Usage*: executing
+
+This method prints information on the currently executing task.
+
+heir Command
+^^^^^^^^^^^^
+*Usage*: heir
+
+This method prints information on the current heir task(s).
+
+Constructing Your Own Scheduler Simulator
+-----------------------------------------
+The Scheduler Simulator Framework is provided in the form of a library
+which can be utilized to instance scheduler simulator variants for
+custom algorithms.
+
+If developing a scheduler for possible inclusion in the main RTEMS source
+code, then you will want to construct the simulator in the 'rtems-schedsim'
+tree following the examples that are already present.
+
+However, it it also possible to construct a Scheduler Simulator instance
+outside the rtems-schedsim source tree.  The directory schedsim in
+the git module 'examples-v2' is a minimal example of doing this.  It is
+based on an installed copy of the RTEMS Scheduler Simulator and uses
+the default Deterministic Priority Scheduler in RTEMS.  It provides the
+following files:
+
+* config.c - RTEMS Configuration Instance
+* Makefile - instructions on building
+* printheir_executing.c - custom versions of PRINT_EXECUTING() and
+PRINT_HEIR()
+* README - overview of directory contents
+* schedsim.cc - main() for custom Scheduler Simulator instance
+* wrap_thread_dispatch.c - wrap method for _Thread_Dispatch so script
+output can include information on when context switches occur.
+
+When compiled, it produces an executable schedsim which has the following usage:
+
+-------------------------------------------------------------
+Usage:	./schedsim [-v] script 
+	 -v           - enable verbose output 
+-------------------------------------------------------------
+
+When invoked with '/dev/stdin' as the script, one can enter commands
+interactively.  The primary use case expected however is to use predefined
+scripts to exercise specific schedulers. For example, this is the
+contents of the script 'rtems/tools/schedsim/shell/scripts/script01' from
+the RTEMS Scheduler Simulator source:
+
+-------------------------------------------------------------
+echo "*** TEST 01 ***" 
+rtems_init 
+echo "=== Create and delete 0x0a010001 ===" 
+task_create TA1 3 
+task_delete TA1 
+echo "=== Create and delete 0x0a010002 ===" 
+task_create TA1 3 
+task_delete 0x0a010002 
+echo "*** END OF TEST 01 ***" 
+exit 
+# We will not get here 
+-------------------------------------------------------------
+
+This test initializes the RTEMS simulator, creates and deletes two tasks,
+and then exits. When executed, the following output is generated:
+
+-------------------------------------------------------------
+*** TEST 01 *** 
+  Thread Heir: 0x09010001 priority=255 
+  Thread Executing: 0x09010001 priority=255 
+=== Create and delete 0x0a010001 === 
+Task (TA1) created: id=0x0a010001, priority=3 
+Task (TA1) starting: id=0x0a010001, priority=3 
+  Thread Heir: 0x0a010001 priority=3 
+  Thread Executing: 0x0a010001 priority=3 
+  Thread Heir: 0x09010001 priority=255 
+  Thread Executing: 0x09010001 priority=255 
+Task (0x0a010001) deleted 
+=== Create and delete 0x0a010002 === 
+Task (TA1) created: id=0x0a010002, priority=3 
+Task (TA1) starting: id=0x0a010002, priority=3 
+  Thread Heir: 0x0a010002 priority=3 
+  Thread Executing: 0x0a010002 priority=3 
+  Thread Heir: 0x09010001 priority=255 
+  Thread Executing: 0x09010001 priority=255 
+Task (0x0a010002) deleted 
+*** END OF TEST 01 *** 
+-------------------------------------------------------------
+
+This example uses a scheduler provided with RTEMS.  If you are developing
+your own scheduler, then you will have to include the scheduler in
+your build and configure it just as if doing so as part of a regular
+RTEMS application.  The following configuration directives will need to
+be specified:
+
+The pluggable scheduler interface was added after the 4.10 release series
+so there are not a lot of options at this point. We anticipate a lower
+memory, non-deterministic priority scheduler suitable for use in small
+systems and an Earliest Deadline First Scheduler (EDF) to arrive in
+the future.
+
+The pluggable scheduler interface enables the user to provide their own
+scheduling algorithm. If you choose to do this, you must define multiple
+configuration macros.  The following information on specifying a user
+provided scheduler is from the 'Configuring a System' chapter of
+the RTEMS User's Guide.
+
+First, you must define CONFIGURE_SCHEDULER_USER to indicate
+the application provides its own scheduling algorithm. If
++CONFIGURE_SCHEDULER_USER+ is defined then the following additional macros
+must be defined:
+
+* +CONFIGURE_SCHEDULER_USER_ENTRY_POINTS+ must be defined with the set of
+methods which implement this scheduler.
+* +CONFIGURE_MEMORY_FOR_SCHEDULER+ must be defined with the amount of
+memory required as a base amount for the scheduler.
+* +CONFIGURE_MEMORY_PER_TASK_FOR_SCHEDULER(_tasks)+ must be defined as
+a formula which computes the amount of memory required based upon the
+number of tasks configured.
+
