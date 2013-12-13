@@ -291,7 +291,7 @@ extern "C" {
  *
  *  XXX document implementation including references if appropriate
  */
-#define CPU_USE_DEFERRED_FP_SWITCH       TRUE
+#define CPU_USE_DEFERRED_FP_SWITCH       FALSE
 
 /**
  *  Does this port provide a CPU dependent IDLE task implementation?
@@ -460,6 +460,10 @@ extern "C" {
  *
  *  XXX document implementation including references if appropriate
  */
+
+typedef struct {
+  /* There is no CPU specific per-CPU state */
+} CPU_Per_CPU_control;
 
 /**
  *  @ingroup CPUContext Management
@@ -834,7 +838,7 @@ uint32_t   _CPU_ISR_Get_level( void );
  *  XXX document implementation including references if appropriate
  */
 #define _CPU_Context_Initialize( _the_context, _stack_base, _size, \
-                                 _isr, _entry_point, _is_fp ) \
+                                 _isr, _entry_point, _is_fp, tls_area ) \
   { \
   }
 
@@ -1123,6 +1127,15 @@ void _CPU_ISR_install_vector(
  */
 void _CPU_Install_interrupt_stack( void );
 
+typedef uint32_t CPU_Counter_ticks;
+
+CPU_Counter_ticks _CPU_Counter_read( void );
+
+CPU_Counter_ticks _CPU_Counter_difference(
+  CPU_Counter_ticks second,
+  CPU_Counter_ticks first
+);
+
 /**
  *  This routine is the CPU dependent IDLE thread body.
  *
@@ -1204,6 +1217,25 @@ void _CPU_Context_restore_fp(
   Context_Control_fp **fp_context_ptr
 );
 
+#ifdef RTEMS_SMP
+  #define _CPU_Context_switch_to_first_task_smp(_context ) 
+
+  RTEMS_COMPILER_PURE_ATTRIBUTE static inline uint32_t
+    _CPU_SMP_Get_current_processor( void )
+  {
+    return 0;
+  }
+
+  #define _CPU_SMP_Send_interrupt( dest);
+
+  static inline void _CPU_SMP_Processor_event_broadcast( void )
+  {
+  }
+
+  static inline void _CPU_SMP_Processor_event_receive( void )
+  {
+  }
+#endif
 typedef struct {
   uint32_t trap;
   CPU_Interrupt_frame *isf;
@@ -1282,8 +1314,6 @@ void __SMP_cpu_swap(
     _previous = *(_a); \
     *(_a) = _value; \
   } while (0)
-
-#define _CPU_Context_switch_to_first_task_smp(_ignored) 
 
 #ifdef __cplusplus
 }

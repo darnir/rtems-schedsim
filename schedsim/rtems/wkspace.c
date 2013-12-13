@@ -20,7 +20,9 @@
 #include <rtems/score/interr.h>
 
 #include <stdlib.h>
+#include <malloc.h>
 
+#define DEBUG_WORKSPACE
 #if defined(DEBUG_WORKSPACE)
   #include <stdio.h>
 #endif
@@ -58,6 +60,27 @@ void *_Workspace_Allocate(
   #endif
   return memory;
 }
+
+void *_Workspace_Allocate_aligned( size_t size, size_t alignment )
+{
+  void *memory;
+  int   sc;
+
+  memory = memalign( alignment, size );
+  #if defined(DEBUG_WORKSPACE)
+    fprintf(
+      stderr,
+      "Workspace_Allocate_aligned(%d, %d) from %p/%p -> %p\n",
+      size,
+      alignment,
+      __builtin_return_address( 0 ),
+      __builtin_return_address( 1 ),
+      memory
+    );
+  #endif
+  return memory;
+}
+
 
 /*
  *  _Workspace_Free

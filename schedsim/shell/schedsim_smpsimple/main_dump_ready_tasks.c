@@ -15,6 +15,8 @@
 
 #include "shell.h"
 #include "rtems_sched.h"
+#include <rtems/score/chainimpl.h>
+#include <rtems/score/thread.h>
 
 #include <rtems/score/schedulerpriority.h>
 

@@ -13,6 +13,7 @@
 #define __SCHEDSIM_SHELL_h
 
 #include <rtems.h>
+#include <rtems/score/sysstate.h>
 
 #ifdef __cplusplus
 extern "C" {

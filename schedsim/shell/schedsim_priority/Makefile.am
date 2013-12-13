@@ -26,7 +26,16 @@ schedsim_priority_CPPFLAGS += -I$(cpukitdir)/posix/include
 schedsim_priority_CPPFLAGS += -I$(cpukitdir)/posix/inline
 endif
 
-schedsim_priority_LDFLAGS =-Wl,--wrap=_Thread_Dispatch
+## Ensure all linker provided symbols are available
+schedsim_priority_LDFLAGS = 
+schedsim_priority_LDFLAGS += -Wl,--defsym=_TLS_Data_begin=0
+schedsim_priority_LDFLAGS += -Wl,--defsym=_TLS_BSS_end=0
+schedsim_priority_LDFLAGS += -Wl,--defsym=_TLS_Alignment=4
+
+## Wrap _Thread_Dispatch so we can see context switches
+schedsim_priority_LDFLAGS += -Wl,--wrap=_Thread_Dispatch
+
+## Link in all support libraries
 ## schedsim_priorityLDADD +=-Wl,--start-group
 schedsim_priority_LDADD = ../shared/libschedsim.a
 schedsim_priority_LDADD += ../../rtems/librtems.a

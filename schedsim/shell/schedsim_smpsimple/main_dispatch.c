@@ -31,7 +31,7 @@ int main_dispatch(int argc, char **argv)
 
   current_cpu = Schedsim_Current_cpu;
   for ( cpu=0 ; cpu < _SMP_Processor_count ; cpu++ ) {
-    if ( _Per_CPU_Information[cpu].dispatch_necessary ) {
+    if ( _Per_CPU_Information[cpu].per_cpu.dispatch_necessary ) {
       printf( "=== Invoke Thread Dispatch on CPU %d\n", cpu );
        Schedsim_Current_cpu = cpu;
       _Thread_Dispatch();

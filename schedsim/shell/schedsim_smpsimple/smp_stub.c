@@ -15,6 +15,7 @@
 #include <stdlib.h>
 
 uint32_t Schedsim_Current_cpu;
+extern uint32_t Schedsim_Maximum_CPUs_From_Command_Line;
 
 void bsp_smp_secondary_cpu_initialize(int cpu)
 {
@@ -26,12 +27,20 @@ int bsp_smp_processor_id(void)
   return Schedsim_Current_cpu;
 }
 
-int bsp_smp_initialize(
-  int maximum
+uint32_t bsp_smp_initialize(
+  uint32_t configured_cpu_count
 )
 {
+  if ( configured_cpu_count < Schedsim_Maximum_CPUs_From_Command_Line ) {
+    printf(
+      "ERROR - Maximum cores per confdefs.h is %d\n",
+      configured_cpu_count
+    );
+    exit( 1 );
+  }
+
   /* return the number of CPUs */
-  return maximum;
+  return Schedsim_Maximum_CPUs_From_Command_Line;
 }
 
 void bsp_smp_broadcast_interrupt(void)

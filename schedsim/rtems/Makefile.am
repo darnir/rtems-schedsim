@@ -8,11 +8,8 @@ librtems_a_CPPFLAGS += -I$(top_builddir)/score/include
 librtems_a_CPPFLAGS += -I$(srcdir)/sched_cpu
 librtems_a_CPPFLAGS += -I$(cpukitdir)/include
 librtems_a_CPPFLAGS += -I$(cpukitdir)/score/include
-librtems_a_CPPFLAGS += -I$(cpukitdir)/score/inline
 librtems_a_CPPFLAGS += -I$(cpukitdir)/rtems/include
-librtems_a_CPPFLAGS += -I$(cpukitdir)/rtems/inline
 librtems_a_CPPFLAGS += -I$(cpukitdir)/sapi/include
-librtems_a_CPPFLAGS += -I$(cpukitdir)/sapi/inline
 librtems_a_CPPFLAGS += -I$(cpukitdir)/libcsupport/include
 librtems_a_CPPFLAGS += -I$(cpukitdir)/libmisc/stringto
 if HAS_PTHREADS
@@ -31,7 +28,6 @@ librtems_a_SOURCES += sched_cpu/cpu.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/interr.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/percpu.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/apiext.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/apimutexallocate.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/apimutex.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/apimutexlock.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/apimutexunlock.c
@@ -52,11 +48,13 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/coresemsurrender.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretod.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodget.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodgetuptimetimespec.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/coretodsecondssinceepoch.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodset.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodtickle.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/coretodtickspersec.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/coretodusectoticks.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/freechain.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/isr.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/log2table.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/objectallocate.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/objectapimaximumclass.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/objectclose.c
@@ -76,21 +74,32 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/objectnametoid.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/objectnametoidstring.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/objectsetname.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/objectshrinkinformation.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/rbtree.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/rbtreeextract.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/rbtreefind.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/rbtreeinsert.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/rbtreeiterate.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/rbtreenext.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/scheduler.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityallocate.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerdefaultallocatefree.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerdefaultreleasejob.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerdefaultstartidle.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerdefaulttick.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerdefaultupdate.c
+
+# Uniprocessor Deterministic Scheduler 
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityblock.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriority.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerprioritytick.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityenqueue.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityenqueuefirst.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityextract.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityfree.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityprioritycompare.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityreleasejob.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityschedule.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityunblock.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityupdate.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityyield.c
+
+# Uniprocessor Scheduler Simple
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleblock.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimple.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleenqueue.c
@@ -101,10 +110,10 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplereadyqueueenqueuefir
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleschedule.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleunblock.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleyield.c
+
 librtems_a_SOURCES += $(cpukitdir)/score/src/thread.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadchangepriority.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadclearstate.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/threadclose.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadcreateidle.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threaddelayended.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threaddispatch.c
@@ -113,7 +122,6 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/threadhandler.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadinitialize.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadloadenv.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadready.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/threadreset.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadrestart.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadsetpriority.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadsetstate.c
@@ -158,10 +166,7 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/watchdogadjust.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/watchdogadjusttochain.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/watchdog.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/watchdoginsert.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/watchdognanoseconds.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/watchdogremove.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/watchdogreport.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/watchdogreportchain.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/watchdogtickle.c
 librtems_a_SOURCES += $(cpukitdir)/sapi/src/debug.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/clockgetsecondssinceepoch.c
@@ -184,7 +189,9 @@ librtems_a_SOURCES += $(cpukitdir)/rtems/src/semident.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/semobtain.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/semrelease.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/semtranslatereturncode.c
+librtems_a_SOURCES += $(cpukitdir)/rtems/src/signalcatch.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/status.c
+librtems_a_SOURCES += $(cpukitdir)/rtems/src/statustext.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/tasks.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/taskdata.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/taskmode.c
@@ -198,6 +205,9 @@ librtems_a_SOURCES += $(cpukitdir)/rtems/src/tasksuspend.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/tasksetpriority.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/taskmode.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/taskwakeafter.c
+librtems_a_SOURCES += $(cpukitdir)/posix/src/key.c
+librtems_a_SOURCES += $(cpukitdir)/posix/src/keyfreememory.c
+librtems_a_SOURCES += $(cpukitdir)/posix/src/keyrundestructors.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/assoclocalbyname.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/assoclocalbyremotebitfield.c
 librtems_a_SOURCES += $(cpukitdir)/libcsupport/src/assoclocalbyremote.c
@@ -228,15 +238,12 @@ librtems_a_SOURCES += $(cpukitdir)/libmisc/stringto/stringtounsignedlong.c
 
 if HAS_SMP
 librtems_a_SOURCES += $(cpukitdir)/score/src/smp.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/smplock.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/isrsmp.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threaddisabledispatch.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadenabledispatch.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threaddispatchdisablelevel.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmpblock.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmpschedule.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmptick.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmpunblock.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerprioritysmp.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmp.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersmpstartidle.c
 endif
 
 schedsim_includedir = $(includedir)/schedsim
@@ -251,7 +258,6 @@ schedsim_rtems_include_HEADERS  = \
   ${cpukitdir}/score/include//rtems/seterr.h \
   ${cpukitdir}/score/include/rtems/system.h \
   ${cpukitdir}/score/include/rtems/debug.h \
-  ${cpukitdir}/score/include/rtems/bspsmp.h \
   ${cpukitdir}/include/rtems/bspIo.h \
   $(cpukitdir)/sapi/include/rtems/fatal.h \
   $(cpukitdir)/sapi/include/rtems/init.h \
@@ -322,36 +328,7 @@ schedsim_rtems_score_include_HEADERS = \
   ${cpukitdir}/score/include/rtems/score/schedulerpriority.h \
   ${cpukitdir}/score/include/rtems/score/schedulersimple.h \
   ${cpukitdir}/score/include/rtems/score/timespec.h \
-  ${cpukitdir}/score/include/rtems/score/tqdata.h \
-  ${cpukitdir}/score/include/rtems/score/bitfield.h \
   ${cpukitdir}/score/include/rtems/score/interr.h \
-  $(cpukitdir)/score/inline/rtems/score/address.inl \
-  $(cpukitdir)/score/inline/rtems/score/corespinlock.inl \
-  $(cpukitdir)/score/inline/rtems/score/priority.inl \
-  $(cpukitdir)/score/inline/rtems/score/threadmp.inl \
-  $(cpukitdir)/score/inline/rtems/score/chain.inl \
-  $(cpukitdir)/score/inline/rtems/score/heap.inl \
-  $(cpukitdir)/score/inline/rtems/score/scheduler.inl \
-  $(cpukitdir)/score/inline/rtems/score/threadq.inl \
-  $(cpukitdir)/score/inline/rtems/score/corebarrier.inl \
-  $(cpukitdir)/score/inline/rtems/score/isr.inl \
-  $(cpukitdir)/score/inline/rtems/score/schedulerpriority.inl \
-  $(cpukitdir)/score/inline/rtems/score/tod.inl \
-  $(cpukitdir)/score/inline/rtems/score/coremsg.inl \
-  $(cpukitdir)/score/inline/rtems/score/mppkt.inl \
-  $(cpukitdir)/score/inline/rtems/score/stack.inl \
-  $(cpukitdir)/score/inline/rtems/score/tqdata.inl \
-  $(cpukitdir)/score/inline/rtems/score/coremutex.inl \
-  $(cpukitdir)/score/inline/rtems/score/object.inl \
-  $(cpukitdir)/score/inline/rtems/score/states.inl \
-  $(cpukitdir)/score/inline/rtems/score/watchdog.inl \
-  $(cpukitdir)/score/inline/rtems/score/corerwlock.inl \
-  $(cpukitdir)/score/inline/rtems/score/objectmp.inl \
-  $(cpukitdir)/score/inline/rtems/score/sysstate.inl \
-  $(cpukitdir)/score/inline/rtems/score/wkspace.inl \
-  $(cpukitdir)/score/inline/rtems/score/coresem.inl \
-  $(cpukitdir)/score/inline/rtems/score/prioritybitmap.inl \
-  $(cpukitdir)/score/inline/rtems/score/thread.inl \
   sched_cpu/rtems/score/cpu_asm.h \
   $(top_builddir)/score/include/rtems/score/cpuopts.h \
   sched_cpu/rtems/score/cpu.h \
@@ -367,7 +344,6 @@ schedsim_rtems_rtems_include_HEADERS = \
   ${cpukitdir}/rtems/include/rtems/rtems/config.h \
   ${cpukitdir}/rtems/include/rtems/rtems/ratemon.h \
   ${cpukitdir}/rtems/include/rtems/rtems/rtemsapi.h \
-  ${cpukitdir}/rtems/include/rtems/rtems/eventset.h \
   ${cpukitdir}/rtems/include/rtems/rtems/mp.h \
   ${cpukitdir}/rtems/include/rtems/rtems/dpmem.h \
   ${cpukitdir}/rtems/include/rtems/rtems/status.h \
@@ -393,24 +369,7 @@ schedsim_rtems_rtems_include_HEADERS = \
   ${cpukitdir}/rtems/include/rtems/rtems/support.h \
   ${cpukitdir}/rtems/include/rtems/rtems/signal.h \
   ${cpukitdir}/rtems/include/rtems/rtems/barrier.h \
-  ${cpukitdir}/rtems/include/rtems/rtems/tasks.h \
-  $(cpukitdir)/rtems/inline/rtems/rtems/asr.inl  \
-  $(cpukitdir)/rtems/inline/rtems/rtems/eventset.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/ratemon.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/tasks.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/attr.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/message.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/region.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/timer.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/barrier.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/modes.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/sem.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/dpmem.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/options.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/status.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/event.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/part.inl \
-  $(cpukitdir)/rtems/inline/rtems/rtems/support.inl
+  ${cpukitdir}/rtems/include/rtems/rtems/tasks.h
 
 schedsim_include_HEADERS += rtems_sched.h
 

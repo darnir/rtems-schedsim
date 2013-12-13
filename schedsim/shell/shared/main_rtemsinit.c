@@ -22,7 +22,10 @@
 
 #if defined(RTEMS_SMP)
   #include <rtems/score/smp.h>
+
+  uint32_t Schedsim_Maximum_CPUs_From_Command_Line;
 #endif
+
 
 int rtems_shell_main_rtems_init(
   int   argc,
@@ -37,7 +40,7 @@ int rtems_shell_main_rtems_init(
       printf( "Number of CPUs argument (%s) is not a number\n", argv[1] );
       return -1;
     }
-    rtems_configuration_smp_maximum_processors = cpus;
+    Schedsim_Maximum_CPUs_From_Command_Line = cpus;
   }
 #endif
 

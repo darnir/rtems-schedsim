@@ -36,16 +36,15 @@ int main_dump_all_cpus(int argc, char **argv)
       " SWITCH NEEDED\n"
   );
   for ( cpu=0 ; cpu < _SMP_Processor_count ; cpu++ ) {
-    e = _Per_CPU_Information[cpu].executing;
-    h = _Per_CPU_Information[cpu].heir;
-    i = _Per_CPU_Information[cpu].idle;
+    e = _Per_CPU_Information[cpu].per_cpu.executing;
+    h = _Per_CPU_Information[cpu].per_cpu.heir;
     printf(
-      "  CPU %d: 0x%08x @%3ld / 0x%08x @%3ld / 0x%08x @%3ld         %s\n",
+      "  CPU %d: 0x%08x @%3ld / 0x%08x @%3ld          %s\n",
       cpu,
       e->Object.id, (long) e->current_priority,
       h->Object.id, (long) h->current_priority,
-      i->Object.id, (long) i->current_priority,
-      ((_Per_CPU_Information[cpu].dispatch_necessary) ? "true" : "false")
+      ((_Per_CPU_Information[cpu].per_cpu.dispatch_necessary) ?
+         "true" : "false")
     );
   }
   printf( "=== End of Ready Set of Threads\n" );

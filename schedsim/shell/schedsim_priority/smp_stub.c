@@ -24,12 +24,12 @@ int bsp_smp_processor_id(void)
   return 0;
 }
 
-int bsp_smp_initialize(
-  int maximum
+uint32_t bsp_smp_initialize(
+  uint32_t configured_cpu_count
 )
 {
   /* return the number of CPUs */
-  return maximum;
+  return configured_cpu_count;
 }
 
 void bsp_smp_broadcast_interrupt(void)
