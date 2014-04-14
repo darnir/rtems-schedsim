@@ -11,12 +11,17 @@
  *  http://www.rtems.com/license/LICENSE.
  */
 
+#if HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #define SAPI_INIT
 #define SCORE_INIT
 #define RTEMS_API_INIT
 #define POSIX_API_INIT
 
 #include <rtems/system.h>
+#include <rtems/score/assert.h>
 #include <rtems/config.h>
 #include <rtems/debug.h>
 #include <rtems/extensionimpl.h>
