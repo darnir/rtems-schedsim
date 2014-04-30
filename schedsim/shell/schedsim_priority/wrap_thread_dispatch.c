@@ -1,7 +1,11 @@
-/*
- *  Thread Dispatch Wrapper Implmentation
+/**
+ *  @file
  *
- *  COPYRIGHT (c) 1989-2013.
+ *  @brief Thread Dispatch Wrapper Implmentation
+ */
+
+/*
+ *  COPYRIGHT (c) 1989-2014.
  *  On-Line Applications Research Corporation (OAR).
  *
  *  The license and distribution terms for this file may be
@@ -34,6 +38,9 @@ void check_heir_and_executing(void)
 
 void __wrap__Thread_Dispatch(void)
 {
+  if ( schedsim_is_dispatch_allowed() == false )
+    return;
+
   check_heir_and_executing();
     __real__Thread_Dispatch();
   check_heir_and_executing();
