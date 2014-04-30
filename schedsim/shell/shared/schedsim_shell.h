@@ -1,7 +1,12 @@
-/*
- *  BASED UPON SOURCE IN RTEMS, MODIFIED FOR SIMULATOR
+/**
+ *  @file
+ *  @brief Scheduler Simulator Internals
  *
- *  COPYRIGHT (c) 1989-2013.
+ *  @note BASED UPON SOURCE IN RTEMS, MODIFIED FOR SIMULATOR
+ */
+
+/*
+ *  COPYRIGHT (c) 1989-2014.
  *  On-Line Applications Research Corporation (OAR).
  *
  *  The license and distribution terms for this file may be
@@ -29,6 +34,9 @@ extern "C" {
 
 void PRINT_EXECUTING(void);
 void PRINT_HEIR(void);
+
+void schedsim_set_allow_dispatch(bool value);
+bool schedsim_is_dispatch_allowed(void);
 
 struct rtems_shell_topic_tt;
 typedef struct rtems_shell_topic_tt rtems_shell_topic_t;

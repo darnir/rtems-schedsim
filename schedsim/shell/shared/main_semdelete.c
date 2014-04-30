@@ -1,7 +1,10 @@
+/**
+ *  @file
+ *  @brief Task Delete Shell Command Implmentation
+ */
+
 /*
- *  Task Delete Shell Command Implmentation
- *
- *  COPYRIGHT (c) 1989-2013.
+ *  COPYRIGHT (c) 1989-2014.
  *  On-Line Applications Research Corporation (OAR).
  *
  *  The license and distribution terms for this file may be
@@ -44,7 +47,13 @@ int rtems_shell_main_semaphore_delete(
    */
   printf("Deleting semaphore (0x%08x)\n", id );
   
-  status = rtems_semaphore_delete( id );
+  /*
+   * This wraps the allocator mutex and should defer any context switching
+   */
+  schedsim_set_allow_dispatch(false);
+    status = rtems_semaphore_delete( id );
+  schedsim_set_allow_dispatch(true);
+
   if ( status != RTEMS_SUCCESSFUL ) {
     fprintf(
       stderr,
