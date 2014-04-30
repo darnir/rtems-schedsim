@@ -23,31 +23,32 @@ libschedsim_a_CPPFLAGS += -I$(cpukitdir)/posix/include
 libschedsim_a_CPPFLAGS += -I$(cpukitdir)/posix/inline
 endif
 
-libschedsim_a_SOURCES = \
-    commands.c \
-    getopt.c \
-    lookup_semaphore.c \
-    lookup_task.c \
-    main_echo.c \
-    main_executing.c \
-    main_heir.c \
-    main_help.c \
-    main_rtemsinit.c \
-    main_clocktick.c \
-    main_semcreate.c \
-    main_semdelete.c \
-    main_semflush.c \
-    main_semobtain.c \
-    main_semrelease.c \
-    main_taskcreate.c \
-    main_taskdelete.c \
-    main_taskmode.c \
-    main_taskpriority.c \
-    main_taskresume.c \
-    main_tasksuspend.c \
-    main_taskwakeafter.c \
-    shell_cmdset.c \
-    shell_makeargs.c 
+libschedsim_a_SOURCES =
+libschedsim_a_SOURCES += commands.c
+libschedsim_a_SOURCES += getopt.c
+libschedsim_a_SOURCES += lookup_semaphore.c
+libschedsim_a_SOURCES += lookup_task.c
+libschedsim_a_SOURCES += main_echo.c
+libschedsim_a_SOURCES += main_executing.c
+libschedsim_a_SOURCES += main_heir.c
+libschedsim_a_SOURCES += main_help.c
+libschedsim_a_SOURCES += main_rtemsinit.c
+libschedsim_a_SOURCES += main_clocktick.c
+libschedsim_a_SOURCES += main_semcreate.c
+libschedsim_a_SOURCES += main_semdelete.c
+libschedsim_a_SOURCES += main_semflush.c
+libschedsim_a_SOURCES += main_semobtain.c
+libschedsim_a_SOURCES += main_semrelease.c
+libschedsim_a_SOURCES += main_taskcreate.c
+libschedsim_a_SOURCES += main_taskdelete.c
+libschedsim_a_SOURCES += main_taskmode.c
+libschedsim_a_SOURCES += main_taskpriority.c
+libschedsim_a_SOURCES += main_taskresume.c
+libschedsim_a_SOURCES += main_tasksuspend.c
+libschedsim_a_SOURCES += main_taskwakeafter.c
+libschedsim_a_SOURCES += schedsim_disable_dispatch.c
+libschedsim_a_SOURCES += shell_cmdset.c
+libschedsim_a_SOURCES += shell_makeargs.c 
 
 schedsim_shell_includedir = $(includedir)/schedsim
 schedsim_newlib_includedir = $(includedir)/schedsim/newlib
