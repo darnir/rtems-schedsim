@@ -18,7 +18,6 @@
 
 // #define __RTEMS_VIOLATE_KERNEL_VISIBILITY__
 #include <rtems.h>
-#include <rtems/bspsmp.h>
 #include <rtems/score/percpu.h>
 #include <rtems/score/smp.h>
 #include <rtems/score/schedulerpriority.h>
@@ -32,8 +31,7 @@ int main_dump_all_cpus(int argc, char **argv)
 
   printf(
     "=== CPU Status\n"
-    "            EXECUTING    /     HEIR         /    IDLE        / "
-      " SWITCH NEEDED\n"
+    "          EXECUTING      /   HEIR             / SWITCH NEEDED\n"
   );
   for ( cpu=0 ; cpu < _SMP_Processor_count ; cpu++ ) {
     e = _Per_CPU_Information[cpu].per_cpu.executing;
