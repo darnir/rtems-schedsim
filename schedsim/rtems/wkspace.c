@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <malloc.h>
 
-#define DEBUG_WORKSPACE
+// #define DEBUG_WORKSPACE
 #if defined(DEBUG_WORKSPACE)
   #include <stdio.h>
 #endif
