@@ -12,9 +12,12 @@
 #include <stdio.h>
 #include <rtems.h>
 
+extern uint32_t Schedsim_Current_cpu;
+
 void PRINT_EXECUTING() {
   printf(
-    "  Thread Executing: 0x%08x priority=%ld\n",
+    "  CPU %d: Thread Executing 0x%08x priority=%ld\n",
+     Schedsim_Current_cpu,
     _Thread_Executing->Object.id,
     (long) _Thread_Executing->current_priority
   );
@@ -22,7 +25,8 @@ void PRINT_EXECUTING() {
 
 void PRINT_HEIR() {
   printf( 
-    "  Thread Heir: 0x%08x priority=%ld\n", 
+    "  CPU %d: Thread Heir 0x%08x priority=%ld\n",
+    Schedsim_Current_cpu,
     _Thread_Heir->Object.id, 
     (long) _Thread_Heir->current_priority 
   );
