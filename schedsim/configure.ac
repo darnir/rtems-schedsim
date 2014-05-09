@@ -77,6 +77,11 @@ RTEMS_CPUOPT([RTEMS_SMP],
   [1],
   [if SMP is enabled])
 
+RTEMS_CPUOPT([__RTEMS_HAVE_SYS_CPUSET_H__],
+  [true],
+  [1],
+  [<sys/cpuset.h> is provided])
+
 RTEMS_CPUOPT([RTEMS_NETWORKING],
   [test x"$rtems_cv_HAS_NETWORKING" = xyes],
   [1],

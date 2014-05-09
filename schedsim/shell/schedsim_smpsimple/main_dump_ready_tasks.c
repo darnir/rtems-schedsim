@@ -17,8 +17,13 @@
 #include "rtems_sched.h"
 #include <rtems/score/chainimpl.h>
 #include <rtems/score/thread.h>
+#include <rtems/score/assert.h>
 
-#include <rtems/score/schedulerpriority.h>
+/*
+ * Note: This source depends upon the scheduler being
+ *       tested.
+ */
+#include <rtems/score/schedulersimplesmp.h>
 
 int main_dump_ready_tasks(int argc, char **argv)
 {
@@ -26,8 +31,14 @@ int main_dump_ready_tasks(int argc, char **argv)
   Chain_Node     *n;
   Thread_Control *t;
 
+  Scheduler_simple_SMP_Context * self = 
+    (Scheduler_simple_SMP_Context *) _Scheduler_Table[0].context;
+
+  /* We don't support this yet */
+  _Assert( _Scheduler_Count != 1 );
+
   printf( "=== Ready Set of Threads\n" );
-  chain = (Chain_Control *)_Scheduler.information;
+  chain = &self->Ready;
   for (n = _Chain_First( chain ); !_Chain_Is_tail(chain, n); n = n->next) {
     t = (Thread_Control *)n;
     printf(

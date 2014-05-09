@@ -19,6 +19,8 @@
 #include <rtems/score/isr.h>
 #include <rtems/score/wkspace.h>
 
+int _CPU_ISR_level_on_sched_cpu;
+
 /*  _CPU_Initialize
  *
  *  This routine performs processor dependent initialization.
@@ -32,36 +34,10 @@
 
 void _CPU_Initialize(void)
 {
-  /*
-   *  If there is not an easy way to initialize the FP context
-   *  during Context_Initialize, then it is usually easier to
-   *  save an "uninitialized" FP context here and copy it to
-   *  the task's during Context_Initialize.
-   */
-
-  /* FP context initialization support goes here */
+  _CPU_ISR_level_on_sched_cpu = 1;
 }
 
-/*PAGE
- *
- *  _CPU_ISR_Get_level
- *
- *  NO_CPU Specific Information:
- *
- *  XXX document implementation including references if appropriate
- */
-
-uint32_t   _CPU_ISR_Get_level( void )
-{
-  /*
-   *  This routine returns the current interrupt level.
-   */
-
-  return 0;
-}
-
-/*PAGE
- *
+/*
  *  _CPU_ISR_install_raw_handler
  *
  *  NO_CPU Specific Information:
@@ -81,8 +57,7 @@ void _CPU_ISR_install_raw_handler(
    */
 }
 
-/*PAGE
- *
+/*
  *  _CPU_ISR_install_vector
  *
  *  This kernel routine installs the RTEMS handler for the
@@ -125,8 +100,7 @@ void _CPU_ISR_install_vector(
     _ISR_Vector_table[ vector ] = new_handler;
 }
 
-/*PAGE
- *
+/*
  *  _CPU_Install_interrupt_stack
  *
  *  NO_CPU Specific Information:
@@ -138,8 +112,7 @@ void _CPU_Install_interrupt_stack( void )
 {
 }
 
-/*PAGE
- *
+/*
  *  _CPU_Thread_Idle_body
  *
  *  NOTES:

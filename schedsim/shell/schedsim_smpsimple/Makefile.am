@@ -24,8 +24,15 @@ if HAS_PTHREADS
 schedsim_smpsimple_CPPFLAGS += -I$(cpukitdir)/posix/include
 schedsim_smpsimple_CPPFLAGS += -I$(cpukitdir)/posix/inline
 endif
+## Ensure all linker provided symbols are available
+schedsim_smpsimple_LDFLAGS = 
+schedsim_smpsimple_LDFLAGS += -Wl,--defsym=_TLS_Data_begin=0
+schedsim_smpsimple_LDFLAGS += -Wl,--defsym=_TLS_BSS_end=0
+schedsim_smpsimple_LDFLAGS += -Wl,--defsym=_TLS_Alignment=4
 
-schedsim_smpsimple_LDFLAGS =-Wl,--wrap=_Thread_Dispatch
+## Wrap _Thread_Dispatch so we can see context switches
+schedsim_smpsimple_LDFLAGS +=-Wl,--wrap=_Thread_Dispatch
+
 ## schedsim_smpsimple_LDADD +=-Wl,--start-group
 schedsim_smpsimple_LDADD = ../shared/libschedsim.a
 schedsim_smpsimple_LDADD += ../../rtems/librtems.a

@@ -720,6 +720,11 @@ SCORE_EXTERN void               *_CPU_Interrupt_stack_high;
 #define _CPU_Initialize_vectors()
 
 /**
+ *  XXX fake cpu isr level variable
+ */
+extern int _CPU_ISR_level_on_sched_cpu;
+
+/**
  *  @ingroup CPUInterrupt
  *  Disable all interrupts for an RTEMS critical section.  The previous
  *  level is returned in @a _isr_cookie.
@@ -732,7 +737,8 @@ SCORE_EXTERN void               *_CPU_Interrupt_stack_high;
  */
 #define _CPU_ISR_Disable( _isr_cookie ) \
   { \
-    (_isr_cookie) = 0;   /* do something to prevent warnings */ \
+    (_isr_cookie) = _CPU_ISR_level_on_sched_cpu; \
+    _CPU_ISR_level_on_sched_cpu = 1; \
   }
 
 /**
@@ -749,6 +755,7 @@ SCORE_EXTERN void               *_CPU_Interrupt_stack_high;
  */
 #define _CPU_ISR_Enable( _isr_cookie )  \
   { \
+    _CPU_ISR_level_on_sched_cpu = (_isr_cookie); \
   }
 
 /**
@@ -787,6 +794,7 @@ SCORE_EXTERN void               *_CPU_Interrupt_stack_high;
  */
 #define _CPU_ISR_Set_level( new_level ) \
   { \
+    _CPU_ISR_level_on_sched_cpu = (new_level); \
   }
 
 /**
@@ -800,7 +808,7 @@ SCORE_EXTERN void               *_CPU_Interrupt_stack_high;
  *
  *  XXX document implementation including references if appropriate
  */
-uint32_t   _CPU_ISR_Get_level( void );
+#define _CPU_ISR_Get_level() (uint32_t) _CPU_ISR_level_on_sched_cpu
 
 /* end of ISR handler macros */
 
@@ -1220,21 +1228,13 @@ void _CPU_Context_restore_fp(
 #ifdef RTEMS_SMP
   #define _CPU_Context_switch_to_first_task_smp(_context ) 
 
-  RTEMS_COMPILER_PURE_ATTRIBUTE static inline uint32_t
-    _CPU_SMP_Get_current_processor( void )
-  {
-    return 0;
-  }
-
-  #define _CPU_SMP_Send_interrupt( dest);
-
-  static inline void _CPU_SMP_Processor_event_broadcast( void )
-  {
-  }
-
-  static inline void _CPU_SMP_Processor_event_receive( void )
-  {
-  }
+  uint32_t _CPU_SMP_Get_current_processor( void );
+  uint32_t _CPU_SMP_Initialize( void );
+  bool _CPU_SMP_Start_processor( uint32_t cpu_index );
+  void _CPU_SMP_Finalize_initialization( uint32_t cpu_count );
+  void _CPU_SMP_Send_interrupt( uint32_t target_processor_index );
+  void _CPU_SMP_Processor_event_broadcast( void );
+  void _CPU_SMP_Processor_event_receive( void );
 #endif
 typedef struct {
   uint32_t trap;

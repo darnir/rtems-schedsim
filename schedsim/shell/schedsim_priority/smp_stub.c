@@ -11,60 +11,36 @@
 
 #include <rtems.h>
 #include <rtems/bspIo.h>
-#include <rtems/bspsmp.h>
 #include <stdlib.h>
 
+uint32_t _CPU_SMP_Initialize( void )
+{
+  /* return the number of CPUs */
+  return 1; /* XXX */
+}
 
-void bsp_smp_secondary_cpu_initialize(int cpu)
+bool _CPU_SMP_Start_processor( uint32_t cpu_index )
+{
+  return true;
+}
+
+void _CPU_SMP_Finalize_initialization( uint32_t cpu_count )
 {
 }
 
-int bsp_smp_processor_id(void)
+void _CPU_SMP_Send_interrupt( uint32_t target_processor_index )
+{
+} 
+
+void _CPU_SMP_Processor_event_broadcast( void )
+{
+}
+
+void _CPU_SMP_Processor_event_receive( void )
+{
+}
+
+uint32_t _CPU_SMP_Get_current_processor( void )
 {
   return 0;
 }
-
-uint32_t bsp_smp_initialize(
-  uint32_t configured_cpu_count
-)
-{
-  /* return the number of CPUs */
-  return configured_cpu_count;
-}
-
-void bsp_smp_broadcast_interrupt(void)
-{
-}
-
-void bsp_smp_broadcast_message(
-  uint32_t  message
-)
-{
-}
-
-void bsp_smp_interrupt_cpu(
-  int cpu
-)
-{
-}
-
-void bsp_smp_delay( int max )
-{
-}
-
-void bsp_smp_wait_for(
-  volatile unsigned int *address,
-  unsigned int           desired,
-  int                    maximum_usecs
-)
-{
-  int iterations;
-  volatile int i;
-  volatile unsigned int *p = address;
-
-  for (iterations=0 ;  iterations < maximum_usecs ; iterations++ ) {
-    *p = desired;
-    /* XXX hack to make simulator happy */
-  }
-}
-

@@ -3,7 +3,9 @@ ACLOCAL_AMFLAGS = -I ../../aclocal
 lib_LIBRARIES = librtems.a
 
 cpukitdir=@rtems_srcdir@/cpukit
+rtemscdir=@rtems_srcdir@/c
 librtems_a_CPPFLAGS  = -D__RTEMS_VIOLATE_KERNEL_VISIBILITY__
+librtems_a_CPPFLAGS += -D_GNU_SOURCE
 librtems_a_CPPFLAGS += -I$(top_builddir)/score/include
 librtems_a_CPPFLAGS += -I$(srcdir)/sched_cpu
 librtems_a_CPPFLAGS += -I$(cpukitdir)/include
@@ -245,7 +247,10 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/threadenabledispatch.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threaddispatchdisablelevel.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerprioritysmp.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmp.c
-librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersmpstartidle.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/debugisthreaddispatchingallowed.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerdefaultgetaffinity.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerdefaultsetaffinity.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/cpuset.c
 endif
 
 schedsim_includedir = $(includedir)/schedsim
@@ -254,7 +259,14 @@ schedsim_rtems_score_includedir = $(includedir)/schedsim/rtems/score
 schedsim_rtems_rtems_includedir = $(includedir)/schedsim/rtems/rtems
 
 schedsim_include_HEADERS  = \
- ${cpukitdir}/rtems/include/rtems.h
+  ${cpukitdir}/rtems/include/rtems.h \
+  sched_cpu/stdatomic.h \
+  sched_cpu/sys/_types.h \
+  sched_cpu/machine/_types.h \
+  sched_cpu/machine/_default_types.h \
+  sched_cpu/sys/features.h \
+  sched_cpu/sys/lock.h \
+  sched_cpu/sys/cpuset.h
 
 schedsim_rtems_include_HEADERS  = \
   ${cpukitdir}/score/include//rtems/seterr.h \
@@ -281,7 +293,7 @@ schedsim_rtems_include_HEADERS  = \
   $(cpukitdir)/libcsupport/include/rtems/termiostypes.h \
   $(cpukitdir)/libcsupport/include/rtems/malloc.h \
   sched_cpu/rtems/stringto.h \
-  sched_cpu/rtems/asm.h 
+  sched_cpu/rtems/asm.h
 
 if HAS_PTHREADS
 schedsim_rtems_include_HEADERS  += \
@@ -292,6 +304,9 @@ schedsim_rtems_score_include_HEADERS = \
   ${cpukitdir}/score/include/rtems/score/address.h \
   ${cpukitdir}/score/include/rtems/score/coremutex.h \
   ${cpukitdir}/score/include/rtems/score/corerwlock.h \
+  ${cpukitdir}/score/include/rtems/score/cpuset.h \
+  ${cpukitdir}/score/include/rtems/score/cpusetimpl.h \
+  ${cpukitdir}/score/include/rtems/score/cpustdatomic.h \
   ${cpukitdir}/score/include/rtems/score/threadsync.h \
   ${cpukitdir}/score/include/rtems/score/priority.h \
   ${cpukitdir}/score/include/rtems/score/sysstate.h \
@@ -334,6 +349,7 @@ schedsim_rtems_score_include_HEADERS = \
   sched_cpu/rtems/score/cpu_asm.h \
   $(top_builddir)/score/include/rtems/score/cpuopts.h \
   sched_cpu/rtems/score/cpu.h \
+  sched_cpu/rtems/score/cpuatomic.h \
   sched_cpu/rtems/score/types.h \
   sched_cpu/rtems/score/no_cpu.h 
 

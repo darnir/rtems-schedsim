@@ -24,6 +24,10 @@ Thread_Control *last_executing = NULL;
 
 extern void __real__Thread_Dispatch(void);
 
+void Init__wrap__Thread_Dispatch()
+{
+}
+
 void check_heir_and_executing(void)
 {
   if ( last_heir != _Thread_Heir ) 

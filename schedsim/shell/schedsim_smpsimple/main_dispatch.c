@@ -17,7 +17,6 @@
 #include "rtems_sched.h"
 
 #include <rtems.h>
-#include <rtems/bspsmp.h>
 #include <rtems/score/percpu.h>
 #include <rtems/score/smp.h>
 #include <rtems/score/schedulersimplesmp.h>

@@ -12,29 +12,49 @@
 #include "shell.h"
 #include <schedsim_shell.h>
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <rtems.h>
 
-Thread_Control *last_heir = NULL;
-Thread_Control *last_executing = NULL;
+typedef Thread_Control * Thread_Control_ptr;
+extern uint32_t Schedsim_Current_cpu;
+
+Thread_Control_ptr *last_heir = NULL;
+Thread_Control_ptr *last_executing = NULL;
 
 extern void __real__Thread_Dispatch(void);
 
+void Init__wrap__Thread_Dispatch()
+{
+  last_heir = (Thread_Control_ptr *) calloc( sizeof( Thread_Control_ptr ), _SMP_Processor_count );
+  last_executing =  (Thread_Control_ptr *) calloc( sizeof( Thread_Control_ptr ), _SMP_Processor_count );
+}
+
 void check_heir_and_executing(void)
 {
-  if ( last_heir != _Thread_Heir ) 
+  if ( last_heir[Schedsim_Current_cpu] != _Thread_Heir ) 
     PRINT_HEIR();
 
-  if ( last_executing != _Thread_Executing )
+  if ( last_executing[Schedsim_Current_cpu] != _Thread_Executing )
     PRINT_EXECUTING();
 
-  last_heir = _Thread_Heir;
-  last_executing = _Thread_Executing;
+  last_heir[Schedsim_Current_cpu] = _Thread_Heir;
+  last_executing[Schedsim_Current_cpu] = _Thread_Executing;
 }
 
 void __wrap__Thread_Dispatch(void)
 {
-  check_heir_and_executing();
+  uint32_t   cpu;
+  uint32_t   current_cpu;
+
+  current_cpu = Schedsim_Current_cpu;
+  for ( cpu=0 ; cpu < _SMP_Processor_count ; cpu++ ) {
+    Schedsim_Current_cpu = cpu;
+    check_heir_and_executing();
     __real__Thread_Dispatch();
-  check_heir_and_executing();
+    check_heir_and_executing();
+  }
+  
+  Schedsim_Current_cpu = current_cpu;
 }
+

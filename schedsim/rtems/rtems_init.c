@@ -46,6 +46,8 @@
 
 #include <rtems/posix/keyimpl.h>
 
+void Init__wrap__Thread_Dispatch();
+
 /*
  *  Declare Object Information tables directly here instead of API
  *  specific initialization files as in cpukit/sapi/src.
@@ -135,15 +137,44 @@ void rtems_initialize_data_structures(void)
 
   _System_state_Set( SYSTEM_STATE_UP );
 
- _SMP_Request_start_multitasking();
+  _SMP_Request_start_multitasking();
 
   _Thread_Start_multitasking();
+
+  /* Add Initialization of the Thread_Dispatch wrapper */
+  Init__wrap__Thread_Dispatch();
 
   /*
    *  Now we are back in a non-dispatching critical section
    */
   #if defined(RTEMS_SMP)
-    #error "NOT IMPLEMENTED"
+   {
+      ISR_Level  level;
+
+      /*
+       * On SMP we enter _Thread_Handler() with interrupts disabled and
+       * _Thread_Dispatch() obtained the per-CPU lock for us.  We have to
+       * release it here and set the desired interrupt level of the thread.
+       */
+      Per_CPU_Control *cpu_self = _Per_CPU_Get();
+
+      _Assert( cpu_self->thread_dispatch_disable_level == 1 );
+      _Assert( _ISR_Get_level() != 0 );
+
+      cpu_self->thread_dispatch_disable_level = 0;
+      _Profiling_Thread_dispatch_enable( cpu_self, 0 );
+
+      _Per_CPU_Release( cpu_self );
+
+      level =  _Thread_Executing->Start.isr_level;
+      _ISR_Set_level( level);
+
+      /*
+       * The thread dispatch level changed from one to zero.  Make sure we lose
+       * no thread dispatch necessary update.
+       */
+      _Thread_Dispatch();
+    }
   #else
     _Thread_Enable_dispatch();
   #endif

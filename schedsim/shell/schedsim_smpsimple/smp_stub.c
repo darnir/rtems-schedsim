@@ -11,25 +11,12 @@
 
 #include <rtems.h>
 #include <rtems/bspIo.h>
-#include <rtems/bspsmp.h>
 #include <stdlib.h>
 
 uint32_t Schedsim_Current_cpu;
 extern uint32_t Schedsim_Maximum_CPUs_From_Command_Line;
 
-void bsp_smp_secondary_cpu_initialize(int cpu)
-{
-  Schedsim_Current_cpu = 0;
-}
-
-int bsp_smp_processor_id(void)
-{
-  return Schedsim_Current_cpu;
-}
-
-uint32_t bsp_smp_initialize(
-  uint32_t configured_cpu_count
-)
+uint32_t _CPU_SMP_Initialize( void )
 {
   if ( configured_cpu_count < Schedsim_Maximum_CPUs_From_Command_Line ) {
     printf(
@@ -43,39 +30,42 @@ uint32_t bsp_smp_initialize(
   return Schedsim_Maximum_CPUs_From_Command_Line;
 }
 
-void bsp_smp_broadcast_interrupt(void)
+bool _CPU_SMP_Start_processor( uint32_t cpu_index )
+{
+  return true;
+}
+
+void _CPU_SMP_Finalize_initialization( uint32_t cpu_count )
 {
 }
 
-void bsp_smp_broadcast_message(
-  uint32_t  message
-)
+void _CPU_SMP_Send_interrupt( uint32_t target_processor_index )
 {
-}
+} 
 
-void bsp_smp_interrupt_cpu(
-  int cpu
-)
+void _CPU_SMP_Processor_event_broadcast( void )
 {
-}
+  Per_CPU_Control  *cpu = _Per_CPU_Get();
+  uint32_t         cpu_count = _SMP_Get_processor_count();
+  uint32_t         cpu_index;
+  Per_CPU_State    state = cpu->state;
 
-void bsp_smp_delay( int max )
-{
-}
-
-void bsp_smp_wait_for(
-  volatile unsigned int *address,
-  unsigned int           desired,
-  int                    maximum_usecs
-)
-{
-  int iterations;
-  volatile int i;
-  volatile unsigned int *p = address;
-
-  for (iterations=0 ;  iterations < maximum_usecs ; iterations++ ) {
-    *p = desired;
-    /* XXX hack to make simulator happy */
+  if (state == PER_CPU_STATE_REQUEST_START_MULTITASKING) {
+    for ( cpu_index = 0 ; cpu_index < cpu_count ; ++cpu_index ) {
+      cpu = _Per_CPU_Get_by_index( cpu_index );
+      state = cpu->state;
+      if (state == PER_CPU_STATE_INITIAL )
+         cpu->state = PER_CPU_STATE_READY_TO_START_MULTITASKING;
+    }
   }
 }
 
+
+void _CPU_SMP_Processor_event_receive( void )
+{
+}
+
+uint32_t _CPU_SMP_Get_current_processor( void )
+{
+  return Schedsim_Current_cpu;
+}
