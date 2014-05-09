@@ -18,14 +18,6 @@ extern uint32_t Schedsim_Maximum_CPUs_From_Command_Line;
 
 uint32_t _CPU_SMP_Initialize( void )
 {
-  if ( configured_cpu_count < Schedsim_Maximum_CPUs_From_Command_Line ) {
-    printf(
-      "ERROR - Maximum cores per confdefs.h is %d\n",
-      configured_cpu_count
-    );
-    exit( 1 );
-  }
-
   /* return the number of CPUs */
   return Schedsim_Maximum_CPUs_From_Command_Line;
 }
