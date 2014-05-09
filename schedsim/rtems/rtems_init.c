@@ -64,6 +64,8 @@ void rtems_initialize_data_structures(void)
 {
   _System_state_Handler_initialization( FALSE );
 
+  _CPU_Initialize();
+
   /*
    *  Do this as early as possible to ensure no debugging output
    *  is even attempted to be printed.
@@ -164,7 +166,10 @@ void rtems_initialize_data_structures(void)
       cpu_self->thread_dispatch_disable_level = 0;
       _Profiling_Thread_dispatch_enable( cpu_self, 0 );
 
-      _Per_CPU_Release( cpu_self );
+      /* For whatever reason, we haven't locked our per cpu yet in the
+       * Scheduler Simulator. Until this is done, this release is not needed.
+       */
+      /* _Per_CPU_Release( cpu_self ); */
 
       level =  _Thread_Executing->Start.isr_level;
       _ISR_Set_level( level);

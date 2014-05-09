@@ -26,20 +26,30 @@ extern void __real__Thread_Dispatch(void);
 
 void Init__wrap__Thread_Dispatch()
 {
-  last_heir = (Thread_Control_ptr *) calloc( sizeof( Thread_Control_ptr ), _SMP_Processor_count );
-  last_executing =  (Thread_Control_ptr *) calloc( sizeof( Thread_Control_ptr ), _SMP_Processor_count );
+  last_heir = (Thread_Control_ptr *) calloc(
+    sizeof( Thread_Control_ptr ),
+    _SMP_Processor_count
+  );
+  last_executing =  (Thread_Control_ptr *) calloc(
+    sizeof( Thread_Control_ptr ),
+    _SMP_Processor_count
+  );
 }
 
 void check_heir_and_executing(void)
 {
-  if ( last_heir[Schedsim_Current_cpu] != _Thread_Heir ) 
-    PRINT_HEIR();
+  uint32_t level;
 
-  if ( last_executing[Schedsim_Current_cpu] != _Thread_Executing )
-    PRINT_EXECUTING();
+  _ISR_Disable_without_giant( level );
+    if ( last_heir[Schedsim_Current_cpu] != _Thread_Heir ) 
+      PRINT_HEIR();
 
-  last_heir[Schedsim_Current_cpu] = _Thread_Heir;
-  last_executing[Schedsim_Current_cpu] = _Thread_Executing;
+    if ( last_executing[Schedsim_Current_cpu] != _Thread_Executing )
+      PRINT_EXECUTING();
+
+    last_heir[Schedsim_Current_cpu] = _Thread_Heir;
+    last_executing[Schedsim_Current_cpu] = _Thread_Executing;
+  _ISR_Enable_without_giant( level );
 }
 
 void __wrap__Thread_Dispatch(void)

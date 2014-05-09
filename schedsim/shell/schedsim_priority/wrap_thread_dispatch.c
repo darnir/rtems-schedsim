@@ -30,14 +30,18 @@ void Init__wrap__Thread_Dispatch()
 
 void check_heir_and_executing(void)
 {
-  if ( last_heir != _Thread_Heir ) 
-    PRINT_HEIR();
+  uint32_t level;
 
-  if ( last_executing != _Thread_Executing )
-    PRINT_EXECUTING();
+  _ISR_Disable_without_giant( level );
+    if ( last_heir != _Thread_Heir ) 
+      PRINT_HEIR();
 
-  last_heir = _Thread_Heir;
-  last_executing = _Thread_Executing;
+    if ( last_executing != _Thread_Executing )
+      PRINT_EXECUTING();
+
+    last_heir = _Thread_Heir;
+    last_executing = _Thread_Executing;
+  _ISR_Enable_without_giant( level );
 }
 
 void __wrap__Thread_Dispatch(void)
