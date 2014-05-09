@@ -472,19 +472,34 @@ typedef struct {
  *  to another.
  */
 typedef struct {
-    /** This field is a hint that a port will have a number of integer
-     *  registers that need to be saved at a context switch.
+    /**
+     * This field is a hint that a port will have a number of integer
+     * registers that need to be saved at a context switch.
      */
     uint32_t   some_integer_register;
-    /** This field is a hint that a port will have a number of system
-     *  registers that need to be saved at a context switch.
+    /**
+     * This field is a hint that a port will have a number of system
+     * registers that need to be saved at a context switch.
      */
     uint32_t   some_system_register;
 
-    /** This field is a hint that a port will have a register that
-     *  is the stack pointer.
+    /**
+     * This field is a hint that a port will have a register that
+     * is the stack pointer.
      */
     uint32_t   stack_pointer;
+
+#ifdef RTEMS_SMP
+    /**
+     * @brief On SMP configurations the thread context must contain a boolean
+     * indicator if this context is executing on a processor.
+     *
+     * This field must be updated during a context switch.  The context switch
+     * to the heir must wait until the heir context indicates that it is no
+     * longer executing on a processor.
+     */
+    volatile bool is_executing;
+#endif
 } Context_Control;
 
 /**
@@ -498,6 +513,23 @@ typedef struct {
  */
 #define _CPU_Context_Get_SP( _context ) \
   (_context)->stack_pointer
+
+#ifdef RTEMS_SMP
+  static inline bool _CPU_Context_Get_is_executing(
+    const Context_Control *context
+  )
+  {
+    return context->is_executing;
+  }
+
+  static inline void _CPU_Context_Set_is_executing(
+    Context_Control *context,
+    bool is_executing
+  )
+  {
+    context->is_executing = is_executing;
+  }
+#endif
 
 /**
  *  @ingroup CPUContext Management
