@@ -14,7 +14,6 @@ dispatch
 cpus
 
 task_create smp5 3
-dispatch
 # GOAL: 0x0a010001, 0x0a010005, 0x0a010003, and 0x0a010004 are heir
 # GOAL:   and executing on CPUs 0 - 3
 cpus

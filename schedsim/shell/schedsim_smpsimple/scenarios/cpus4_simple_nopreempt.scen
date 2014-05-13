@@ -14,6 +14,5 @@ cpus
 task_create smp5 1
 # GOAL: Task 0x0a010005 is heir but 0x0a010004 is executing on CPU 4
 cpus
-dispatch
 # GOAL: Task 0x0a010005 is heir but 0x0a010004 is executing on CPU 4
 cpus

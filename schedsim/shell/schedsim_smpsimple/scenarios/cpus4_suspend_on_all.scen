@@ -6,7 +6,6 @@ task_create smp1 5
 task_create smp2 6
 task_create smp3 7
 task_create smp4 8
-dispatch
 # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
 # GOAL:   on CPUs 0 - 3 respectively
 cpus
@@ -14,7 +13,6 @@ task_suspend smp1
 task_suspend smp2
 task_suspend smp3
 task_suspend smp4
-dispatch
 # GOAL: want IDLE 0x09010001 - 0x09010004 as heir and executings
 # GOAL:   on CPUs 0 - 3 respectively
 cpus

@@ -4,76 +4,70 @@ verbose                   : 1
 ==> 2: #  Ensure lowest priority is preempted
 ==> 3: #
 ==> 4: rtems_init 4
-  Thread Heir: 0x09010001 priority=255
-  Thread Executing: 0x09010001 priority=255
-==> 5: task_create smp1 5
+  CPU 0: Thread Heir 0x09010001 priority=255
+  CPU 0: Thread Executing 0x09010001 priority=255
+  CPU 1: Thread Heir 0x09010002 priority=255
+  CPU 1: Thread Executing 0x09010002 priority=255
+  CPU 2: Thread Heir 0x09010003 priority=255
+  CPU 2: Thread Executing 0x09010003 priority=255
+  CPU 3: Thread Heir 0x09010004 priority=255
+  CPU 3: Thread Executing 0x09010004 priority=255
+==> 5: task_create smp1 7
 Creating task with:  Preemption: yes Timeslicing: no
-Task (smp1) created: id=0x0a010001, priority=5
-Task (smp1) starting: id=0x0a010001, priority=5
-  Thread Heir: 0x0a010001 priority=5
-  Thread Executing: 0x0a010001 priority=5
-==> 6: task_create smp2 6
+Task (smp1) created: id=0x0a010001, priority=7
+Task (smp1) starting: id=0x0a010001, priority=7
+  CPU 3: Thread Heir 0x0a010001 priority=7
+  CPU 3: Thread Executing 0x0a010001 priority=7
+==> 6: task_create smp2 8
 Creating task with:  Preemption: yes Timeslicing: no
-Task (smp2) created: id=0x0a010002, priority=6
-Task (smp2) starting: id=0x0a010002, priority=6
-==> 7: task_create smp3 7
+Task (smp2) created: id=0x0a010002, priority=8
+Task (smp2) starting: id=0x0a010002, priority=8
+  CPU 2: Thread Heir 0x0a010002 priority=8
+  CPU 2: Thread Executing 0x0a010002 priority=8
+==> 7: task_create smp3 5
 Creating task with:  Preemption: yes Timeslicing: no
-Task (smp3) created: id=0x0a010003, priority=7
-Task (smp3) starting: id=0x0a010003, priority=7
-==> 8: task_create smp4 8
+Task (smp3) created: id=0x0a010003, priority=5
+Task (smp3) starting: id=0x0a010003, priority=5
+  CPU 1: Thread Heir 0x0a010003 priority=5
+  CPU 1: Thread Executing 0x0a010003 priority=5
+==> 8: task_create smp4 6
 Creating task with:  Preemption: yes Timeslicing: no
-Task (smp4) created: id=0x0a010004, priority=8
-Task (smp4) starting: id=0x0a010004, priority=8
-==> 9: dispatch
-=== Invoke Thread Dispatch on CPU 1
-  Thread Heir: 0x0a010002 priority=6
-  Thread Executing: 0x09010002 priority=255
-  Thread Executing: 0x0a010002 priority=6
-=== Invoke Thread Dispatch on CPU 2
-  Thread Heir: 0x0a010003 priority=7
-  Thread Executing: 0x09010003 priority=255
-  Thread Executing: 0x0a010003 priority=7
-=== Invoke Thread Dispatch on CPU 3
-  Thread Heir: 0x0a010004 priority=8
-  Thread Executing: 0x09010004 priority=255
-  Thread Executing: 0x0a010004 priority=8
-==> 10: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
-==> 11: # GOAL:   on CPUs 1-4 respectively
-==> 12: cpus
+Task (smp4) created: id=0x0a010004, priority=6
+Task (smp4) starting: id=0x0a010004, priority=6
+  CPU 0: Thread Heir 0x0a010004 priority=6
+  CPU 0: Thread Executing 0x0a010004 priority=6
+==> 9: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
+==> 10: # GOAL:   on CPUs 3-0 respectively
+==> 11: cpus
 === CPU Status
-            EXECUTING    /     HEIR         /    IDLE        /  SWITCH NEEDED
-  CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5 / 0x09010001 @255         false
-  CPU 1: 0x0a010002 @  6 / 0x0a010002 @  6 / 0x09010002 @255         false
-  CPU 2: 0x0a010003 @  7 / 0x0a010003 @  7 / 0x09010003 @255         false
-  CPU 3: 0x0a010004 @  8 / 0x0a010004 @  8 / 0x09010004 @255         false
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010004 @  6 / 0x0a010004 @  6          false
+  CPU 1: 0x0a010003 @  5 / 0x0a010003 @  5          false
+  CPU 2: 0x0a010002 @  8 / 0x0a010002 @  8          false
+  CPU 3: 0x0a010001 @  7 / 0x0a010001 @  7          false
 === End of Ready Set of Threads
-==> 13: # Tasks are created and distributed across CPUs
-==> 14: task_create smp5 1
+==> 12: # Tasks are created and distributed across CPUs
+==> 13: task_create smp5 1
 Creating task with:  Preemption: yes Timeslicing: no
-  Thread Heir: 0x0a010001 priority=5
-  Thread Executing: 0x0a010001 priority=5
 Task (smp5) created: id=0x0a010005, priority=1
 Task (smp5) starting: id=0x0a010005, priority=1
-==> 15: # GOAL: want 0x0a010005 to be heir on CPU 4
-==> 16: cpus
+  CPU 2: Thread Heir 0x0a010005 priority=1
+  CPU 2: Thread Executing 0x0a010005 priority=1
+==> 14: # GOAL: want 0x0a010005 to be heir on CPU 2
+==> 15: cpus
 === CPU Status
-            EXECUTING    /     HEIR         /    IDLE        /  SWITCH NEEDED
-  CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5 / 0x09010001 @255         false
-  CPU 1: 0x0a010002 @  6 / 0x0a010002 @  6 / 0x09010002 @255         false
-  CPU 2: 0x0a010003 @  7 / 0x0a010003 @  7 / 0x09010003 @255         false
-  CPU 3: 0x0a010004 @  8 / 0x0a010005 @  1 / 0x09010004 @255         true
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010004 @  6 / 0x0a010004 @  6          false
+  CPU 1: 0x0a010003 @  5 / 0x0a010003 @  5          false
+  CPU 2: 0x0a010005 @  1 / 0x0a010005 @  1          false
+  CPU 3: 0x0a010001 @  7 / 0x0a010001 @  7          false
 === End of Ready Set of Threads
-==> 17: dispatch
-=== Invoke Thread Dispatch on CPU 3
-  Thread Heir: 0x0a010005 priority=1
-  Thread Executing: 0x0a010004 priority=8
-  Thread Executing: 0x0a010005 priority=1
-==> 18: # GOAL: want 0x0a010005 to be heir AND executing on CPU 4
-==> 19: cpus
+==> 16: # GOAL: want 0x0a010005 to be heir AND executing on CPU 2
+==> 17: cpus
 === CPU Status
-            EXECUTING    /     HEIR         /    IDLE        /  SWITCH NEEDED
-  CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5 / 0x09010001 @255         false
-  CPU 1: 0x0a010002 @  6 / 0x0a010002 @  6 / 0x09010002 @255         false
-  CPU 2: 0x0a010003 @  7 / 0x0a010003 @  7 / 0x09010003 @255         false
-  CPU 3: 0x0a010005 @  1 / 0x0a010005 @  1 / 0x09010004 @255         false
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010004 @  6 / 0x0a010004 @  6          false
+  CPU 1: 0x0a010003 @  5 / 0x0a010003 @  5          false
+  CPU 2: 0x0a010005 @  1 / 0x0a010005 @  1          false
+  CPU 3: 0x0a010001 @  7 / 0x0a010001 @  7          false
 === End of Ready Set of Threads

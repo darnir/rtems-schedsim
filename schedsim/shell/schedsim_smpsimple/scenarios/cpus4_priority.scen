@@ -7,31 +7,26 @@ task_create smp2 8
 task_create smp3 8
 task_create smp4 8
 task_create smp5 8
-dispatch
 # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
-# GOAL:   on CPUs 0 - 3 respectively
+# GOAL:   on CPUs 3 - 0 respectively
 cpus
 
 task_priority smp1 4
-dispatch
 # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
-# GOAL:   on CPUs 0 - 3 respectively (no change)
+# GOAL:   on CPUs 3 - 0 respectively (no change)
 cpus
 
 task_priority smp1 7
-dispatch
 # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
-# GOAL:   on CPUs 0 - 3 respectively (no change)
+# GOAL:   on CPUs 3 - 0 respectively (no change)
 cpus
 
 task_priority smp1 8
-dispatch
 # GOAL: 0x0a010005, 0x0a010002 - 0x0a010004 are heir and executing
-# GOAL:   on CPUs 0 - 3 respectively
+# GOAL:   on CPUs 3 - 0 respectively
 cpus
 
 task_priority smp1 5
-dispatch
 # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
-# GOAL:   on CPUs 0 - 3 respectively
+# GOAL:   on CPUs 3 - 0 respectively
 cpus

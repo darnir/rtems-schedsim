@@ -9,21 +9,17 @@ dispatch
 cpus
 
 task_priority smp1 4
-dispatch
 # GOAL: 0x0a010001 is still heir and executing on CPU 0
 cpus
 
 task_priority smp1 7
-dispatch
 # GOAL: 0x0a010001 is still heir and executing on CPU 0
 cpus
 
 task_priority smp1 8
-dispatch
 # GOAL: 0x0a010002 is now heir and executing on CPU 0
 cpus
 
 task_priority smp1 5
-dispatch
 # GOAL: 0x0a010001 is now heir and executing on CPU 0
 cpus

@@ -13,7 +13,6 @@ dispatch
 cpus
 
 task_create smp5 3
-dispatch
 # GOAL: 0x0a010001 - 0x0a010004 are executing on CPUs 0 - 3.
 # GOAL:   All are also heir EXCEPT 0x0a010005 is heir on CPU 1.
 # GOAL: **** SHOWS INVERSION - CPU 1 has NO PREEMPT TASK ****
@@ -21,7 +20,6 @@ cpus
 
 current_cpu 1
 task_mode -P
-dispatch
 # GOAL: 0x0a010001, 0x0a010005, 0x0a010003, and 0x0a010004 are
 # GOAL:   heir and executing on CPUs 0 - 3
 cpus
