@@ -1,7 +1,11 @@
-/*
- *  Task Delete Shell Command Implmentation
+/**
+ *  @file
  *
- *  COPYRIGHT (c) 1989-2013.
+ *  Task Set/Get Priority Shell Command Implmentation
+ */
+
+/*
+ *  COPYRIGHT (c) 1989-2014.
  *  On-Line Applications Research Corporation (OAR).
  *
  *  The license and distribution terms for this file may be
@@ -50,7 +54,7 @@ int rtems_shell_main_task_priority(
   new = (rtems_task_priority) tmp;
 
   /*
-   *  Now priority the task
+   *  Now set and/or obtain the priority the task
    */
   status = rtems_task_set_priority( id, new, &old );
   if ( status != RTEMS_SUCCESSFUL ) {
