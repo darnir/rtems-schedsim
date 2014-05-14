@@ -6,6 +6,8 @@ DIST_SUBDIRS = shared schedsim_priority
 if HAS_SMP
 SUBDIRS += schedsim_smpsimple
 DIST_SUBDIRS += schedsim_smpsimple
+SUBDIRS += schedsim_smppriority
+DIST_SUBDIRS += schedsim_smppriority
 endif
 
 include $(top_srcdir)/../automake/subdirs.am
