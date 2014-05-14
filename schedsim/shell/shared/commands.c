@@ -23,6 +23,10 @@ extern rtems_shell_cmd_t rtems_shell_TASK_PRIORITY_Command;
 extern rtems_shell_cmd_t rtems_shell_TASK_SUSPEND_Command;
 extern rtems_shell_cmd_t rtems_shell_TASK_RESUME_Command;
 extern rtems_shell_cmd_t rtems_shell_TASK_WAKE_AFTER_Command;
+#if RTEMS_SMP
+  extern rtems_shell_cmd_t rtems_shell_TASK_GET_AFFINITY_Command;
+  extern rtems_shell_cmd_t rtems_shell_TASK_SET_AFFINITY_Command;
+#endif
 
 extern rtems_shell_cmd_t rtems_shell_CLOCK_TICK_Command;
 
@@ -50,6 +54,10 @@ rtems_shell_cmd_t *rtems_shell_Initial_commands[] = {
   &rtems_shell_TASK_SUSPEND_Command,
   &rtems_shell_TASK_RESUME_Command,
   &rtems_shell_TASK_WAKE_AFTER_Command,
+  #if RTEMS_SMP
+    &rtems_shell_TASK_GET_AFFINITY_Command,
+    &rtems_shell_TASK_SET_AFFINITY_Command,
+  #endif
 
   &rtems_shell_CLOCK_TICK_Command,
 
