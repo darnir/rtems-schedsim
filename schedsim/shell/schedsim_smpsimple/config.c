@@ -16,4 +16,3 @@
 
 #define CONFIGURE_DISABLE_BSP_SETTINGS
 #include <rtems/confdefs.h>
-

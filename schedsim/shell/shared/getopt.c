@@ -75,7 +75,7 @@ COPYRIGHT NOTICE AND DISCLAIMER:
 
 Copyright (C) 1997 Gregory Pietsch
 
-This file and the accompanying getopt.h header file are hereby placed in the 
+This file and the accompanying getopt.h header file are hereby placed in the
 public domain without restrictions.  Just give the author credit, don't
 claim you wrote it or prevent anyone else from using it.
 
@@ -145,7 +145,7 @@ is_option (char *argv_element, int only)
 	  || (argv_element[0] == '-') || (only && argv_element[0] == '+'));
 }
 
-/* read_globals: read the values from the globals into a getopt_data 
+/* read_globals: read the values from the globals into a getopt_data
    structure */
 static void
 read_globals (struct getopt_data *data)

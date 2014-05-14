@@ -24,10 +24,10 @@ void PRINT_EXECUTING() {
 }
 
 void PRINT_HEIR() {
-  printf( 
+  printf(
     "  CPU %d: Thread Heir 0x%08x priority=%ld\n",
     Schedsim_Current_cpu,
-    _Thread_Heir->Object.id, 
-    (long) _Thread_Heir->current_priority 
+    _Thread_Heir->Object.id,
+    (long) _Thread_Heir->current_priority
   );
 }

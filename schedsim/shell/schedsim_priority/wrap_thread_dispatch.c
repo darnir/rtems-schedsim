@@ -33,7 +33,7 @@ void check_heir_and_executing(void)
   uint32_t level;
 
   _ISR_Disable_without_giant( level );
-    if ( last_heir != _Thread_Heir ) 
+    if ( last_heir != _Thread_Heir )
       PRINT_HEIR();
 
     if ( last_executing != _Thread_Executing )

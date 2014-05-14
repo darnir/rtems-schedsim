@@ -28,7 +28,7 @@ int rtems_shell_main_task_delete(
 {
   rtems_id           id;
   rtems_status_code  status;
- 
+
   CHECK_RTEMS_IS_UP();
 
   if (argc != 2) {
@@ -49,12 +49,12 @@ int rtems_shell_main_task_delete(
       "Task Delete(%s) returned %s\n",
       argv[1],
       rtems_status_text( status )
-    ); 
+    );
     return -1;
   }
 
   printf("Task (0x%08x) deleted\n", id );
-  
+
   return 0;
 }
 

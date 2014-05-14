@@ -87,7 +87,7 @@ int rtems_shell_main_task_mode(
       stderr,
       "Task Mode returned %s\n",
       rtems_status_text( status )
-    ); 
+    );
     return -1;
   }
 
@@ -96,7 +96,7 @@ int rtems_shell_main_task_mode(
     (void) rtems_task_mode( RTEMS_CURRENT_MODE ,  RTEMS_CURRENT_MODE, &old );
     print_mode( "Current Mode:  ", mode );
   }
-  
+
   return 0;
 }
 

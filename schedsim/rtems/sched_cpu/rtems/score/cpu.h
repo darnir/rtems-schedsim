@@ -1258,7 +1258,7 @@ void _CPU_Context_restore_fp(
 );
 
 #ifdef RTEMS_SMP
-  #define _CPU_Context_switch_to_first_task_smp(_context ) 
+  #define _CPU_Context_switch_to_first_task_smp(_context )
 
   uint32_t _CPU_SMP_Get_current_processor( void );
   uint32_t _CPU_SMP_Initialize( void );
@@ -1335,7 +1335,7 @@ static inline uint32_t CPU_swap_u32(
 /*
  *  SMP Support
  */
-void __SMP_cpu_swap( 
+void __SMP_cpu_swap(
   uint32_t *a,
   uint32_t *value,
   uint32_t *prev

@@ -26,7 +26,7 @@ int rtems_shell_make_args(
   int   argc;
   char *ch;
   int   status = 0;
- 
+
   argc = 0;
   ch = commandLine;
 
@@ -63,4 +63,3 @@ int rtems_shell_make_args(
   *argc_p = argc;
   return status;
 }
-

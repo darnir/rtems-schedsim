@@ -21,9 +21,9 @@ void PRINT_EXECUTING() {
 }
 
 void PRINT_HEIR() {
-  printf( 
-    "  Thread Heir: 0x%08x priority=%ld\n", 
-    _Thread_Heir->Object.id, 
-    (long) _Thread_Heir->current_priority 
+  printf(
+    "  Thread Heir: 0x%08x priority=%ld\n",
+    _Thread_Heir->Object.id,
+    (long) _Thread_Heir->current_priority
   );
 }

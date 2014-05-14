@@ -103,12 +103,12 @@ int rtems_shell_main_semaphore_create(
       "Semaphore create(%s) returned %s\n",
       argv[1],
       rtems_status_text( status )
-    ); 
+    );
     return -1;
   }
 
   printf( "Semaphore (%s) created: id=0x%08x\n", argv[1], id );
-  
+
   return 0;
 }
 

@@ -31,7 +31,7 @@ int main_dump_ready_tasks(int argc, char **argv)
   Chain_Node     *n;
   Thread_Control *t;
 
-  Scheduler_simple_SMP_Context * self = 
+  Scheduler_simple_SMP_Context * self =
     (Scheduler_simple_SMP_Context *) _Scheduler_Table[0].context;
 
   /* We don't support this yet */
@@ -48,6 +48,6 @@ int main_dump_ready_tasks(int argc, char **argv)
     );
   }
   printf( "=== End of Ready Set of Threads\n" );
-  
+
   return 0;
 }

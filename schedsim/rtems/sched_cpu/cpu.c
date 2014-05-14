@@ -140,7 +140,7 @@ void *_CPU_Thread_Idle_body( uintptr_t ignored )
 }
 
 #include <stdio.h>
-void _SMP_cpu_swap( 
+void _SMP_cpu_swap(
   uint32_t *a,
   uint32_t *value,
   uint32_t *prev

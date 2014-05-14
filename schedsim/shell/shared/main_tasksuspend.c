@@ -28,7 +28,7 @@ int rtems_shell_main_task_suspend(
 {
   rtems_id           id;
   rtems_status_code  status;
- 
+
   CHECK_RTEMS_IS_UP();
 
   if (argc != 2) {
@@ -50,7 +50,7 @@ int rtems_shell_main_task_suspend(
       "Task suspend(%s) returned %s\n",
       argv[1],
       rtems_status_text( status )
-    ); 
+    );
     return -1;
   }
 

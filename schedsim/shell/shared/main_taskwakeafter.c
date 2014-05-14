@@ -30,7 +30,7 @@ int rtems_shell_main_task_wake_after(
   rtems_interval       ticks;
   unsigned long        tmp;
   rtems_id             self;
- 
+
   CHECK_RTEMS_IS_UP();
 
   if (argc != 2) {
@@ -50,7 +50,7 @@ int rtems_shell_main_task_wake_after(
    *  Now sleep
    */
   printf( "Task (0x%08x) sleeping for %d ticks\n", self, ticks );
-  
+
   status = rtems_task_wake_after( ticks );
   if ( status != RTEMS_SUCCESSFUL ) {
     fprintf(
@@ -58,7 +58,7 @@ int rtems_shell_main_task_wake_after(
       "Task Wake After (%s) returned %s\n",
       argv[1],
       rtems_status_text( status )
-    ); 
+    );
     return -1;
   }
 

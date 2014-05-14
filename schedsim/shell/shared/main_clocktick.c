@@ -30,7 +30,7 @@ int rtems_shell_main_clock_tick(
   rtems_interval       ticks;
   unsigned long        tmp;
   rtems_interval       t;
- 
+
   CHECK_RTEMS_IS_UP();
 
   if (argc != 2) {
@@ -57,7 +57,7 @@ int rtems_shell_main_clock_tick(
         "Clock Tick (%s) returned %s\n",
         argv[1],
         rtems_status_text( status )
-      ); 
+      );
       return -1;
     }
   }

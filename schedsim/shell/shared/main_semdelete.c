@@ -31,7 +31,7 @@ int rtems_shell_main_semaphore_delete(
 {
   rtems_id           id;
   rtems_status_code  status;
- 
+
   CHECK_RTEMS_IS_UP();
 
   if (argc != 2) {
@@ -46,7 +46,7 @@ int rtems_shell_main_semaphore_delete(
    *  Now delete the semaphore
    */
   printf("Deleting semaphore (0x%08x)\n", id );
-  
+
   /*
    * This wraps the allocator mutex and should defer any context switching
    */
@@ -60,7 +60,7 @@ int rtems_shell_main_semaphore_delete(
       "Semaphore Delete(%s) returned %s\n",
       argv[1],
       rtems_status_text( status )
-    ); 
+    );
     return -1;
   }
 

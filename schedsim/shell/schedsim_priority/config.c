@@ -6,4 +6,3 @@
 
 #define CONFIGURE_DISABLE_BSP_SETTINGS
 #include <confdefs.h>
-

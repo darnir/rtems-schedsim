@@ -28,7 +28,7 @@ int rtems_shell_main_task_resume(
 {
   rtems_id           id;
   rtems_status_code  status;
- 
+
   CHECK_RTEMS_IS_UP();
 
   if (argc != 2) {
@@ -43,7 +43,7 @@ int rtems_shell_main_task_resume(
    *  Now resume the task
    */
   printf("Resuming task (0x%08x)\n", id );
-  
+
   status = rtems_task_resume( id );
   if ( status != RTEMS_SUCCESSFUL ) {
     fprintf(
@@ -51,7 +51,7 @@ int rtems_shell_main_task_resume(
       "Task resume(%s) returned %s\n",
       argv[1],
       rtems_status_text( status )
-    ); 
+    );
     return -1;
   }
 

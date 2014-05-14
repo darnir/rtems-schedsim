@@ -35,7 +35,7 @@ int rtems_shell_main_task_priority(
   unsigned long        tmp;
   rtems_task_priority  old;
   rtems_task_priority  new;
- 
+
   CHECK_RTEMS_IS_UP();
 
   if (argc != 3) {
@@ -63,7 +63,7 @@ int rtems_shell_main_task_priority(
       "Task Set Priority(%s) returned %s\n",
       argv[1],
       rtems_status_text( status )
-    ); 
+    );
     return -1;
   }
 
@@ -71,7 +71,7 @@ int rtems_shell_main_task_priority(
     printf("Task (0x%08x) Change Priority from %d to %d\n", id, old, new );
   else
     printf("Task (0x%08x) Current Priority is %d\n", id, new );
-  
+
   return 0;
 }
 

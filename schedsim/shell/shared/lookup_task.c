@@ -41,7 +41,7 @@ int METHOD_NAME(
     }
     memset( name, '\0', sizeof(name) );
     strncpy( name, string, 4 );
-    status = RTEMS_IDENT_NAME( 
+    status = RTEMS_IDENT_NAME(
       rtems_build_name( name[0], name[1], name[2], name[3] ),
       OBJECTS_SEARCH_ALL_NODES,
       id

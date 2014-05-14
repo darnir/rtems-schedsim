@@ -51,7 +51,7 @@
 #ifndef _PARAMS
 #define _PARAMS(paramlist)		paramlist
 #endif
-#else	
+#else
 #define	_PTR		char *
 #define	_AND		;
 #define	_NOARGS

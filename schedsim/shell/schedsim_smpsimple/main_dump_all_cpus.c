@@ -46,6 +46,6 @@ int main_dump_all_cpus(int argc, char **argv)
     );
   }
   printf( "=== End of Ready Set of Threads\n" );
-  
+
   return 0;
 }

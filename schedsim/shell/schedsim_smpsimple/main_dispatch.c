@@ -36,7 +36,7 @@ int main_dispatch(int argc, char **argv)
       _Thread_Dispatch();
     }
   }
-  
+
   Schedsim_Current_cpu = current_cpu;
   return 0;
 }

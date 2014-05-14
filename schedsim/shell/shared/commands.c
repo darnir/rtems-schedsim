@@ -76,4 +76,3 @@ rtems_shell_cmd_t *rtems_shell_Initial_commands[] = {
 rtems_shell_alias_t *rtems_shell_Initial_aliases[] = {
   NULL
 };
-

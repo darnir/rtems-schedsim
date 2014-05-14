@@ -32,4 +32,3 @@ bool schedsim_is_dispatch_allowed(void)
 {
   return allow_dispatch;
 }
-

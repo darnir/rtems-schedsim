@@ -57,7 +57,7 @@ int rtems_shell_main_task_create(
   struct getopt_data getopt_reent;
   char               option;
   int                arg;
- 
+
   CHECK_RTEMS_IS_UP();
 
   mode = 0;
@@ -123,7 +123,7 @@ int rtems_shell_main_task_create(
       "Task Create(%s) returned %s\n",
       name,
       rtems_status_text( status )
-    ); 
+    );
     return -1;
   }
 
@@ -133,7 +133,7 @@ int rtems_shell_main_task_create(
     id,
     priority
   );
-  
+
   printf(
     "Task (%s) starting: id=0x%08x, priority=%ld\n",
     name,
@@ -148,7 +148,7 @@ int rtems_shell_main_task_create(
       "Task Start(%s) returned %s\n",
       name,
       rtems_status_text( status )
-    ); 
+    );
     return -1;
   }
 

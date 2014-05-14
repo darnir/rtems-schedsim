@@ -31,7 +31,7 @@ int rtems_shell_main_semaphore_obtain(
   long               tmp;
   rtems_interval     ticks;
   Thread_Control    *caller;
- 
+
   /* XXX for now, do not support polling */
 
   CHECK_RTEMS_IS_UP();
@@ -68,7 +68,7 @@ int rtems_shell_main_semaphore_obtain(
         "Semaphore obtain(%s) returned %s\n",
         argv[1],
         rtems_status_text( status )
-      ); 
+      );
       return -1;
     }
   }

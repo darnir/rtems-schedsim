@@ -37,7 +37,7 @@ int rtems_shell_main_task_set_affinity(
   rtems_status_code    status;
   unsigned long        tmp;
   cpu_set_t            cpuset;
- 
+
   CHECK_RTEMS_IS_UP();
 
   if (argc != 3) {
@@ -66,12 +66,12 @@ int rtems_shell_main_task_set_affinity(
       "Task Set Affinity(%s) returned %s\n",
       argv[1],
       rtems_status_text( status )
-    ); 
+    );
     return -1;
   }
 
   printf("Task (0x%08x) Set affinity=0x%08x\n", id, cpuset.__bits[0] );
-  
+
   return 0;
 }
 
