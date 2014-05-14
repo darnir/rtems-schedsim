@@ -250,6 +250,7 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplesmp.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/debugisthreaddispatchingallowed.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerdefaultgetaffinity.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerdefaultsetaffinity.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersmpvalidstatechanges.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/cpuset.c
 endif
 
