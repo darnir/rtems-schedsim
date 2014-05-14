@@ -116,8 +116,8 @@ Task (smp8) starting: id=0x0a010008, priority=4
 ==> 35: cpus
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
-  CPU 0: 0x0a010008 @  4 / 0x0a010008 @  4          false
+  CPU 0: 0x0a010005 @  5 / 0x0a010005 @  5          false
   CPU 1: 0x0a010006 @  5 / 0x0a010006 @  5          false
-  CPU 2: 0x0a010007 @  5 / 0x0a010007 @  5          false
+  CPU 2: 0x0a010008 @  4 / 0x0a010008 @  4          false
   CPU 3: 0x0a010001 @  3 / 0x0a010001 @  3          false
 === End of Ready Set of Threads
