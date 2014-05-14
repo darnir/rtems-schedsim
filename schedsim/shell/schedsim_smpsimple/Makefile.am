@@ -1,8 +1,15 @@
 bin_PROGRAMS = schedsim_smpsimple
-schedsim_smpsimple_SOURCES = add_commands.c config.c \
-  main_current_cpu.c main_dispatch.c main_dump_all_cpus.c \
-  main_dump_ready_tasks.c printheir_executing.c smp_stub.c \
-  wrap_thread_dispatch.c schedsim.cc
+schedsim_smpsimple_SOURCES =
+schedsim_smpsimple_SOURCES += add_commands.c
+schedsim_smpsimple_SOURCES += config.c
+schedsim_smpsimple_SOURCES += main_current_cpu.c
+schedsim_smpsimple_SOURCES += main_dispatch.c
+schedsim_smpsimple_SOURCES += main_dump_all_cpus.c
+schedsim_smpsimple_SOURCES += main_dump_ready_tasks.c
+schedsim_smpsimple_SOURCES += printheir_executing.c
+schedsim_smpsimple_SOURCES += smp_stub.c
+schedsim_smpsimple_SOURCES += wrap_thread_dispatch.c
+schedsim_smpsimple_SOURCES += schedsim.cc
 
 cpukitdir=@rtems_srcdir@/cpukit
 schedsim_smpsimple_CPPFLAGS  = -I$(top_builddir)/score/include

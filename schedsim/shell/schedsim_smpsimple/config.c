@@ -1,5 +1,7 @@
-/*
+/**
+ * @file
  *
+ * Configuration file for Scheduler Simulator using Simple Priority SMP
  */
 
 #include <rtems.h>
