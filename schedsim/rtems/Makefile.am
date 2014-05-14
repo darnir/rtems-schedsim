@@ -251,7 +251,11 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/debugisthreaddispatchingallowed.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerdefaultgetaffinity.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerdefaultsetaffinity.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersmpvalidstatechanges.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulergetaffinity.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityaffinitysmp.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersetaffinity.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/cpuset.c
+
 endif
 
 schedsim_includedir = $(includedir)/schedsim

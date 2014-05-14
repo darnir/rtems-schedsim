@@ -188,5 +188,6 @@ shell/shared/Makefile
 shell/schedsim_priority/Makefile
 shell/schedsim_smpsimple/Makefile
 shell/schedsim_smppriority/Makefile
+shell/schedsim_smppriority_affinity/Makefile
 ])
 AC_OUTPUT
