@@ -255,7 +255,8 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/schedulergetaffinity.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityaffinitysmp.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersetaffinity.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/cpuset.c
-
+librtems_a_SOURCES += $(cpukitdir)/rtems/src/taskgetaffinity.c
+librtems_a_SOURCES += $(cpukitdir)/rtems/src/tasksetaffinity.c
 endif
 
 schedsim_includedir = $(includedir)/schedsim
