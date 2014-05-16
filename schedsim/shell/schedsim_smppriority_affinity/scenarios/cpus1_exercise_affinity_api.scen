@@ -1,0 +1,12 @@
+#
+#  Verify that affinity on 1 core
+#
+rtems_init 1
+
+# GOAL: 0x0a010001 with affinity
+echo "=== Create and start 0x0a010001 ==="
+task_create TA1 3 -a 1
+
+# GOAL: 0x0a010001 is now heir and executing on CPU 0
+cpus
+
