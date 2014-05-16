@@ -13,6 +13,9 @@
 #include "config.h"
 #endif
 
+#define _GNU_SOURCE
+#include <sys/cpuset.h>
+
 #include <stdio.h>
 
 #define __need_getopt_newlib
@@ -48,6 +51,7 @@ int rtems_shell_main_task_create(
   char *argv[]
 )
 {
+  char              *c_p;
   char               name[5];
   rtems_id           id;
   rtems_status_code  status;
@@ -57,14 +61,30 @@ int rtems_shell_main_task_create(
   struct getopt_data getopt_reent;
   char               option;
   int                arg;
+  unsigned long      affinity;
+  cpu_set_t          cpuset;
+  bool               do_affinity;
 
   CHECK_RTEMS_IS_UP();
 
   mode = 0;
   mask = 0;
+  do_affinity = false;
   memset(&getopt_reent, 0, sizeof(getopt_data));
-  while ( (option = getopt_r( argc, argv, "tTpP", &getopt_reent)) != -1 ) {
+  while ( (option = getopt_r( argc, argv, "a:tTpP", &getopt_reent)) != -1 ) {
     switch (option) {
+      case 'a':
+        c_p = getopt_reent.optarg;
+        if ( rtems_string_to_unsigned_long( c_p, &affinity, NULL, 0) ) {
+          fprintf( stderr, "Affinity (%s) is not a number\n", argv[2] );
+          return 1;
+        }
+        do_affinity = true;
+
+	CPU_ZERO( &cpuset );
+	cpuset.__bits[0] = affinity;
+        break;
+
       case 't':
         mask |= RTEMS_TIMESLICE_MASK;
         mode  = (mode & ~RTEMS_TIMESLICE_MASK) | RTEMS_NO_TIMESLICE;
@@ -93,13 +113,13 @@ int rtems_shell_main_task_create(
    *  Rest of arguments
    */
   arg = getopt_reent.optind;
-  if ((argc - arg) != 2) {
-    fprintf( stderr, "%s: Usage [args] name priority\n", argv[0] );
+  if ( ((argc - arg) != 2) && ((argc - arg) != 4) ){
+    fprintf( stderr, "%s: Usage [args] name priority -a affinity\n", argv[0] );
     return -1;
   }
 
   if ( rtems_string_to_long(argv[arg+1], &priority, NULL, 0) ) {
-    printf( "Seconds argument (%s) is not a number\n", argv[1] );
+    printf( "Priority argument (%s) is not a number\n", argv[1] );
     return -1;
   }
 
@@ -134,6 +154,29 @@ int rtems_shell_main_task_create(
     priority
   );
 
+  /*
+   * If specified, set the affinity
+   */
+  if ( do_affinity ) {
+    status = rtems_task_set_affinity( id, sizeof(cpuset), &cpuset );
+    if ( status != RTEMS_SUCCESSFUL ) {
+      fprintf(
+	stderr,
+	"Task Set Affinity(0x%08x) returned %s\n"
+        "Deleting task 0x%08x\n",
+	affinity,
+	rtems_status_text( status ),
+        id
+      );
+      rtems_task_delete( id );
+      return -1;
+    }
+    printf("Task (0x%08x) Set affinity=0x%08x\n", id, cpuset.__bits[0] );
+  }
+
+  /*
+   * Starting the task
+   */
   printf(
     "Task (%s) starting: id=0x%08x, priority=%ld\n",
     name,
