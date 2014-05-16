@@ -33,15 +33,15 @@ int rtems_shell_main_rtems_init(
 )
 {
 #if defined(RTEMS_SMP)
-  long cpus;
+  long cpus = 1;
 
   if ( argc >= 2 ) {
     if ( rtems_string_to_long(argv[1], &cpus, NULL, 0) ) {
       printf( "Number of CPUs argument (%s) is not a number\n", argv[1] );
       return -1;
     }
-    Schedsim_Maximum_CPUs_From_Command_Line = cpus;
   }
+  Schedsim_Maximum_CPUs_From_Command_Line = cpus;
 #endif
 
   //
