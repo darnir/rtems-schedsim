@@ -49,7 +49,7 @@ int rtems_shell_main_task_set_affinity(
     return -1;
 
   if ( rtems_string_to_unsigned_long( argv[2], &tmp, NULL, 0) ) {
-    fprintf( stderr, "Argument (%s) is not a number\n", argv[2] );
+    fprintf( stderr, "Affinity (%s) is not a number\n", argv[2] );
     return 1;
   }
 
