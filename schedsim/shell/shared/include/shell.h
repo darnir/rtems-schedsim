@@ -45,6 +45,13 @@ rtems_shell_cmd_t * rtems_shell_alias_cmd(
   const char *alias
 );
 
+rtems_shell_cmd_t * rtems_shell_add_cmd(
+  const char            *name,
+  const char            *topic,
+  const char            *usage,
+  rtems_shell_command_t  command
+);
+
 int rtems_shell_make_args(
   char  *commandLine,
   int   *argc_p,
