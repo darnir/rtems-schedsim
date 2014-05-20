@@ -19,6 +19,7 @@
 #include <rtems.h>
 #include <rtems/score/percpu.h>
 #include <rtems/score/schedulerpriority.h>
+#include <rtems/stringto.h>
 
 extern uint32_t Schedsim_Current_cpu;
 

@@ -20,6 +20,7 @@
 #include <rtems/score/percpu.h>
 #include <rtems/score/smp.h>
 #include <rtems/score/schedulersimplesmp.h>
+#include <rtems/score/threaddispatch.h>
 
 extern uint32_t Schedsim_Current_cpu;
 
