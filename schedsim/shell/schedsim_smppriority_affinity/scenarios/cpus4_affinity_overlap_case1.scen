@@ -1,5 +1,7 @@
 #
-#  
+# Create 2 sets of threads one that can run on cpus
+# {0,1} the others can run on cpus {1,2,3}.  Then
+# swap the affinity of the two sets
 #
 rtems_init 4
 task_create smp1 4 -a 0x0e

@@ -1,0 +1,20 @@
+#
+# Create a second task that is lower priority than
+# the first but wants to run on the cpu the first
+# task was assigned to.
+#
+rtems_init 2
+task_create smp1 3 
+# GOAL: 0x09010001, 0x0a010001
+# GOAL:   on CPUs 0-1 respectively
+cpus IDLE smp1
+
+task_create smp2 4 -a 2
+# GOAL: 0x09010001, 0x0a010001
+# GOAL:   on CPUs 0 -1 respectively
+cpus IDLE smp1
+
+dispatch
+# GOAL: 0x09010001, 0x0a010001
+# GOAL:   on CPUs 0 -1 respectively
+cpus IDLE smp1

@@ -19,9 +19,9 @@ Task (TA1) starting: id=0x0a010001, priority=3
   CPU 0: Thread Executing 0x0a010001 priority=3
 ==> 9: 
 ==> 10: # GOAL: 0x0a010001 is now heir and executing on CPU 0
-==> 11: cpus
+==> 11: cpus TA1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010001 @  3 / 0x0a010001 @  3          false
 === End of Ready Set of Threads
-==> 12: 
+*** ERROR in scenario -- unknown task TA1

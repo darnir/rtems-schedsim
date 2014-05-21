@@ -1,0 +1,85 @@
+Script File               : scenarios/cpus4_affinity_priority_case3.scen
+verbose                   : 1
+==> 1: #
+==> 2: #  Exercise priority and affinity.
+==> 3: #  priorities such that finding an heir requires scanning the
+==> 4: #  ready set of threads.
+==> 5: #
+==> 6: rtems_init 4
+  CPU 0: Thread Heir 0x09010001 priority=255
+  CPU 0: Thread Executing 0x09010001 priority=255
+  CPU 1: Thread Heir 0x09010002 priority=255
+  CPU 1: Thread Executing 0x09010002 priority=255
+  CPU 2: Thread Heir 0x09010003 priority=255
+  CPU 2: Thread Executing 0x09010003 priority=255
+  CPU 3: Thread Heir 0x09010004 priority=255
+  CPU 3: Thread Executing 0x09010004 priority=255
+==> 7: task_create smp1 10
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp1) created: id=0x0a010001, priority=10
+Task (smp1) starting: id=0x0a010001, priority=10
+  CPU 3: Thread Heir 0x0a010001 priority=10
+  CPU 3: Thread Executing 0x0a010001 priority=10
+==> 8: task_create smp2 10
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp2) created: id=0x0a010002, priority=10
+Task (smp2) starting: id=0x0a010002, priority=10
+  CPU 2: Thread Heir 0x0a010002 priority=10
+  CPU 2: Thread Executing 0x0a010002 priority=10
+==> 9: task_create smp3 10
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp3) created: id=0x0a010003, priority=10
+Task (smp3) starting: id=0x0a010003, priority=10
+  CPU 1: Thread Heir 0x0a010003 priority=10
+  CPU 1: Thread Executing 0x0a010003 priority=10
+==> 10: task_create smp4 12
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp4) created: id=0x0a010004, priority=12
+Task (smp4) starting: id=0x0a010004, priority=12
+  CPU 0: Thread Heir 0x0a010004 priority=12
+  CPU 0: Thread Executing 0x0a010004 priority=12
+==> 11: task_create smp5 10
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp5) created: id=0x0a010005, priority=10
+Task (smp5) starting: id=0x0a010005, priority=10
+  CPU 0: Thread Heir 0x0a010005 priority=10
+  CPU 0: Thread Executing 0x0a010005 priority=10
+==> 12: # GOAL: Cores 0-3 should be 0x0a01000[5321] respectively
+==> 13: cpus smp5 smp3 smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010005 @ 10 / 0x0a010005 @ 10          false
+  CPU 1: 0x0a010003 @ 10 / 0x0a010003 @ 10          false
+  CPU 2: 0x0a010002 @ 10 / 0x0a010002 @ 10          false
+  CPU 3: 0x0a010001 @ 10 / 0x0a010001 @ 10          false
+=== End of Ready Set of Threads
+==> 14: 
+==> 15: # GOAL: No change - pri is too low to run 
+==> 16: task_create pri1 -a 0x2 11
+Creating task with:  Preemption: yes Timeslicing: no
+Task (pri1) created: id=0x0a010006, priority=11
+Task (0x0a010006) Set affinity=0x00000002
+Task (pri1) starting: id=0x0a010006, priority=11
+==> 17: cpus smp5 smp3 smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010005 @ 10 / 0x0a010005 @ 10          false
+  CPU 1: 0x0a010003 @ 10 / 0x0a010003 @ 10          false
+  CPU 2: 0x0a010002 @ 10 / 0x0a010002 @ 10          false
+  CPU 3: 0x0a010001 @ 10 / 0x0a010001 @ 10          false
+=== End of Ready Set of Threads
+==> 18: 
+==> 19: # GOAL: pri1 should preempt smp3 on core 1
+==> 20: # GOAL: Cores 0-3 should be 0x0a01000[5621] respectively
+==> 21: task_priority pri1 9
+  CPU 1: Thread Heir 0x0a010006 priority=9
+  CPU 1: Thread Executing 0x0a010006 priority=9
+Task (0x0a010006) Change Priority from 11 to 9
+==> 22: cpus smp5 pri1 smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010005 @ 10 / 0x0a010005 @ 10          false
+  CPU 1: 0x0a010006 @  9 / 0x0a010006 @  9          false
+  CPU 2: 0x0a010002 @ 10 / 0x0a010002 @ 10          false
+  CPU 3: 0x0a010001 @ 10 / 0x0a010001 @ 10          false
+=== End of Ready Set of Threads

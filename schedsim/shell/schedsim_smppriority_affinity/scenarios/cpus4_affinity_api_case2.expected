@@ -1,0 +1,82 @@
+Script File               : scenarios/cpus4_affinity_api_case2.scen
+verbose                   : 1
+==> 1: #
+==> 2: #  Verify that affinity APIs work with the right values
+==> 3: #
+==> 4: #  This scenario does **NOT** change the affinity of any thread
+==> 5: #  which ever executes.
+==> 6: #
+==> 7: rtems_init 4
+  CPU 0: Thread Heir 0x09010001 priority=255
+  CPU 0: Thread Executing 0x09010001 priority=255
+  CPU 1: Thread Heir 0x09010002 priority=255
+  CPU 1: Thread Executing 0x09010002 priority=255
+  CPU 2: Thread Heir 0x09010003 priority=255
+  CPU 2: Thread Executing 0x09010003 priority=255
+  CPU 3: Thread Heir 0x09010004 priority=255
+  CPU 3: Thread Executing 0x09010004 priority=255
+==> 8: task_create smp1 5
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp1) created: id=0x0a010001, priority=5
+Task (smp1) starting: id=0x0a010001, priority=5
+  CPU 3: Thread Heir 0x0a010001 priority=5
+  CPU 3: Thread Executing 0x0a010001 priority=5
+==> 9: task_create smp2 6
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp2) created: id=0x0a010002, priority=6
+Task (smp2) starting: id=0x0a010002, priority=6
+  CPU 2: Thread Heir 0x0a010002 priority=6
+  CPU 2: Thread Executing 0x0a010002 priority=6
+==> 10: task_create smp3 6
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp3) created: id=0x0a010003, priority=6
+Task (smp3) starting: id=0x0a010003, priority=6
+  CPU 1: Thread Heir 0x0a010003 priority=6
+  CPU 1: Thread Executing 0x0a010003 priority=6
+==> 11: task_create smp4 5
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp4) created: id=0x0a010004, priority=5
+Task (smp4) starting: id=0x0a010004, priority=5
+  CPU 0: Thread Heir 0x0a010004 priority=5
+  CPU 0: Thread Executing 0x0a010004 priority=5
+==> 12: task_create smp5 6
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp5) created: id=0x0a010005, priority=6
+Task (smp5) starting: id=0x0a010005, priority=6
+==> 13: dispatch
+==> 14: # GOAL: Tasks 0x0a01000[4321] as heir and executing on CPUs 0 - 3 respectively
+==> 15: # GOAL: smp5 has too low priority to run
+==> 16: cpus smp4 smp3 smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010004 @  5 / 0x0a010004 @  5          false
+  CPU 1: 0x0a010003 @  6 / 0x0a010003 @  6          false
+  CPU 2: 0x0a010002 @  6 / 0x0a010002 @  6          false
+  CPU 3: 0x0a010001 @  5 / 0x0a010001 @  5          false
+=== End of Ready Set of Threads
+==> 17: 
+==> 18: # GOAL: This should work OK and change the affinity
+==> 19: # GOAL: Internally, smp5 should be selected as heir for CPU 3 while
+==> 20: # GOAL: smp1 is in migrate state. When the migrate state is cleared
+==> 21: # GOAL: at the end of set affinity, smp1 will end up on CPU 1.
+==> 22: #
+==> 23: # NOTE: On a scheduler without SMP, smp1 will be on CPU 3
+==> 24: task_get_affinity smp1
+Task (0x0a010001) Get affinity=0x0000000f
+==> 25: task_set_affinity smp1 0x02
+  CPU 1: Thread Heir 0x0a010001 priority=5
+  CPU 1: Thread Executing 0x0a010001 priority=5
+  CPU 3: Thread Heir 0x0a010005 priority=6
+  CPU 3: Thread Executing 0x0a010005 priority=6
+Task (0x0a010001) Set affinity=0x00000002
+==> 26: task_get_affinity smp1
+Task (0x0a010001) Get affinity=0x00000002
+==> 27: 
+==> 28: cpus smp4 smp1 smp2 smp5
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010004 @  5 / 0x0a010004 @  5          false
+  CPU 1: 0x0a010001 @  5 / 0x0a010001 @  5          false
+  CPU 2: 0x0a010002 @  6 / 0x0a010002 @  6          false
+  CPU 3: 0x0a010005 @  6 / 0x0a010005 @  6          false
+=== End of Ready Set of Threads

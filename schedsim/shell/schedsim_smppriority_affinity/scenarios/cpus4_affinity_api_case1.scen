@@ -13,7 +13,7 @@ task_create smp5 10
 dispatch
 # GOAL: Tasks 0x0a010001 - 0x0a010004 as heir and executing
 # GOAL:    on CPUs 1 - 4 respectively
-cpus
+cpus smp4 smp3 smp2 smp1
 
 # GOAL: These should work OK and change the affinity
 task_get_affinity smp5

@@ -1,0 +1,28 @@
+#
+#  Verify that affinity APIs work with the right values
+#
+#  This scenario does **NOT** change the affinity of any thread
+#  which ever executes.
+#
+rtems_init 4
+task_create smp1 5
+task_create smp2 6
+task_create smp3 6
+task_create smp4 5
+task_create smp5 6
+dispatch
+# GOAL: Tasks 0x0a01000[4321] as heir and executing on CPUs 0 - 3 respectively
+# GOAL: smp5 has too low priority to run
+cpus smp4 smp3 smp2 smp1
+
+# GOAL: This should work OK and change the affinity
+# GOAL: Internally, smp5 should be selected as heir for CPU 3 while
+# GOAL: smp1 is in migrate state. When the migrate state is cleared
+# GOAL: at the end of set affinity, smp1 will end up on CPU 1.
+#
+# NOTE: On a scheduler without SMP, smp1 will be on CPU 3
+task_get_affinity smp1
+task_set_affinity smp1 0x02
+task_get_affinity smp1
+
+cpus smp4 smp1 smp2 smp5

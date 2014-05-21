@@ -1,0 +1,53 @@
+Script File               : scenarios/cpus2_affinity_migrate_case1.scen
+verbose                   : 1
+==> 1: #
+==> 2: # Create a second task that forces and existing
+==> 3: # task to migrate CPUs at start. 
+==> 4: #
+==> 5: rtems_init 2
+  CPU 0: Thread Heir 0x09010001 priority=255
+  CPU 0: Thread Executing 0x09010001 priority=255
+  CPU 1: Thread Heir 0x09010002 priority=255
+  CPU 1: Thread Executing 0x09010002 priority=255
+==> 6: task_create smp1 3 
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp1) created: id=0x0a010001, priority=3
+Task (smp1) starting: id=0x0a010001, priority=3
+  CPU 1: Thread Heir 0x0a010001 priority=3
+  CPU 1: Thread Executing 0x0a010001 priority=3
+==> 7: # GOAL: 0x09010001, 0x0a010001
+==> 8: # GOAL:   on CPUs 0-1 respectively
+==> 9: cpus IDLE smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x09010001 @255 / 0x09010001 @255          false
+  CPU 1: 0x0a010001 @  3 / 0x0a010001 @  3          false
+=== End of Ready Set of Threads
+==> 10: 
+==> 11: task_create smp2 2 -a 2
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp2) created: id=0x0a010002, priority=2
+Task (0x0a010002) Set affinity=0x00000002
+Task (smp2) starting: id=0x0a010002, priority=2
+  CPU 0: Thread Heir 0x0a010001 priority=3
+  CPU 0: Thread Executing 0x0a010001 priority=3
+  CPU 1: Thread Heir 0x0a010002 priority=2
+  CPU 1: Thread Executing 0x0a010002 priority=2
+==> 12: # GOAL: want 0x09010001, 0x0a010002 as heir and executings
+==> 13: # GOAL:   on CPUs 0 -1 respectively
+==> 14: cpus smp1 smp2
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010001 @  3 / 0x0a010001 @  3          false
+  CPU 1: 0x0a010002 @  2 / 0x0a010002 @  2          false
+=== End of Ready Set of Threads
+==> 15: 
+==> 16: dispatch
+==> 17: # GOAL: want 0x0a010001 - 0x0a010002 as heir and executings
+==> 18: # GOAL:   on CPUs 0 -1 respectively
+==> 19: cpus smp1 smp2
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010001 @  3 / 0x0a010001 @  3          false
+  CPU 1: 0x0a010002 @  2 / 0x0a010002 @  2          false
+=== End of Ready Set of Threads

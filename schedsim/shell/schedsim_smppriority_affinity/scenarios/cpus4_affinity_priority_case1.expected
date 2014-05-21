@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus4_priority_case2.scen
+Script File               : scenarios/cpus4_affinity_priority_case1.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: #  Ensure lowest priority is preempted
@@ -36,13 +36,14 @@ Task (smp4) created: id=0x0a010004, priority=6
 Task (smp4) starting: id=0x0a010004, priority=6
   CPU 0: Thread Heir 0x0a010004 priority=6
   CPU 0: Thread Executing 0x0a010004 priority=6
-==> 9: task_create smp5 9 
+==> 9: task_create smp5 9
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp5) created: id=0x0a010005, priority=9
 Task (smp5) starting: id=0x0a010005, priority=9
-==> 10: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
-==> 11: # GOAL:   on CPUs 3-0 respectively
-==> 12: cpus
+==> 10: 
+==> 11: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
+==> 12: # GOAL:   on CPUs 3-0 respectively
+==> 13: cpus smp4 smp3 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010004 @  6 / 0x0a010004 @  6          false
@@ -50,13 +51,14 @@ Task (smp5) starting: id=0x0a010005, priority=9
   CPU 2: 0x0a010002 @  8 / 0x0a010002 @  8          false
   CPU 3: 0x0a010001 @  7 / 0x0a010001 @  7          false
 === End of Ready Set of Threads
-==> 13: 
-==> 14: # Tasks are created and distributed across CPUs
-==> 15: task_set_affinity smp5 0x02
-Task (0x0a010005) Set affinity=0x00000002
-==> 16: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
-==> 17: # GOAL:   on CPUs 3-0 respectively
-==> 18: cpus
+==> 14: 
+==> 15: # Tasks are created and distributed across CPUs
+==> 16: task_set_affinity smp5 0x01
+Task (0x0a010005) Set affinity=0x00000001
+==> 17: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
+==> 18: # GOAL:   on CPUs 3-0 respectively
+==> 19: # PRI: 6    5    8   7
+==> 20: cpus smp4 smp3 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010004 @  6 / 0x0a010004 @  6          false
@@ -64,16 +66,21 @@ Task (0x0a010005) Set affinity=0x00000002
   CPU 2: 0x0a010002 @  8 / 0x0a010002 @  8          false
   CPU 3: 0x0a010001 @  7 / 0x0a010001 @  7          false
 === End of Ready Set of Threads
-==> 19: 
-==> 20: task_priority smp5 6
-Task (0x0a010005) Change Priority from 9 to 6
-==> 21: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
-==> 22: # GOAL:   on CPUs 3-0 respectively
-==> 23: cpus
+==> 21: 
+==> 22: task_priority smp5 5
+  CPU 0: Thread Heir 0x0a010005 priority=5
+  CPU 0: Thread Executing 0x0a010005 priority=5
+  CPU 2: Thread Heir 0x0a010004 priority=6
+  CPU 2: Thread Executing 0x0a010004 priority=6
+Task (0x0a010005) Change Priority from 9 to 5
+==> 23: # GOAL: want 0x0a010005, 0x0a010003, 0x0a010004, 0x0a010001
+==> 24: # GOAL:   to be heir AND executing on CPU 0-3 respectively
+==> 25: # PRI: 5    5    6   7
+==> 26: cpus smp5 smp3 smp4 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
-  CPU 0: 0x0a010004 @  6 / 0x0a010004 @  6          false
+  CPU 0: 0x0a010005 @  5 / 0x0a010005 @  5          false
   CPU 1: 0x0a010003 @  5 / 0x0a010003 @  5          false
-  CPU 2: 0x0a010002 @  8 / 0x0a010002 @  8          false
+  CPU 2: 0x0a010004 @  6 / 0x0a010004 @  6          false
   CPU 3: 0x0a010001 @  7 / 0x0a010001 @  7          false
 === End of Ready Set of Threads

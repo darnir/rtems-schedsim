@@ -10,15 +10,17 @@ task_create smp5 9
 
 # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
 # GOAL:   on CPUs 3-0 respectively
-cpus
+cpus smp4 smp3 smp2 smp1
 
 # Tasks are created and distributed across CPUs
 task_set_affinity smp5 0x01
 # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
 # GOAL:   on CPUs 3-0 respectively
-cpus
+# PRI: 6    5    8   7
+cpus smp4 smp3 smp2 smp1
 
 task_priority smp5 5
 # GOAL: want 0x0a010005, 0x0a010003, 0x0a010004, 0x0a010001
 # GOAL:   to be heir AND executing on CPU 0-3 respectively
-cpus
+# PRI: 5    5    6   7
+cpus smp5 smp3 smp4 smp1
