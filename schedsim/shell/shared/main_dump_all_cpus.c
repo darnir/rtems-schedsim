@@ -65,9 +65,6 @@ int main_dump_all_cpus(int argc, char **argv)
     if ( argv[cpu + 1][ 0 ] == '-' )
       continue;
 
-    if ( lookup_task( argv[cpu + 1], &id ) )
-      return -1;
-
     if ( !strcmp( argv[cpu + 1], "IDLE" )) {
       /* XXX should do something cleaner for the ID mask */
       if ( (e->Object.id & 0xFFFF0000) != 0x09010000 ) {
