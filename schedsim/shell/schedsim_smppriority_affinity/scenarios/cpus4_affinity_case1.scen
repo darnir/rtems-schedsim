@@ -2,31 +2,41 @@
 #  
 #
 rtems_init 4
-task_create smp1 4 -a 0xe
-task_create smp2 4 -a 0xe
-task_create smp3 4 -a 0x3
-task_create smp4 4 -a 0x3
+task_create smp1 4 -a 0x0e
+task_create smp2 4 -a 0x0e
+task_create smp3 4 -a 0x03
+task_create smp4 4 -a 0x03
 
+# EXECUTING: {smp1 smp2 smp3 smp4}
+# READY:     {IDLE IDLE IDLE IDLE}
 # GOAL: want 0x0a010004 - 0x0a010001 as heir and executings
 # GOAL:   on CPUs 0 -3 respectively
-cpus
+cpus smp4 smp3 smp2 smp1
 
 task_set_affinity smp1 0x03
-# GOAL: want 0x0a010004, 0x0a010001, 0x0a010002,0x09010001
+# EXECUTING: {smp2 smp3 smp4 IDLE}
+# READY:     {smp1 IDLE IDLE IDLE}
+# GOAL: want 0x0a010004, 0x0a010003, 0x0a010002,0x09010001
 # GOAL:   as heir and executings on CPUs 0-3 respectively
-cpus
+cpus smp4 smp3 smp2 IDLE
 
 task_set_affinity smp2 0x03
-# GOAL: want 0x0a010004, 0x0a010002, 0x00910002,0x09010001
+# EXECUTING: {smp3 smp4 IDLE IDLE}
+# READY:     {smp1 smp2 IDLE IDLE}
+# GOAL: want 0x0a010004, 0x0a010003, 0x00910002,0x09010001
 # GOAL:   as heir and executings on CPUs 0-3 respectively
-cpus
+cpus smp4 smp3 IDLE IDLE
 
 task_set_affinity smp3 0x0e
-# GOAL: want 0x0a010004, 0x0a010002, 0x09010002,0x0a010003
+# EXECUTING: {smp4 smp2 smp3 IDLE}
+# READY:     {smp1 smp2 IDLE IDLE}
+# GOAL: want 0x0a010004, 0x0a010002, 0x0a010003,0x09010001
 # GOAL:   as heir and executings on CPUs 0-3 respectively
-cpus
+cpus smp4 smp2 smp3 IDLE
 
 task_set_affinity smp4 0x0e
-# GOAL: want 0x0a010004, 0x0a010002, 0x0a010004,0x0a010003
+# EXECUTING: {smp4 smp2 smp3 smp1}
+# READY:     {IDLE IDLE IDLE IDLE}
+# GOAL: want 0x0a010001, 0x0a010002, 0x0a010003,0x0a010004
 # GOAL:   as heir and executings on CPUs 0-3 respectively
-cpus
+cpus smp1 smp2 smp3 smp4
