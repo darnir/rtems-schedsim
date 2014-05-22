@@ -23,6 +23,7 @@
 #endif
 #ifndef RTEMS_IDENT_NAME
   #define RTEMS_IDENT_NAME rtems_task_ident
+  #define DOING_TASKS
 #endif
 
 int METHOD_NAME(
@@ -35,9 +36,14 @@ int METHOD_NAME(
   unsigned long      tmp;
 
   if ( string[0] != '0' ) {
-    if ( !strcmp( string, "SELF" ) ) {
-      *id = _Thread_Executing->Object.id;
-      return 0;
+    #ifdef DOING_TASKS
+      if ( !strcmp( string, "SELF" ) ) {
+        *id = _Thread_Executing->Object.id;
+        return 0;
+      }
+    #endif
+    if ( strlen( string ) != 4 ) {
+      return -1;
     }
     memset( name, '\0', sizeof(name) );
     strncpy( name, string, 4 );
