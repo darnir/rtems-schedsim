@@ -39,6 +39,8 @@ extern "C" {
 
 #include <rtems/score/no_cpu.h>            /* pick up machine definitions */
 #ifndef ASM
+/* only on simulator - included in different ways on real RTEMS */
+#include <sys/cpuset.h>
 #include <rtems/score/types.h>
 #endif
 
