@@ -8,7 +8,7 @@ Using the RTEMS Scheduler Simulator
 
 Joel Sherrill <joel.sherrill@oarcorp.com>
 
-1.0, 5 May 2013
+1.1, 22 May 2014
 
 Introduction
 ------------
@@ -162,11 +162,25 @@ This command initializes RTEMS using the configuration provided.
 
 task_create Command
 ^^^^^^^^^^^^^^^^^^^
-*Usage*: task_create name priority
+*Usage*: task_create [-tT] [-pP] [-a affinity] name priority
 
 This command creates and starts a Classic API task with the specified name
 and initial priority. It also starts the task.  This is the equivalent
 of the rtems_task_create and rtems_task_start Classic API directives.
+
+In SMP configurations, the -a argument can be used to specify the
+affinity of the created task if the default affinity is not desired.
+In this case, rtems_task_set_affinity is invoked between the calls
+to rtems_task_create and rtems_task_start Classic API directives.
+
+The command line arguments are processed as follows:
+
+* -t - disable timeslicing
+* -T - enable timeslicing
+* -p - disable preemption
+* -p - enable preemption
+* -a affinity - specify affinity mask
+
 The following is the output from the invocation 'task_create joel 5':
 
 -------------------------------------------------------------
@@ -249,6 +263,22 @@ This command is used to cause the currently executing task to sleep
 for the specified number of ticks.  It is the equivalent of the
 rtems_task_wake_after directive in the Classic API.
 
+task_get_affinity Command
+^^^^^^^^^^^^^^^^^^^^^^^^^
+*Usage*: task_get_affinity task
+
+This command is used to print the affinity of the specified task.
+It is the equivalent of the rtems_task_get_affinity directive 
+in the Classic API.
+
+task_set_affinity Command
+^^^^^^^^^^^^^^^^^^^^^^^^^
+*Usage*: task_set_affinity task affinity
+
+This command is used to modify the affinity of the specified task.
+It is the equivalent of the rtems_task_set_affinity directive 
+in the Classic API.
+
 clock_tick Command
 ^^^^^^^^^^^^^^^^^^
 *Usage*: clock_tick ticks
@@ -307,6 +337,19 @@ This method causes the currently executing thread to flush the specified
 semaphore.  It is the equivalent of the rtems_semaphore_flush directive
 in the Classic API.
 
+
+cpus Command
+^^^^^^^^^^^^
+*Usage*: cpus [expected0 .. expectedn]
+
+This method prints the executing and heir thread for each processor
+in the system. If provided with arguments, the argumnents may be
+task names or ids and indicate the task which is expected to be
+executing on that processor. If the expected task name/id is '-',
+then that processor is not checked.
+
+In the event that the executing thread does not match the expected,
+the scenario is aborted. This allows for self-checking scenarios.
 
 executing Command
 ^^^^^^^^^^^^^^^^^

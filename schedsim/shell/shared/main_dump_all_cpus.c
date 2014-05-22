@@ -15,8 +15,8 @@
 
 #include "shell.h"
 #include "rtems_sched.h"
+#include "schedsim_shell.h"
 
-// #define __RTEMS_VIOLATE_KERNEL_VISIBILITY__
 #include <rtems.h>
 #include <rtems/score/percpu.h>
 #include <rtems/score/smp.h>
@@ -28,12 +28,14 @@ int main_dump_all_cpus(int argc, char **argv)
   Thread_Control *h;
   Thread_Control *i;
   Thread_Control *e;
+  rtems_id        id;
+  bool            mismatch;
 
   printf(
     "=== CPU Status\n"
     "          EXECUTING      /   HEIR             / SWITCH NEEDED\n"
   );
-  for ( cpu=0 ; cpu < _SMP_Processor_count ; cpu++ ) {
+  for ( cpu=0 ; cpu < rtems_get_processor_count() ; cpu++ ) {
     e = _Per_CPU_Information[cpu].per_cpu.executing;
     h = _Per_CPU_Information[cpu].per_cpu.heir;
     printf(
@@ -47,5 +49,48 @@ int main_dump_all_cpus(int argc, char **argv)
   }
   printf( "=== End of Ready Set of Threads\n" );
 
+  /*
+   * If no arguments, then we were not requested to verify task placement.
+   */
+  if ( argc == 1 )
+    return 0;
+
+  /*
+   * Now verify the thread on each processor. 
+   */
+  mismatch = false;
+  for ( cpu=0 ; cpu < rtems_get_processor_count() ; cpu++ ) {
+    e = _Per_CPU_Information[cpu].per_cpu.executing;
+
+    if ( argv[cpu + 1][ 0 ] == '-' )
+      continue;
+
+    if ( lookup_task( argv[cpu + 1], &id ) )
+      return -1;
+
+    if ( e->Object.id != id ) {
+      mismatch = true;
+      printf(
+        "*** ERROR on CPU %d Expected 0x%08x found 0x%08x executing\n",
+        cpu,
+        id,
+        e->Object.id
+      );
+    }
+  }
+  if ( mismatch ) {
+    printf( "Exiting test scenario due to scheduling failure\n" );
+    exit( 1 );
+  }
+
   return 0;
 }
+
+rtems_shell_cmd_t rtems_shell_CPUS_Command = {
+  "cpus",                           /* name */
+  "cpus [tasks expected on cores]", /* usage */
+  "rtems",                          /* topic */
+  main_dump_all_cpus,              /* command */
+  NULL,                             /* alias */
+  NULL                              /* next */
+};

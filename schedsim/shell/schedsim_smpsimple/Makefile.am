@@ -4,7 +4,6 @@ schedsim_smpsimple_SOURCES += add_commands.c
 schedsim_smpsimple_SOURCES += config.c
 schedsim_smpsimple_SOURCES += main_current_cpu.c
 schedsim_smpsimple_SOURCES += main_dispatch.c
-schedsim_smpsimple_SOURCES += main_dump_all_cpus.c
 schedsim_smpsimple_SOURCES += main_dump_ready_tasks.c
 schedsim_smpsimple_SOURCES += printheir_executing.c
 schedsim_smpsimple_SOURCES += smp_stub.c

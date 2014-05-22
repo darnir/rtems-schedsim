@@ -175,6 +175,7 @@ librtems_a_SOURCES += $(cpukitdir)/rtems/src/clocksetnsecshandler.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/clocktick.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/clocktodtoseconds.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/clocktodvalidate.c
+librtems_a_SOURCES += $(cpukitdir)/rtems/src/getprocessorcount.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/sem.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/semcreate.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/semdata.c

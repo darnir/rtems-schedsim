@@ -13,8 +13,10 @@
 #include "config.h"
 #endif
 
+#if defined(RTEMS_SMP)
 #define _GNU_SOURCE
 #include <sys/cpuset.h>
+#endif
 
 #include <stdio.h>
 
@@ -62,18 +64,20 @@ int rtems_shell_main_task_create(
   char               option;
   int                arg;
   unsigned long      affinity;
+#if defined(RTEMS_SMP)
   cpu_set_t          cpuset;
-  bool               do_affinity;
+  bool               do_affinity = false;
+#endif
 
   CHECK_RTEMS_IS_UP();
 
   mode = 0;
   mask = 0;
-  do_affinity = false;
   memset(&getopt_reent, 0, sizeof(getopt_data));
   while ( (option = getopt_r( argc, argv, "a:tTpP", &getopt_reent)) != -1 ) {
     switch (option) {
       case 'a':
+#if defined(RTEMS_SMP)
         c_p = getopt_reent.optarg;
         if ( rtems_string_to_unsigned_long( c_p, &affinity, NULL, 0) ) {
           fprintf( stderr, "Affinity (%s) is not a number\n", argv[2] );
@@ -83,6 +87,9 @@ int rtems_shell_main_task_create(
 
 	CPU_ZERO( &cpuset );
 	cpuset.__bits[0] = affinity;
+#else
+        printf( "Ignoring affinity request on uniprocessor\n" );
+#endif
         break;
 
       case 't':
@@ -102,7 +109,7 @@ int rtems_shell_main_task_create(
         mode  = (mode & ~RTEMS_PREEMPT_MASK) | RTEMS_PREEMPT;
         break;
       default:
-        fprintf( stderr, "%s: Usage [-tTpP]\n", argv[0] );
+        fprintf( stderr, "%s: Usage [-a:tTpP]\n", argv[0] );
         return -1;
     }
   }
@@ -154,6 +161,7 @@ int rtems_shell_main_task_create(
     priority
   );
 
+#if defined(RTEMS_SMP)
   /*
    * If specified, set the affinity
    */
@@ -173,6 +181,7 @@ int rtems_shell_main_task_create(
     }
     printf("Task (0x%08x) Set affinity=0x%08x\n", id, cpuset.__bits[0] );
   }
+#endif
 
   /*
    * Starting the task

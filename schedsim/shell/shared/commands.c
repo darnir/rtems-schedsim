@@ -30,7 +30,6 @@ extern rtems_shell_cmd_t rtems_shell_TASK_WAKE_AFTER_Command;
 
 extern rtems_shell_cmd_t rtems_shell_CLOCK_TICK_Command;
 
-
 extern rtems_shell_cmd_t rtems_shell_SEMAPHORE_CREATE_Command;
 extern rtems_shell_cmd_t rtems_shell_SEMAPHORE_DELETE_Command;
 extern rtems_shell_cmd_t rtems_shell_SEMAPHORE_OBTAIN_Command;
@@ -39,6 +38,7 @@ extern rtems_shell_cmd_t rtems_shell_SEMAPHORE_FLUSH_Command;
 
 extern rtems_shell_cmd_t rtems_shell_TASK_EXECUTING_Command;
 extern rtems_shell_cmd_t rtems_shell_TASK_HEIR_Command;
+extern rtems_shell_cmd_t rtems_shell_CPUS_Command;
 
 rtems_shell_cmd_t *rtems_shell_Initial_commands[] = {
   /* Generic Commands */
@@ -70,6 +70,7 @@ rtems_shell_cmd_t *rtems_shell_Initial_commands[] = {
   /* RTEMS Helper Commands */
   &rtems_shell_TASK_EXECUTING_Command,
   &rtems_shell_TASK_HEIR_Command,
+  &rtems_shell_CPUS_Command,
   NULL
 };
 

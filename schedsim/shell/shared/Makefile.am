@@ -28,6 +28,7 @@ libschedsim_a_SOURCES += commands.c
 libschedsim_a_SOURCES += getopt.c
 libschedsim_a_SOURCES += lookup_semaphore.c
 libschedsim_a_SOURCES += lookup_task.c
+libschedsim_a_SOURCES += main_dump_all_cpus.c
 libschedsim_a_SOURCES += main_echo.c
 libschedsim_a_SOURCES += main_executing.c
 libschedsim_a_SOURCES += main_heir.c
