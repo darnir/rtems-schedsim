@@ -59,7 +59,7 @@ int main_dump_all_cpus(int argc, char **argv)
    * Now verify the thread on each processor. 
    */
   mismatch = false;
-  for ( cpu=0 ; cpu < rtems_get_processor_count() ; cpu++ ) {
+  for ( cpu=0 ; cpu < rtems_get_processor_count() && cpu < argc ; cpu++ ) {
     e = _Per_CPU_Information[cpu].per_cpu.executing;
 
     if ( argv[cpu + 1][ 0 ] == '-' )
@@ -68,14 +68,34 @@ int main_dump_all_cpus(int argc, char **argv)
     if ( lookup_task( argv[cpu + 1], &id ) )
       return -1;
 
-    if ( e->Object.id != id ) {
-      mismatch = true;
-      printf(
-        "*** ERROR on CPU %d Expected 0x%08x found 0x%08x executing\n",
-        cpu,
-        id,
-        e->Object.id
-      );
+    if ( !strcmp( argv[cpu + 1], "IDLE" )) {
+      /* XXX should do something cleaner for the ID mask */
+      if ( (e->Object.id & 0xFFFF0000) != 0x09010000 ) {
+        mismatch = true;
+        printf(
+          "*** ERROR on CPU %d Expected an IDLE found 0x%08x executing\n",
+          cpu,
+          e->Object.id
+        );
+      }
+    } else {
+      if ( lookup_task( argv[cpu + 1], &id ) ) {
+        printf(
+          "*** ERROR in scenario -- unknown task %s\n",
+           argv[cpu + 1]
+        );
+        exit( 1 );
+      }
+
+      if ( e->Object.id != id ) {
+        mismatch = true;
+        printf(
+          "*** ERROR on CPU %d Expected 0x%08x found 0x%08x executing\n",
+          cpu,
+          id,
+          e->Object.id
+        );
+      }
     }
   }
   if ( mismatch ) {
