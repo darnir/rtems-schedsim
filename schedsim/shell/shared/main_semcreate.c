@@ -101,20 +101,20 @@ int rtems_shell_main_semaphore_create(
     fprintf(
       stderr,
       "Semaphore create(%s) returned %s\n",
-      argv[1],
+      name,
       rtems_status_text( status )
     );
     return -1;
   }
 
-  printf( "Semaphore (%s) created: id=0x%08x\n", argv[1], id );
+  printf( "Semaphore (%s) created: id=0x%08x\n", name, id );
 
   return 0;
 }
 
 rtems_shell_cmd_t rtems_shell_SEMAPHORE_CREATE_Command = {
   "semaphore_create",                 /* name */
-  "semaphore_create name priority",   /* usage */
+  "semaphore_create name XXX",   /* usage */
   "rtems",                            /* topic */
   rtems_shell_main_semaphore_create,  /* command */
   NULL,                               /* alias */
