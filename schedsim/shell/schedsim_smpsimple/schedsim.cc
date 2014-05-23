@@ -48,6 +48,7 @@ void ProcessScript(
 )
 {
   char               buffer[512];
+  int                sc;
   char              *cStatus;
   char              *c;
   size_t             length;
@@ -79,7 +80,7 @@ void ProcessScript(
 
 
     if (!strcmp(c,"bye") || !strcmp(c,"exit")) {
-      return;
+      exit( 0 );
     } 
 
     if (rtems_shell_make_args(c, &argc, argv, RTEMS_SHELL_MAXIMUM_ARGUMENTS)) {
@@ -93,10 +94,14 @@ void ProcessScript(
     shell_cmd = rtems_shell_lookup_cmd(argv[0]);
     if ( !shell_cmd ) {
       fprintf(stderr, "%s is unknown command\n", c );
-      continue;
+      exit( 1 );
     }
 
-    shell_cmd->command(argc, argv);
+    sc = shell_cmd->command(argc, argv);
+    if ( sc != 0 ) {
+      fprintf( stderr, "ERROR: Command %s returned %d\n", argv[0], sc );
+      exit( sc );
+    }
   }
 }
 
