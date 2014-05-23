@@ -10,18 +10,17 @@ verbose                   : 1
 ==> 6: # GOAL: 0x0a010001 with affinity
 ==> 7: echo "=== Create and start 0x0a010001 ==="
 === Create and start 0x0a010001 ===
-==> 8: task_create TA1 3 -a 1
+==> 8: task_create TA01 3 -a 1
 Creating task with:  Preemption: yes Timeslicing: no
-Task (TA1) created: id=0x0a010001, priority=3
+Task (TA01) created: id=0x0a010001, priority=3
 Task (0x0a010001) Set affinity=0x00000001
-Task (TA1) starting: id=0x0a010001, priority=3
+Task (TA01) starting: id=0x0a010001, priority=3
   CPU 0: Thread Heir 0x0a010001 priority=3
   CPU 0: Thread Executing 0x0a010001 priority=3
 ==> 9: 
 ==> 10: # GOAL: 0x0a010001 is now heir and executing on CPU 0
-==> 11: cpus TA1
+==> 11: cpus TA01
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010001 @  3 / 0x0a010001 @  3          false
 === End of Ready Set of Threads
-*** ERROR in scenario -- unknown task TA1
