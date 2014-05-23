@@ -21,6 +21,16 @@
 #include <schedsim_shell.h>
 #include <rtems/error.h>
 
+static Thread_Control *get_thread_executing(void)
+{
+  Thread_Control *e;
+
+  _Thread_Disable_dispatch();
+    e = _Thread_Executing;
+  _Thread_Enable_dispatch();
+  return e;
+}
+
 int rtems_shell_main_semaphore_obtain(
   int   argc,
   char *argv[]
@@ -58,10 +68,10 @@ int rtems_shell_main_semaphore_obtain(
    *  a thread switch inside the semaphore obtain.  If we did, then
    *  just return successfully.
    */
-  caller = _Thread_Executing;
+  caller = get_thread_executing();
   printf("Obtain semaphore (0x%08x) with timeout %d\n", id, ticks );
   status = rtems_semaphore_obtain( id, RTEMS_DEFAULT_OPTIONS, ticks );
-  if ( caller == _Thread_Executing ) {
+  if ( caller == get_thread_executing() ) {
     if ( status != RTEMS_SUCCESSFUL ) {
       fprintf(
         stderr,
