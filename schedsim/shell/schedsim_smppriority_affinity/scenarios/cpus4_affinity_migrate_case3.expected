@@ -1,0 +1,135 @@
+Script File               : scenarios/cpus4_affinity_migrate_case3.scen
+verbose                   : 1
+==> 1: #
+==> 2: #  Worst case migration triggered by a set prioriity with
+==> 3: #  thread affinity.
+==> 4: #
+==> 5: rtems_init 4
+  CPU 0: Thread Heir 0x09010001 priority=255
+  CPU 0: Thread Executing 0x09010001 priority=255
+  CPU 1: Thread Heir 0x09010002 priority=255
+  CPU 1: Thread Executing 0x09010002 priority=255
+  CPU 2: Thread Heir 0x09010003 priority=255
+  CPU 2: Thread Executing 0x09010003 priority=255
+  CPU 3: Thread Heir 0x09010004 priority=255
+  CPU 3: Thread Executing 0x09010004 priority=255
+==> 6: task_create smp1 7
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp1) created: id=0x0a010001, priority=7
+Task (smp1) starting: id=0x0a010001, priority=7
+  CPU 3: Thread Heir 0x0a010001 priority=7
+  CPU 3: Thread Executing 0x0a010001 priority=7
+==> 7: task_create smp2 8
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp2) created: id=0x0a010002, priority=8
+Task (smp2) starting: id=0x0a010002, priority=8
+  CPU 2: Thread Heir 0x0a010002 priority=8
+  CPU 2: Thread Executing 0x0a010002 priority=8
+==> 8: task_create smp3 5
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp3) created: id=0x0a010003, priority=5
+Task (smp3) starting: id=0x0a010003, priority=5
+  CPU 1: Thread Heir 0x0a010003 priority=5
+  CPU 1: Thread Executing 0x0a010003 priority=5
+==> 9: task_create smp4 6
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp4) created: id=0x0a010004, priority=6
+Task (smp4) starting: id=0x0a010004, priority=6
+  CPU 0: Thread Heir 0x0a010004 priority=6
+  CPU 0: Thread Executing 0x0a010004 priority=6
+==> 10: task_create smp5 9
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp5) created: id=0x0a010005, priority=9
+Task (smp5) starting: id=0x0a010005, priority=9
+==> 11: 
+==> 12: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
+==> 13: # GOAL:   on CPUs 3-0 respectively
+==> 14: cpus smp4 smp3 smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010004 @  6 / 0x0a010004 @  6          false
+  CPU 1: 0x0a010003 @  5 / 0x0a010003 @  5          false
+  CPU 2: 0x0a010002 @  8 / 0x0a010002 @  8          false
+  CPU 3: 0x0a010001 @  7 / 0x0a010001 @  7          false
+=== End of Ready Set of Threads
+==> 15: 
+==> 16: # Tasks are created and distributed across CPUs
+==> 17: task_set_affinity smp5 0x02
+Task (0x0a010005) Set affinity=0x00000002
+==> 18: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
+==> 19: # GOAL:   on CPUs 3-0 respectively
+==> 20: # PRI: 6    5    8   7
+==> 21: cpus smp4 smp3 smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010004 @  6 / 0x0a010004 @  6          false
+  CPU 1: 0x0a010003 @  5 / 0x0a010003 @  5          false
+  CPU 2: 0x0a010002 @  8 / 0x0a010002 @  8          false
+  CPU 3: 0x0a010001 @  7 / 0x0a010001 @  7          false
+=== End of Ready Set of Threads
+==> 22: 
+==> 23: task_set_affinity smp3 0x03
+Task (0x0a010003) Set affinity=0x00000003
+==> 24: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
+==> 25: # GOAL:   on CPUs 3-0 respectively
+==> 26: # PRI: 6    5    8   7
+==> 27: cpus smp4 smp3 smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010004 @  6 / 0x0a010004 @  6          false
+  CPU 1: 0x0a010003 @  5 / 0x0a010003 @  5          false
+  CPU 2: 0x0a010002 @  8 / 0x0a010002 @  8          false
+  CPU 3: 0x0a010001 @  7 / 0x0a010001 @  7          false
+=== End of Ready Set of Threads
+==> 28: 
+==> 29: task_set_affinity smp4 0x09
+Task (0x0a010004) Set affinity=0x00000009
+==> 30: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
+==> 31: # GOAL:   on CPUs 3-0 respectively
+==> 32: # PRI: 6    5    8   7
+==> 33: cpus smp4 smp3 smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010004 @  6 / 0x0a010004 @  6          false
+  CPU 1: 0x0a010003 @  5 / 0x0a010003 @  5          false
+  CPU 2: 0x0a010002 @  8 / 0x0a010002 @  8          false
+  CPU 3: 0x0a010001 @  7 / 0x0a010001 @  7          false
+=== End of Ready Set of Threads
+==> 34: 
+==> 35: task_set_affinity smp1 0x0c
+Task (0x0a010001) Set affinity=0x0000000c
+==> 36: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
+==> 37: # GOAL:   on CPUs 3-0 respectively
+==> 38: # PRI: 6    5    8   7
+==> 39: cpus smp4 smp3 smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010004 @  6 / 0x0a010004 @  6          false
+  CPU 1: 0x0a010003 @  5 / 0x0a010003 @  5          false
+  CPU 2: 0x0a010002 @  8 / 0x0a010002 @  8          false
+  CPU 3: 0x0a010001 @  7 / 0x0a010001 @  7          false
+=== End of Ready Set of Threads
+==> 40: 
+==> 41: task_priority smp5 4
+  CPU 0: Thread Heir 0x0a010003 priority=5
+  CPU 0: Thread Executing 0x0a010003 priority=5
+  CPU 1: Thread Heir 0x0a010005 priority=4
+  CPU 1: Thread Executing 0x0a010005 priority=4
+  CPU 2: Thread Heir 0x0a010001 priority=7
+  CPU 2: Thread Executing 0x0a010001 priority=7
+  CPU 3: Thread Heir 0x0a010004 priority=6
+  CPU 3: Thread Executing 0x0a010004 priority=6
+Task (0x0a010005) Change Priority from 9 to 4
+==> 42: 
+==> 43: # GOAL: want 0x0a010005, 0x0a010003, 0x0a010004, 0x0a010001
+==> 44: # GOAL:   to be heir AND executing on CPU 0-3 respectively
+==> 45: # PRI: 5    5    6   7
+==> 46: cpus smp3 smp5 smp1 smp4
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010003 @  5 / 0x0a010003 @  5          false
+  CPU 1: 0x0a010005 @  4 / 0x0a010005 @  4          false
+  CPU 2: 0x0a010001 @  7 / 0x0a010001 @  7          false
+  CPU 3: 0x0a010004 @  6 / 0x0a010004 @  6          false
+=== End of Ready Set of Threads
+==> 47: 
