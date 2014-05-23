@@ -81,7 +81,7 @@ int main_dump_all_cpus(int argc, char **argv)
           "*** ERROR in scenario -- unknown task %s\n",
            argv[cpu + 1]
         );
-        exit( 1 );
+        return 1;
       }
 
       if ( e->Object.id != id ) {
@@ -97,7 +97,7 @@ int main_dump_all_cpus(int argc, char **argv)
   }
   if ( mismatch ) {
     printf( "Exiting test scenario due to scheduling failure\n" );
-    exit( 1 );
+    return 1;
   }
 
   return 0;
