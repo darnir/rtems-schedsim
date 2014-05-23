@@ -38,7 +38,9 @@ int METHOD_NAME(
   if ( string[0] != '0' ) {
     #ifdef DOING_TASKS
       if ( !strcmp( string, "SELF" ) ) {
-        *id = _Thread_Executing->Object.id;
+        _Thread_Disable_dispatch();
+          *id = _Thread_Executing->Object.id;
+        _Thread_Enable_dispatch();
         return 0;
       }
     #endif
