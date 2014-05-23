@@ -8,7 +8,6 @@ SOURCES += $(srcdir)/../schedsim_smpsimple/main_dump_ready_tasks.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/printheir_executing.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/smp_stub.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/wrap_thread_dispatch.c
-SOURCES += $(srcdir)/../schedsim_smpsimple/schedsim.cc
 schedsim_smppriority_SOURCES = $(SOURCES)
 
 cpukitdir=@rtems_srcdir@/cpukit

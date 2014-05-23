@@ -1,6 +1,8 @@
 bin_PROGRAMS = schedsim_priority
-schedsim_priority_SOURCES = config.c \
-    schedsim.cc wrap_thread_dispatch.c printheir_executing.c
+schedsim_priority_SOURCES = config.c
+schedsim_priority_SOURCES += wrap_thread_dispatch.c
+schedsim_priority_SOURCES += printheir_executing.c
+schedsim_priority_SOURCES += $(srcdir)/../shared/add_commands_stub.c
 
 if HAS_SMP
 schedsim_priority_SOURCES += smp_stub.c

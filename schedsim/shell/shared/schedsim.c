@@ -15,6 +15,7 @@
 
 #include "shell.h"
 #include "rtems_sched.h"
+#include "schedsim_shell.h"
 
 /*
  *  Variables to control global behavior
@@ -43,7 +44,7 @@ void usage()
 
 #define RTEMS_SHELL_MAXIMUM_ARGUMENTS (128)
 
-void ProcessScript(
+int ProcessScript(
   FILE *script
 )
 {
@@ -105,16 +106,14 @@ void ProcessScript(
   }
 }
 
-extern "C" {
- void add_commands(void);
-};
-
 int main(
   int argc,
   char **argv
 )
 {
-  int opt;
+  int  sc;  
+  int  opt;
+
   progname = argv[0];
   
   while ((opt = getopt(argc, argv, "v")) != -1) {
@@ -162,20 +161,12 @@ int main(
   //
   //  Process the Script
   //
-  ProcessScript( Script );
+  sc = ProcessScript( Script );
 
   //
   //  Open the script file
   // 
   (void) fclose( Script );
 
-  //
-  //  Just in case something throws
-  //
-  try {
-  } catch (...) {
-    exit(-1);
-  }
-
-  return 0;
+  return sc;
 }

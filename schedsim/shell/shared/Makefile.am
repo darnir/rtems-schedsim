@@ -24,6 +24,7 @@ libschedsim_a_CPPFLAGS += -I$(cpukitdir)/posix/inline
 endif
 
 libschedsim_a_SOURCES =
+libschedsim_a_SOURCES += schedsim.c
 libschedsim_a_SOURCES += commands.c
 libschedsim_a_SOURCES += getopt.c
 libschedsim_a_SOURCES += lookup_semaphore.c

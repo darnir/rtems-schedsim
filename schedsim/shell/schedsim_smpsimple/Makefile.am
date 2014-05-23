@@ -8,7 +8,6 @@ schedsim_smpsimple_SOURCES += main_dump_ready_tasks.c
 schedsim_smpsimple_SOURCES += printheir_executing.c
 schedsim_smpsimple_SOURCES += smp_stub.c
 schedsim_smpsimple_SOURCES += wrap_thread_dispatch.c
-schedsim_smpsimple_SOURCES += schedsim.cc
 
 cpukitdir=@rtems_srcdir@/cpukit
 schedsim_smpsimple_CPPFLAGS  = -I$(top_builddir)/score/include

@@ -24,6 +24,8 @@
 extern "C" {
 #endif
 
+void add_commands(void);
+
 #define CHECK_RTEMS_IS_UP() \
   do { \
     if ( _System_state_Current != SYSTEM_STATE_UP ) { \
