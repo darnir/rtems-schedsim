@@ -4,9 +4,6 @@ schedsim_priority_SOURCES += wrap_thread_dispatch.c
 schedsim_priority_SOURCES += printheir_executing.c
 schedsim_priority_SOURCES += $(srcdir)/../shared/add_commands_stub.c
 
-if HAS_SMP
-schedsim_priority_SOURCES += smp_stub.c
-endif
 cpukitdir=@rtems_srcdir@/cpukit
 schedsim_priority_CPPFLAGS  = -I$(top_builddir)/score/include
 schedsim_priority_CPPFLAGS += -I$(srcdir)/sched_cpu

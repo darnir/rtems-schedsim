@@ -1,7 +1,10 @@
+/**
+ *  @file
+ *  RTEMS SMP Support for Scheduler Simulator
+ */
+
 /*
- *  RTEMS SMP Support for Single Core
- *
- *  COPYRIGHT (c) 1989-2013.
+ *  COPYRIGHT (c) 1989-2014.
  *  On-Line Applications Research Corporation (OAR).
  *
  *  The license and distribution terms for this file may be
@@ -9,17 +12,27 @@
  *  http://www.rtems.com/license/LICENSE.
  */
 
+#if HAVE_CONFIG_H
+  #include "config.h"
+#endif
+
 #include <rtems.h>
 #include <rtems/bspIo.h>
 #include <stdlib.h>
 
-uint32_t Schedsim_Current_cpu;
-extern uint32_t Schedsim_Maximum_CPUs_From_Command_Line;
+#if RTEMS_SMP
+  uint32_t Schedsim_Current_cpu;
+  extern uint32_t Schedsim_Maximum_CPUs_From_Command_Line;
+#endif
 
 uint32_t _CPU_SMP_Initialize( void )
 {
+#if RTEMS_SMP
   /* return the number of CPUs */
   return Schedsim_Maximum_CPUs_From_Command_Line;
+#else
+  return 1;
+#endif
 }
 
 bool _CPU_SMP_Start_processor( uint32_t cpu_index )
@@ -37,6 +50,7 @@ void _CPU_SMP_Send_interrupt( uint32_t target_processor_index )
 
 void _CPU_SMP_Processor_event_broadcast( void )
 {
+#if RTEMS_SMP
   Per_CPU_Control  *cpu = _Per_CPU_Get();
   uint32_t         cpu_count = _SMP_Get_processor_count();
   uint32_t         cpu_index;
@@ -50,6 +64,7 @@ void _CPU_SMP_Processor_event_broadcast( void )
          cpu->state = PER_CPU_STATE_READY_TO_START_MULTITASKING;
     }
   }
+#endif
 }
 
 
@@ -59,5 +74,9 @@ void _CPU_SMP_Processor_event_receive( void )
 
 uint32_t _CPU_SMP_Get_current_processor( void )
 {
+#if RTEMS_SMP
+  return 0;
+#else
   return Schedsim_Current_cpu;
+#endif
 }

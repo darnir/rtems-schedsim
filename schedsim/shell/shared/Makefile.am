@@ -52,6 +52,7 @@ libschedsim_a_SOURCES += schedsim_disable_dispatch.c
 libschedsim_a_SOURCES += shell_cmdset.c
 libschedsim_a_SOURCES += shell_makeargs.c 
 if HAS_SMP
+libschedsim_a_SOURCES += smp_stub.c
 libschedsim_a_SOURCES += main_taskgetaffinity.c
 libschedsim_a_SOURCES += main_tasksetaffinity.c
 endif

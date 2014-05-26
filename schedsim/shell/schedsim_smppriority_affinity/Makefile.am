@@ -6,7 +6,6 @@ SOURCES += $(srcdir)/../schedsim_smpsimple/main_current_cpu.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/main_dispatch.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/main_dump_ready_tasks.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/printheir_executing.c
-SOURCES += $(srcdir)/../schedsim_smpsimple/smp_stub.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/wrap_thread_dispatch.c
 schedsim_smppriority_affinity_SOURCES = $(SOURCES)
 
