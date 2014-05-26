@@ -44,7 +44,7 @@ int rtems_shell_main_task_wake_after(
   }
 
   ticks = (rtems_interval) tmp;
-  self = _Thread_Executing->Object.id,
+  self = get_thread_executing()->Object.id,
 
   /*
    *  Now sleep

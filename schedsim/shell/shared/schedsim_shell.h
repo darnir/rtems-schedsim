@@ -19,10 +19,14 @@
 
 #include <rtems.h>
 #include <rtems/score/sysstate.h>
+#include "shell.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+Thread_Control *get_thread_executing(void);
+Thread_Control *get_thread_heir(void);
 
 void add_commands(void);
 

@@ -1,7 +1,10 @@
+/**
+ * @file
+ * @brief Given Name or ID String, give Id
+ */
+
 /*
- *  Given Name or ID String, give Id
- *
- *  COPYRIGHT (c) 1989-2013.
+ *  COPYRIGHT (c) 1989-2014.
  *  On-Line Applications Research Corporation (OAR).
  *
  *  The license and distribution terms for this file may be
@@ -18,6 +21,7 @@
 #include <rtems.h>
 #include <rtems/stringto.h>
 #include <rtems/score/threaddispatch.h>
+#include "schedsim_shell.h"
 
 #ifndef METHOD_NAME
   #define METHOD_NAME lookup_task
@@ -39,15 +43,15 @@ int METHOD_NAME(
   if ( string[0] != '0' ) {
     #ifdef DOING_TASKS
       if ( !strcmp( string, "SELF" ) ) {
-        _Thread_Disable_dispatch();
-          *id = _Thread_Executing->Object.id;
-        _Thread_Enable_dispatch();
+        *id = get_thread_executing()->Object.id;
         return 0;
       }
     #endif
+#if 0
     if ( strlen( string ) != 4 ) {
       return -1;
     }
+#endif
     memset( name, '\0', sizeof(name) );
     strncpy( name, string, 4 );
     status = RTEMS_IDENT_NAME(

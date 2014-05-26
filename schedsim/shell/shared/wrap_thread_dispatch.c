@@ -63,6 +63,9 @@ void __wrap__Thread_Dispatch(void)
   uint32_t   cpu;
   uint32_t   current_cpu;
 
+  if ( !schedsim_is_dispatch_allowed() )
+    return;
+
   current_cpu = Schedsim_Current_cpu;
   for ( cpu=0 ; cpu < MAX_CPUS ; cpu++ ) {
     Schedsim_Current_cpu = cpu;

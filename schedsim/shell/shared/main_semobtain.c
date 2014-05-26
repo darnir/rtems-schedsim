@@ -22,16 +22,6 @@
 #include <rtems/error.h>
 #include <rtems/score/threaddispatch.h>
 
-static Thread_Control *get_thread_executing(void)
-{
-  Thread_Control *e;
-
-  _Thread_Disable_dispatch();
-    e = _Thread_Executing;
-  _Thread_Enable_dispatch();
-  return e;
-}
-
 int rtems_shell_main_semaphore_obtain(
   int   argc,
   char *argv[]
