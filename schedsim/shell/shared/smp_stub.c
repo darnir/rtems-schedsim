@@ -12,10 +12,6 @@
  *  http://www.rtems.com/license/LICENSE.
  */
 
-#if HAVE_CONFIG_H
-  #include "config.h"
-#endif
-
 #include <rtems.h>
 #include <rtems/bspIo.h>
 #include <stdlib.h>
@@ -75,8 +71,8 @@ void _CPU_SMP_Processor_event_receive( void )
 uint32_t _CPU_SMP_Get_current_processor( void )
 {
 #if RTEMS_SMP
-  return 0;
-#else
   return Schedsim_Current_cpu;
+#else
+  return 0;
 #endif
 }
