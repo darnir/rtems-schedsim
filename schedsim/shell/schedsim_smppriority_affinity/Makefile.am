@@ -51,10 +51,11 @@ check-local:
 	    -s $(builddir)/schedsim_smppriority_affinity \
 	    -S $(srcdir)/../schedsim_smpsimple \
 	    -A
-	@echo Running select tests from Priority
+	@echo Running tests from Uniprocessor Deterministic Priority
 	$(srcdir)/../run_scenarios \
 	    -s $(builddir)/schedsim_smppriority_affinity \
-	    -S $(srcdir)/../schedsim_smpsimple \
-	    -A
+	    -S $(srcdir)/../schedsim_priority \
+	    script02.scen script04.scen script05.scen script06.scen
+
 
 include $(top_srcdir)/../automake/host.am

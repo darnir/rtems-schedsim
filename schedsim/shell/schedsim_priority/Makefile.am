@@ -40,7 +40,7 @@ schedsim_priority_LDADD += ../shared/libschedsim.a
 ## schedsim_priority_LDADD +=-Wl,--end-group
 
 check-local:
-	@echo Running tests
+	@echo Running tests from Uniprocessor Deterministic Priority
 	$(srcdir)/../run_scenarios \
 	    -s $(builddir)/schedsim_priority \
 	    -S $(srcdir) \

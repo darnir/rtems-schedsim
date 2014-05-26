@@ -56,6 +56,11 @@ do
   esac
 done
 
+shiftcount=`expr $OPTIND - 1`
+shift $shiftcount
+
+args=$*
+
 if [ "X${schedsim}" != "X" ] ; then
   type ${schedsim} >/dev/null 2>&1 || fatal ${schedsim} not found
 else
@@ -69,7 +74,10 @@ test -d ${scen}|| \
 if [ ${do_all} = "yes" ]; then
   SCENARIOS="${scen}/*.scen"
 else
-  SCENARIOS=
+  for i in $*
+  do
+    SCENARIOS="${SCENARIOS} ${scen}/${i}"
+  done
 fi
 
 if [ ${do_one} = "yes" ]; then
@@ -82,25 +90,43 @@ fi
 
 test "X${SCENARIOS}" = "X" && fatal "No scenarios specified"
 
-for scenario in `ls -1 ${SCENARIOS}`
+for scenario in ${SCENARIOS}
+do
+  test -r ${scenario} || fatal "Scenario ${scenario} not found!"
+done
+
+scenarios=0
+passed=0
+failed=0
+for scenario in ${SCENARIOS}
 do
   base=`echo ${scenario} | sed -s 's/\.scen$//'`
   expected=${base}.expected
   output=${base}.output
   vecho Running ${scenario}
+  run=`expr ${run} + 1`
   ${schedsim} $scenario  >${output}
-  if [ -r ${expected} ] ; then
+  if [ $? -ne 0 ] ; then
+    failed=`expr ${failed} + 1`
+    echo "FAIL - ${scenario}"
+  elif [ -r ${expected} ] ; then
     diff ${output} ${expected} >/dev/null
     if [ $? -ne 0 ] ; then
+      failed=`expr ${failed} + 1`
       echo "FAIL - ${scenario}"
       echo "    diff ${output} ${expected} "
     else
+      passed=`expr ${passed} + 1`
       echo "PASS - ${scenario}"
     fi
   else
-      echo "UNKNOWN - ${scenario}"
-      echo "    cp ${output} ${expected} "
+    echo "UNKNOWN - ${scenario}"
   fi
 done
 
+echo "=== Test report for `basename ${schedsim}`"
+echo "Run:    " ${run}
+echo "Passed: " ${passed}
+echo "Failed: " ${failed}
 
+exit 0
