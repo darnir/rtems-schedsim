@@ -1,5 +1,10 @@
+/**
+ *  @file
+ *  @brief current_cpu Command in Scheduler Simulator
+ */
+
 /*
- *  COPYRIGHT (c) 1989-2013.
+ *  COPYRIGHT (c) 1989-2014.
  *  On-Line Applications Research Corporation (OAR).
  *
  *  The license and distribution terms for this file may be
@@ -23,7 +28,7 @@
 
 extern uint32_t Schedsim_Current_cpu;
 
-int main_set_current_cpu(int argc, char **argv)
+int rtems_shell_main_current_cpu(int argc, char **argv)
 {
   long cpu;
 
@@ -44,3 +49,12 @@ int main_set_current_cpu(int argc, char **argv)
 
   return 0;
 }
+
+rtems_shell_cmd_t rtems_shell_CURRENT_CPU_Command = {
+  "current_cpu",                 /* name */
+  "current_cpu [cpu]",           /* usage */
+  "rtems",                       /* topic */
+  rtems_shell_main_current_cpu,  /* command */
+  NULL,                          /* alias */
+  NULL                           /* next */
+};

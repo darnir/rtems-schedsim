@@ -2,7 +2,6 @@ bin_PROGRAMS = schedsim_smppriority_affinity
 
 SOURCES  = config.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/add_commands.c
-SOURCES += $(srcdir)/../schedsim_smpsimple/main_current_cpu.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/main_dispatch.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/main_dump_ready_tasks.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/printheir_executing.c

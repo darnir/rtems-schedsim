@@ -18,7 +18,6 @@
 #include "rtems_sched.h"
 
 extern int main_dump_ready_tasks(int argc, char **argv);
-extern int main_set_current_cpu(int argc, char **argv);
 extern int main_dispatch(int argc, char **argv);
 
 void add_commands(void)
@@ -30,14 +29,6 @@ void add_commands(void)
     "rtems",
     "no args",
     main_dump_ready_tasks
-  );
-  assert( cmd );
-
-  cmd = rtems_shell_add_cmd(
-    "current_cpu",
-    "rtems",
-    "number",
-    main_set_current_cpu
   );
   assert( cmd );
 
