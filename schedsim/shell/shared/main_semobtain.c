@@ -20,6 +20,7 @@
 #include <rtems/stringto.h>
 #include <schedsim_shell.h>
 #include <rtems/error.h>
+#include <rtems/score/threaddispatch.h>
 
 static Thread_Control *get_thread_executing(void)
 {

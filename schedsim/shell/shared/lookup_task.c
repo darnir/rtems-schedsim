@@ -17,6 +17,7 @@
 
 #include <rtems.h>
 #include <rtems/stringto.h>
+#include <rtems/score/threaddispatch.h>
 
 #ifndef METHOD_NAME
   #define METHOD_NAME lookup_task
