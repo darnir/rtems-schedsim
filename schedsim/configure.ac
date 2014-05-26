@@ -179,6 +179,8 @@ AM_CONDITIONAL(LIBNETWORKING,test x"$rtems_cv_HAS_NETWORKING" = x"yes")
 AC_SUBST(rtems_srcdir)
 AC_SUBST(program_prefix)
 
+AC_CONFIG_HEADER(config.h)
+
 # Explicitly list all Makefiles here
 AC_CONFIG_FILES([
 Makefile
