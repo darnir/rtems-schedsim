@@ -16,8 +16,13 @@
 #include <rtems/bspIo.h>
 #include <stdlib.h>
 
+/*
+ * Actually owned by the _Thread_Dispatch() wrapper.
+ * This way the variable is available all the time.
+ */
+extern uint32_t Schedsim_Current_cpu;
+
 #if RTEMS_SMP
-  uint32_t Schedsim_Current_cpu;
   extern uint32_t Schedsim_Maximum_CPUs_From_Command_Line;
 #endif
 

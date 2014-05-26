@@ -17,22 +17,28 @@
 #include <rtems.h>
 
 typedef Thread_Control * Thread_Control_ptr;
-extern uint32_t Schedsim_Current_cpu;
+uint32_t Schedsim_Current_cpu = 0;
 
 Thread_Control_ptr *last_heir = NULL;
 Thread_Control_ptr *last_executing = NULL;
 
 extern void __real__Thread_Dispatch(void);
 
+#if RTEMS_SMP
+  #define MAX_CPUS _SMP_Processor_count
+#else
+  #define MAX_CPUS 1
+#endif
+
 void Init__wrap__Thread_Dispatch()
 {
   last_heir = (Thread_Control_ptr *) calloc(
     sizeof( Thread_Control_ptr ),
-    _SMP_Processor_count
+    MAX_CPUS
   );
   last_executing =  (Thread_Control_ptr *) calloc(
     sizeof( Thread_Control_ptr ),
-    _SMP_Processor_count
+    MAX_CPUS
   );
 }
 
@@ -58,7 +64,7 @@ void __wrap__Thread_Dispatch(void)
   uint32_t   current_cpu;
 
   current_cpu = Schedsim_Current_cpu;
-  for ( cpu=0 ; cpu < _SMP_Processor_count ; cpu++ ) {
+  for ( cpu=0 ; cpu < MAX_CPUS ; cpu++ ) {
     Schedsim_Current_cpu = cpu;
     check_heir_and_executing();
     __real__Thread_Dispatch();

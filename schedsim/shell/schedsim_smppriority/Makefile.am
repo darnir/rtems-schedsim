@@ -3,7 +3,6 @@ bin_PROGRAMS = schedsim_smppriority
 SOURCES  = config.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/add_commands.c
 SOURCES += $(srcdir)/../schedsim_smpsimple/main_dump_ready_tasks.c
-SOURCES += $(srcdir)/../schedsim_smpsimple/wrap_thread_dispatch.c
 schedsim_smppriority_SOURCES = $(SOURCES)
 
 cpukitdir=@rtems_srcdir@/cpukit

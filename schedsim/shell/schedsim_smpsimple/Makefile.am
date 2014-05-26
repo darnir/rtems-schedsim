@@ -3,7 +3,6 @@ schedsim_smpsimple_SOURCES =
 schedsim_smpsimple_SOURCES += add_commands.c
 schedsim_smpsimple_SOURCES += config.c
 schedsim_smpsimple_SOURCES += main_dump_ready_tasks.c
-schedsim_smpsimple_SOURCES += wrap_thread_dispatch.c
 
 cpukitdir=@rtems_srcdir@/cpukit
 schedsim_smpsimple_CPPFLAGS  = -I$(top_builddir)/score/include

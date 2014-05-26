@@ -52,6 +52,7 @@ libschedsim_a_SOURCES += printheir_executing.c
 libschedsim_a_SOURCES += schedsim_disable_dispatch.c
 libschedsim_a_SOURCES += shell_cmdset.c
 libschedsim_a_SOURCES += shell_makeargs.c 
+libschedsim_a_SOURCES += wrap_thread_dispatch.c
 if HAS_SMP
 libschedsim_a_SOURCES += smp_stub.c
 libschedsim_a_SOURCES += main_currentcpu.c

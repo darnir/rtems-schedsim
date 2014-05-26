@@ -1,6 +1,5 @@
 bin_PROGRAMS = schedsim_priority
 schedsim_priority_SOURCES = config.c
-schedsim_priority_SOURCES += wrap_thread_dispatch.c
 schedsim_priority_SOURCES += $(srcdir)/../shared/add_commands_stub.c
 
 cpukitdir=@rtems_srcdir@/cpukit
