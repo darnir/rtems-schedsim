@@ -21,6 +21,7 @@ usage()
 cat <<EOF
 run_scenarios [options]
   -s         - specify scheduler simulator executable (REQUIRED)
+  -S         - specify scenario base direcroty (./scenarios assumed)
   -1         - toggle running single CPU scenarios (default=no)
   -4         - toggle running four CPU scenarios (default=no)
   -A         - toggle all scenario flags
@@ -40,13 +41,15 @@ do_all=no
 do_one=no
 do_four=no
 schedsim=
+scenarios_dir=.
 
-while getopts vs:A14 OPT
+while getopts vs:AS:14 OPT
 do
   case "$OPT" in
     v) verbose=`toggle ${verbose}` ;;
     s) schedsim=${OPTARG} ;;
     A) do_all=`toggle ${do_all}`   ;;
+    S) scenarios_dir=${OPTARG}   ;;
     1) do_one=`toggle ${do_one}`   ;;
     4) do_four=`toggle ${do_four}` ;;
     *) usage; exit 1;
@@ -59,20 +62,22 @@ else
   fatal "schedsim binary must be specified with -s option"
 fi
 
-test -d scenarios || fatal scenarios directory is not present
+scen=${scenarios_dir}/scenarios
+test -d ${scen}|| \
+    fatal ${scen} directory is not present
 
 if [ ${do_all} = "yes" ]; then
-  SCENARIOS="scenarios/*.scen"
+  SCENARIOS="${scen}/*.scen"
 else
   SCENARIOS=
 fi
 
 if [ ${do_one} = "yes" ]; then
-  SCENARIOS="${SCENARIOS} scenarios/cpus1*.scen"
+  SCENARIOS="${SCENARIOS} ${scen}/cpus1*.scen"
 fi
 
 if [ ${do_four} = "yes" ]; then
-  SCENARIOS="${SCENARIOS} scenarios/cpus4*.scen"
+  SCENARIOS="${SCENARIOS} ${scen}/cpus4*.scen"
 fi
 
 test "X${SCENARIOS}" = "X" && fatal "No scenarios specified"

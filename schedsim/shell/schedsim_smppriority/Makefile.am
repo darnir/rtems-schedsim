@@ -40,4 +40,16 @@ schedsim_smppriority_LDADD += ../../rtems/librtems.a
 schedsim_smppriority_LDADD += ../shared/libschedsim.a
 ## schedsim_smppriority_LDADD +=-Wl,--end-group
 
+check-local:
+	@echo Running tests from SMP Simple
+	$(srcdir)/../run_scenarios \
+	    -s $(builddir)/schedsim_smppriority \
+	    -S $(srcdir)../schedsim_smpsimple \
+	    -A
+	@echo Running tests from Priority
+	$(srcdir)/../run_scenarios \
+	    -s $(builddir)/schedsim_smppriority \
+	    -S $(srcdir)../schedsim_priority \
+	    -A
+
 include $(top_srcdir)/../automake/host.am

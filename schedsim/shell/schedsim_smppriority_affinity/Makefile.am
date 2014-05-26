@@ -40,4 +40,21 @@ schedsim_smppriority_affinity_LDADD += ../../rtems/librtems.a
 schedsim_smppriority_affinity_LDADD += ../shared/libschedsim.a
 ## schedsim_smppriority_affinity_LDADD +=-Wl,--end-group
 
+check-local:
+	@echo Running tests from SMP Priority Affinity
+	$(srcdir)/../run_scenarios \
+	    -s $(builddir)/schedsim_smppriority_affinity \
+	    -S $(srcdir) \
+	    -A
+	@echo Running tests from SMP Simple Priority
+	$(srcdir)/../run_scenarios \
+	    -s $(builddir)/schedsim_smppriority_affinity \
+	    -S $(srcdir)/../schedsim_smpsimple \
+	    -A
+	@echo Running select tests from Priority
+	$(srcdir)/../run_scenarios \
+	    -s $(builddir)/schedsim_smppriority_affinity \
+	    -S $(srcdir)/../schedsim_smpsimple \
+	    -A
+
 include $(top_srcdir)/../automake/host.am

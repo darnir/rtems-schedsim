@@ -39,4 +39,11 @@ schedsim_priority_LDADD += ../../rtems/librtems.a
 schedsim_priority_LDADD += ../shared/libschedsim.a
 ## schedsim_priority_LDADD +=-Wl,--end-group
 
+check-local:
+	@echo Running tests
+	$(srcdir)/../run_scenarios \
+	    -s $(builddir)/schedsim_priority \
+	    -S $(srcdir) \
+	    -A
+
 include $(top_srcdir)/../automake/host.am
