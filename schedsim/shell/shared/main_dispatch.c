@@ -1,5 +1,10 @@
+/**
+ *  @file
+ *  @brief Invoke Dispatch on all Cores Command
+ */
+
 /*
- *  COPYRIGHT (c) 1989-2013.
+ *  COPYRIGHT (c) 1989-2014.
  *  On-Line Applications Research Corporation (OAR).
  *
  *  The license and distribution terms for this file may be
@@ -24,7 +29,7 @@
 
 extern uint32_t Schedsim_Current_cpu;
 
-int main_dispatch(int argc, char **argv)
+int rtems_shell_main_dispatch(int argc, char **argv)
 {
   uint32_t   cpu;
   uint32_t   current_cpu;
@@ -41,3 +46,12 @@ int main_dispatch(int argc, char **argv)
   Schedsim_Current_cpu = current_cpu;
   return 0;
 }
+
+rtems_shell_cmd_t rtems_shell_DISPATCH_Command = {
+  "dispatch",                    /* name */
+  "dispatch",                    /* usage */
+  "rtems",                       /* topic */
+  rtems_shell_main_dispatch,     /* command */
+  NULL,                          /* alias */
+  NULL                           /* next */
+};

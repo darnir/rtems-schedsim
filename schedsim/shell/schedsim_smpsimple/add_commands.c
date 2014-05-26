@@ -18,7 +18,6 @@
 #include "rtems_sched.h"
 
 extern int main_dump_ready_tasks(int argc, char **argv);
-extern int main_dispatch(int argc, char **argv);
 
 void add_commands(void)
 {
@@ -31,13 +30,4 @@ void add_commands(void)
     main_dump_ready_tasks
   );
   assert( cmd );
-
-  cmd = rtems_shell_add_cmd(
-    "dispatch",
-    "rtems",
-    "",
-    main_dispatch
-  );
-  assert( cmd );
-
 }

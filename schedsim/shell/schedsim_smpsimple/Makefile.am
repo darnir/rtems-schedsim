@@ -2,7 +2,6 @@ bin_PROGRAMS = schedsim_smpsimple
 schedsim_smpsimple_SOURCES =
 schedsim_smpsimple_SOURCES += add_commands.c
 schedsim_smpsimple_SOURCES += config.c
-schedsim_smpsimple_SOURCES += main_dispatch.c
 schedsim_smpsimple_SOURCES += main_dump_ready_tasks.c
 schedsim_smpsimple_SOURCES += printheir_executing.c
 schedsim_smpsimple_SOURCES += wrap_thread_dispatch.c
