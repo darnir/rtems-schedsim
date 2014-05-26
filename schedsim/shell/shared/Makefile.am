@@ -48,6 +48,7 @@ libschedsim_a_SOURCES += main_taskpriority.c
 libschedsim_a_SOURCES += main_taskresume.c
 libschedsim_a_SOURCES += main_tasksuspend.c
 libschedsim_a_SOURCES += main_taskwakeafter.c
+libschedsim_a_SOURCES += printheir_executing.c
 libschedsim_a_SOURCES += schedsim_disable_dispatch.c
 libschedsim_a_SOURCES += shell_cmdset.c
 libschedsim_a_SOURCES += shell_makeargs.c 

@@ -6,38 +6,38 @@ verbose                   : 1
 ==> 4: # task that is on the ready queue. 
 ==> 5: #
 ==> 6: rtems_init 4
-  CPU 0: Thread Heir 0x09010001 priority=255
-  CPU 0: Thread Executing 0x09010001 priority=255
-  CPU 1: Thread Heir 0x09010002 priority=255
-  CPU 1: Thread Executing 0x09010002 priority=255
-  CPU 2: Thread Heir 0x09010003 priority=255
-  CPU 2: Thread Executing 0x09010003 priority=255
-  CPU 3: Thread Heir 0x09010004 priority=255
-  CPU 3: Thread Executing 0x09010004 priority=255
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
+  CPU 1: Thread Heir: 0x09010002 priority=255
+  CPU 1: Thread Executing: 0x09010002 priority=255
+  CPU 2: Thread Heir: 0x09010003 priority=255
+  CPU 2: Thread Executing: 0x09010003 priority=255
+  CPU 3: Thread Heir: 0x09010004 priority=255
+  CPU 3: Thread Executing: 0x09010004 priority=255
 ==> 7: task_create smp1 4 
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp1) created: id=0x0a010001, priority=4
 Task (smp1) starting: id=0x0a010001, priority=4
-  CPU 3: Thread Heir 0x0a010001 priority=4
-  CPU 3: Thread Executing 0x0a010001 priority=4
+  CPU 3: Thread Heir: 0x0a010001 priority=4
+  CPU 3: Thread Executing: 0x0a010001 priority=4
 ==> 8: task_create smp2 4
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp2) created: id=0x0a010002, priority=4
 Task (smp2) starting: id=0x0a010002, priority=4
-  CPU 2: Thread Heir 0x0a010002 priority=4
-  CPU 2: Thread Executing 0x0a010002 priority=4
+  CPU 2: Thread Heir: 0x0a010002 priority=4
+  CPU 2: Thread Executing: 0x0a010002 priority=4
 ==> 9: task_create smp3 4
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp3) created: id=0x0a010003, priority=4
 Task (smp3) starting: id=0x0a010003, priority=4
-  CPU 1: Thread Heir 0x0a010003 priority=4
-  CPU 1: Thread Executing 0x0a010003 priority=4
+  CPU 1: Thread Heir: 0x0a010003 priority=4
+  CPU 1: Thread Executing: 0x0a010003 priority=4
 ==> 10: task_create smp4 4
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp4) created: id=0x0a010004, priority=4
 Task (smp4) starting: id=0x0a010004, priority=4
-  CPU 0: Thread Heir 0x0a010004 priority=4
-  CPU 0: Thread Executing 0x0a010004 priority=4
+  CPU 0: Thread Heir: 0x0a010004 priority=4
+  CPU 0: Thread Executing: 0x0a010004 priority=4
 ==> 11: task_create smp5 4
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp5) created: id=0x0a010005, priority=4
@@ -57,8 +57,8 @@ Task (smp5) starting: id=0x0a010005, priority=4
 ==> 17: task_set_affinity smp5 0x03
 Task (0x0a010005) Set affinity=0x00000003
 ==> 18: task_priority smp5 3
-  CPU 0: Thread Heir 0x0a010005 priority=3
-  CPU 0: Thread Executing 0x0a010005 priority=3
+  CPU 0: Thread Heir: 0x0a010005 priority=3
+  CPU 0: Thread Executing: 0x0a010005 priority=3
 Task (0x0a010005) Change Priority from 4 to 3
 ==> 19:  
 ==> 20: # GOAL: want 0x0a010005, 0x0a010003, 0x0a010002,0x0a010001

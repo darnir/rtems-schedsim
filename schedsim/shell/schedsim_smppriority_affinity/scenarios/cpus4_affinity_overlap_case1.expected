@@ -6,42 +6,42 @@ verbose                   : 1
 ==> 4: # swap the affinity of the two sets
 ==> 5: #
 ==> 6: rtems_init 4
-  CPU 0: Thread Heir 0x09010001 priority=255
-  CPU 0: Thread Executing 0x09010001 priority=255
-  CPU 1: Thread Heir 0x09010002 priority=255
-  CPU 1: Thread Executing 0x09010002 priority=255
-  CPU 2: Thread Heir 0x09010003 priority=255
-  CPU 2: Thread Executing 0x09010003 priority=255
-  CPU 3: Thread Heir 0x09010004 priority=255
-  CPU 3: Thread Executing 0x09010004 priority=255
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
+  CPU 1: Thread Heir: 0x09010002 priority=255
+  CPU 1: Thread Executing: 0x09010002 priority=255
+  CPU 2: Thread Heir: 0x09010003 priority=255
+  CPU 2: Thread Executing: 0x09010003 priority=255
+  CPU 3: Thread Heir: 0x09010004 priority=255
+  CPU 3: Thread Executing: 0x09010004 priority=255
 ==> 7: task_create smp1 4 -a 0x0e
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp1) created: id=0x0a010001, priority=4
 Task (0x0a010001) Set affinity=0x0000000e
 Task (smp1) starting: id=0x0a010001, priority=4
-  CPU 3: Thread Heir 0x0a010001 priority=4
-  CPU 3: Thread Executing 0x0a010001 priority=4
+  CPU 3: Thread Heir: 0x0a010001 priority=4
+  CPU 3: Thread Executing: 0x0a010001 priority=4
 ==> 8: task_create smp2 4 -a 0x0e
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp2) created: id=0x0a010002, priority=4
 Task (0x0a010002) Set affinity=0x0000000e
 Task (smp2) starting: id=0x0a010002, priority=4
-  CPU 2: Thread Heir 0x0a010002 priority=4
-  CPU 2: Thread Executing 0x0a010002 priority=4
+  CPU 2: Thread Heir: 0x0a010002 priority=4
+  CPU 2: Thread Executing: 0x0a010002 priority=4
 ==> 9: task_create smp3 4 -a 0x03
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp3) created: id=0x0a010003, priority=4
 Task (0x0a010003) Set affinity=0x00000003
 Task (smp3) starting: id=0x0a010003, priority=4
-  CPU 1: Thread Heir 0x0a010003 priority=4
-  CPU 1: Thread Executing 0x0a010003 priority=4
+  CPU 1: Thread Heir: 0x0a010003 priority=4
+  CPU 1: Thread Executing: 0x0a010003 priority=4
 ==> 10: task_create smp4 4 -a 0x03
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp4) created: id=0x0a010004, priority=4
 Task (0x0a010004) Set affinity=0x00000003
 Task (smp4) starting: id=0x0a010004, priority=4
-  CPU 0: Thread Heir 0x0a010004 priority=4
-  CPU 0: Thread Executing 0x0a010004 priority=4
+  CPU 0: Thread Heir: 0x0a010004 priority=4
+  CPU 0: Thread Executing: 0x0a010004 priority=4
 ==> 11: 
 ==> 12: # EXECUTING: {smp1 smp2 smp3 smp4}
 ==> 13: # READY:     {IDLE IDLE IDLE IDLE}
@@ -57,8 +57,8 @@ Task (smp4) starting: id=0x0a010004, priority=4
 === End of Ready Set of Threads
 ==> 17: 
 ==> 18: task_set_affinity smp1 0x03
-  CPU 3: Thread Heir 0x09010001 priority=255
-  CPU 3: Thread Executing 0x09010001 priority=255
+  CPU 3: Thread Heir: 0x09010001 priority=255
+  CPU 3: Thread Executing: 0x09010001 priority=255
 Task (0x0a010001) Set affinity=0x00000003
 ==> 19: # EXECUTING: {smp2 smp3 smp4 IDLE}
 ==> 20: # READY:     {smp1 IDLE IDLE IDLE}
@@ -74,8 +74,8 @@ Task (0x0a010001) Set affinity=0x00000003
 === End of Ready Set of Threads
 ==> 24: 
 ==> 25: task_set_affinity smp2 0x03
-  CPU 2: Thread Heir 0x09010002 priority=255
-  CPU 2: Thread Executing 0x09010002 priority=255
+  CPU 2: Thread Heir: 0x09010002 priority=255
+  CPU 2: Thread Executing: 0x09010002 priority=255
 Task (0x0a010002) Set affinity=0x00000003
 ==> 26: # EXECUTING: {smp3 smp4 IDLE IDLE}
 ==> 27: # READY:     {smp1 smp2 IDLE IDLE}
@@ -91,10 +91,10 @@ Task (0x0a010002) Set affinity=0x00000003
 === End of Ready Set of Threads
 ==> 31: 
 ==> 32: task_set_affinity smp3 0x0e
-  CPU 1: Thread Heir 0x0a010002 priority=4
-  CPU 1: Thread Executing 0x0a010002 priority=4
-  CPU 2: Thread Heir 0x0a010003 priority=4
-  CPU 2: Thread Executing 0x0a010003 priority=4
+  CPU 1: Thread Heir: 0x0a010002 priority=4
+  CPU 1: Thread Executing: 0x0a010002 priority=4
+  CPU 2: Thread Heir: 0x0a010003 priority=4
+  CPU 2: Thread Executing: 0x0a010003 priority=4
 Task (0x0a010003) Set affinity=0x0000000e
 ==> 33: # EXECUTING: {smp4 smp2 smp3 IDLE}
 ==> 34: # READY:     {smp1 smp2 IDLE IDLE}
@@ -110,10 +110,10 @@ Task (0x0a010003) Set affinity=0x0000000e
 === End of Ready Set of Threads
 ==> 38: 
 ==> 39: task_set_affinity smp4 0x0e
-  CPU 0: Thread Heir 0x0a010001 priority=4
-  CPU 0: Thread Executing 0x0a010001 priority=4
-  CPU 3: Thread Heir 0x0a010004 priority=4
-  CPU 3: Thread Executing 0x0a010004 priority=4
+  CPU 0: Thread Heir: 0x0a010001 priority=4
+  CPU 0: Thread Executing: 0x0a010001 priority=4
+  CPU 3: Thread Heir: 0x0a010004 priority=4
+  CPU 3: Thread Executing: 0x0a010004 priority=4
 Task (0x0a010004) Set affinity=0x0000000e
 ==> 40: # EXECUTING: {smp4 smp2 smp3 smp1}
 ==> 41: # READY:     {IDLE IDLE IDLE IDLE}

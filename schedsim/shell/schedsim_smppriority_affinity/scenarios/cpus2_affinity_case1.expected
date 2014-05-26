@@ -5,24 +5,24 @@ verbose                   : 1
 ==> 3: # is on CPU 0 and the second is on CPU 1. 
 ==> 4: #
 ==> 5: rtems_init 2
-  CPU 0: Thread Heir 0x09010001 priority=255
-  CPU 0: Thread Executing 0x09010001 priority=255
-  CPU 1: Thread Heir 0x09010002 priority=255
-  CPU 1: Thread Executing 0x09010002 priority=255
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
+  CPU 1: Thread Heir: 0x09010002 priority=255
+  CPU 1: Thread Executing: 0x09010002 priority=255
 ==> 6: task_create smp1 3 -a 1 
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp1) created: id=0x0a010001, priority=3
 Task (0x0a010001) Set affinity=0x00000001
 Task (smp1) starting: id=0x0a010001, priority=3
-  CPU 0: Thread Heir 0x0a010001 priority=3
-  CPU 0: Thread Executing 0x0a010001 priority=3
+  CPU 0: Thread Heir: 0x0a010001 priority=3
+  CPU 0: Thread Executing: 0x0a010001 priority=3
 ==> 7: task_create smp2 2 -a 2
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp2) created: id=0x0a010002, priority=2
 Task (0x0a010002) Set affinity=0x00000002
 Task (smp2) starting: id=0x0a010002, priority=2
-  CPU 1: Thread Heir 0x0a010002 priority=2
-  CPU 1: Thread Executing 0x0a010002 priority=2
+  CPU 1: Thread Heir: 0x0a010002 priority=2
+  CPU 1: Thread Executing: 0x0a010002 priority=2
 ==> 8: 
 ==> 9: # GOAL: want 0x0a010001 - 0x0a010002 as heir and executings
 ==> 10: # GOAL:   on CPUs 0 -1 respectively

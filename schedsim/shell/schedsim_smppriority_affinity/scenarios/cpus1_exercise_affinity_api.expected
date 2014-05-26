@@ -4,8 +4,8 @@ verbose                   : 1
 ==> 2: #  Verify that affinity on 1 core
 ==> 3: #
 ==> 4: rtems_init 1
-  CPU 0: Thread Heir 0x09010001 priority=255
-  CPU 0: Thread Executing 0x09010001 priority=255
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
 ==> 5: 
 ==> 6: # GOAL: 0x0a010001 with affinity
 ==> 7: echo "=== Create and start 0x0a010001 ==="
@@ -15,8 +15,8 @@ Creating task with:  Preemption: yes Timeslicing: no
 Task (TA01) created: id=0x0a010001, priority=3
 Task (0x0a010001) Set affinity=0x00000001
 Task (TA01) starting: id=0x0a010001, priority=3
-  CPU 0: Thread Heir 0x0a010001 priority=3
-  CPU 0: Thread Executing 0x0a010001 priority=3
+  CPU 0: Thread Heir: 0x0a010001 priority=3
+  CPU 0: Thread Executing: 0x0a010001 priority=3
 ==> 9: 
 ==> 10: # GOAL: 0x0a010001 is now heir and executing on CPU 0
 ==> 11: cpus TA01

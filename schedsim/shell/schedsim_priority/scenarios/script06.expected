@@ -1,12 +1,12 @@
 *** TEST 06 ***
-  Thread Heir: 0x09010001 priority=255
-  Thread Executing: 0x09010001 priority=255
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
 Create 0x0a010001
 Creating task with:  Preemption: yes Timeslicing: no
 Task (TA1) created: id=0x0a010001, priority=1
 Task (TA1) starting: id=0x0a010001, priority=1
-  Thread Heir: 0x0a010001 priority=1
-  Thread Executing: 0x0a010001 priority=1
+  CPU 0: Thread Heir: 0x0a010001 priority=1
+  CPU 0: Thread Executing: 0x0a010001 priority=1
 Creating task with:  Preemption: yes Timeslicing: no
 Task (TA2) created: id=0x0a010002, priority=2
 Task (TA2) starting: id=0x0a010002, priority=2
@@ -15,13 +15,13 @@ Task (TA3) created: id=0x0a010003, priority=3
 Task (TA3) starting: id=0x0a010003, priority=3
 Semaphore (SEM1) created: id=0x1a010001
 Obtain semaphore (0x1a010001) with timeout 0
-  Thread Heir: 0x0a010002 priority=2
-  Thread Executing: 0x0a010002 priority=2
+  CPU 0: Thread Heir: 0x0a010002 priority=2
+  CPU 0: Thread Executing: 0x0a010002 priority=2
 Obtain semaphore (0x1a010001) with timeout 0
-  Thread Heir: 0x0a010003 priority=3
-  Thread Executing: 0x0a010003 priority=3
+  CPU 0: Thread Heir: 0x0a010003 priority=3
+  CPU 0: Thread Executing: 0x0a010003 priority=3
 Releasing semaphore (0x1a010001)
-  Thread Heir: 0x0a010001 priority=1
-  Thread Executing: 0x0a010001 priority=1
+  CPU 0: Thread Heir: 0x0a010001 priority=1
+  CPU 0: Thread Executing: 0x0a010001 priority=1
 Deleting semaphore (0x1a010001)
 *** END OF TEST 06 ***

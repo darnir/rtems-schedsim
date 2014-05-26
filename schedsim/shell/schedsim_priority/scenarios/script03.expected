@@ -1,12 +1,12 @@
 *** TEST 03 ***
-  Thread Heir: 0x09010001 priority=255
-  Thread Executing: 0x09010001 priority=255
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
 === Create 0x0a010001 ===
 Creating task with:  Preemption: yes Timeslicing: no
 Task (TA1) created: id=0x0a010001, priority=1
 Task (TA1) starting: id=0x0a010001, priority=1
-  Thread Heir: 0x0a010001 priority=1
-  Thread Executing: 0x0a010001 priority=1
+  CPU 0: Thread Heir: 0x0a010001 priority=1
+  CPU 0: Thread Executing: 0x0a010001 priority=1
 ** Mode - query
 Previous Mode: Preemption: yes Timeslicing: no
 ** Mode - set no timeslicing

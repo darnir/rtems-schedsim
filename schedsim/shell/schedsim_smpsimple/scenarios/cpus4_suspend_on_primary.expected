@@ -4,38 +4,38 @@ verbose                   : 1
 ==> 2: #  Check blocking self on primary CPU
 ==> 3: #
 ==> 4: rtems_init 4
-  CPU 0: Thread Heir 0x09010001 priority=255
-  CPU 0: Thread Executing 0x09010001 priority=255
-  CPU 1: Thread Heir 0x09010002 priority=255
-  CPU 1: Thread Executing 0x09010002 priority=255
-  CPU 2: Thread Heir 0x09010003 priority=255
-  CPU 2: Thread Executing 0x09010003 priority=255
-  CPU 3: Thread Heir 0x09010004 priority=255
-  CPU 3: Thread Executing 0x09010004 priority=255
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
+  CPU 1: Thread Heir: 0x09010002 priority=255
+  CPU 1: Thread Executing: 0x09010002 priority=255
+  CPU 2: Thread Heir: 0x09010003 priority=255
+  CPU 2: Thread Executing: 0x09010003 priority=255
+  CPU 3: Thread Heir: 0x09010004 priority=255
+  CPU 3: Thread Executing: 0x09010004 priority=255
 ==> 5: task_create smp1 8
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp1) created: id=0x0a010001, priority=8
 Task (smp1) starting: id=0x0a010001, priority=8
-  CPU 3: Thread Heir 0x0a010001 priority=8
-  CPU 3: Thread Executing 0x0a010001 priority=8
+  CPU 3: Thread Heir: 0x0a010001 priority=8
+  CPU 3: Thread Executing: 0x0a010001 priority=8
 ==> 6: task_create smp2 7
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp2) created: id=0x0a010002, priority=7
 Task (smp2) starting: id=0x0a010002, priority=7
-  CPU 2: Thread Heir 0x0a010002 priority=7
-  CPU 2: Thread Executing 0x0a010002 priority=7
+  CPU 2: Thread Heir: 0x0a010002 priority=7
+  CPU 2: Thread Executing: 0x0a010002 priority=7
 ==> 7: task_create smp3 6
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp3) created: id=0x0a010003, priority=6
 Task (smp3) starting: id=0x0a010003, priority=6
-  CPU 1: Thread Heir 0x0a010003 priority=6
-  CPU 1: Thread Executing 0x0a010003 priority=6
+  CPU 1: Thread Heir: 0x0a010003 priority=6
+  CPU 1: Thread Executing: 0x0a010003 priority=6
 ==> 8: task_create smp4 5
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp4) created: id=0x0a010004, priority=5
 Task (smp4) starting: id=0x0a010004, priority=5
-  CPU 0: Thread Heir 0x0a010004 priority=5
-  CPU 0: Thread Executing 0x0a010004 priority=5
+  CPU 0: Thread Heir: 0x0a010004 priority=5
+  CPU 0: Thread Executing: 0x0a010004 priority=5
 ==> 9: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
 ==> 10: # GOAL:   on CPUs 3-0 respectively
 ==> 11: cpus
@@ -48,8 +48,8 @@ Task (smp4) starting: id=0x0a010004, priority=5
 === End of Ready Set of Threads
 ==> 12: task_suspend SELF
 Suspending task (0x0a010004)
-  CPU 0: Thread Heir 0x09010001 priority=255
-  CPU 0: Thread Executing 0x09010001 priority=255
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
 ==> 13: # GOAL: want 0x09010001 as heir and executing on CPU 0
 ==> 14: cpus
 === CPU Status

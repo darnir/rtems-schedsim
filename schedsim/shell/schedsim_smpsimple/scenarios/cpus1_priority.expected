@@ -4,14 +4,14 @@ verbose                   : 1
 ==> 2: #  Check increasing and decrease priority self with no change
 ==> 3: #
 ==> 4: rtems_init 1
-  CPU 0: Thread Heir 0x09010001 priority=255
-  CPU 0: Thread Executing 0x09010001 priority=255
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
 ==> 5: task_create smp1 5
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp1) created: id=0x0a010001, priority=5
 Task (smp1) starting: id=0x0a010001, priority=5
-  CPU 0: Thread Heir 0x0a010001 priority=5
-  CPU 0: Thread Executing 0x0a010001 priority=5
+  CPU 0: Thread Heir: 0x0a010001 priority=5
+  CPU 0: Thread Executing: 0x0a010001 priority=5
 ==> 6: task_create smp2 8
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp2) created: id=0x0a010002, priority=8
@@ -43,8 +43,8 @@ Task (0x0a010001) Change Priority from 4 to 7
 === End of Ready Set of Threads
 ==> 18: 
 ==> 19: task_priority smp1 8
-  CPU 0: Thread Heir 0x0a010002 priority=8
-  CPU 0: Thread Executing 0x0a010002 priority=8
+  CPU 0: Thread Heir: 0x0a010002 priority=8
+  CPU 0: Thread Executing: 0x0a010002 priority=8
 Task (0x0a010001) Change Priority from 7 to 8
 ==> 20: # GOAL: 0x0a010002 is now heir and executing on CPU 0
 ==> 21: cpus
@@ -54,8 +54,8 @@ Task (0x0a010001) Change Priority from 7 to 8
 === End of Ready Set of Threads
 ==> 22: 
 ==> 23: task_priority smp1 5
-  CPU 0: Thread Heir 0x0a010001 priority=5
-  CPU 0: Thread Executing 0x0a010001 priority=5
+  CPU 0: Thread Heir: 0x0a010001 priority=5
+  CPU 0: Thread Executing: 0x0a010001 priority=5
 Task (0x0a010001) Change Priority from 8 to 5
 ==> 24: # GOAL: 0x0a010001 is now heir and executing on CPU 0
 ==> 25: cpus

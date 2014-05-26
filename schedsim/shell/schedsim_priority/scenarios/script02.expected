@@ -1,22 +1,22 @@
 *** TEST 02 ***
-  Thread Heir: 0x09010001 priority=255
-  Thread Executing: 0x09010001 priority=255
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
 === Create 0x0a010001 ===
 Creating task with:  Preemption: yes Timeslicing: no
 Task (TA1) created: id=0x0a010001, priority=1
 Task (TA1) starting: id=0x0a010001, priority=1
-  Thread Heir: 0x0a010001 priority=1
-  Thread Executing: 0x0a010001 priority=1
+  CPU 0: Thread Heir: 0x0a010001 priority=1
+  CPU 0: Thread Executing: 0x0a010001 priority=1
 Task (0x0a010001) sleeping for 5 ticks
-  Thread Heir: 0x09010001 priority=255
-  Thread Executing: 0x09010001 priority=255
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
 ClockTick (1) ...
 ClockTick (2) ...
 ClockTick (3) ...
 ClockTick (4) ...
 ClockTick (5) ...
-  Thread Heir: 0x0a010001 priority=1
-  Thread Executing: 0x0a010001 priority=1
+  CPU 0: Thread Heir: 0x0a010001 priority=1
+  CPU 0: Thread Executing: 0x0a010001 priority=1
 ClockTick (6) ...
 ClockTick (7) ...
 *** END OF TEST 2 ***
