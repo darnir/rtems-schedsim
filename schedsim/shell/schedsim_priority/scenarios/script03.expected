@@ -30,3 +30,17 @@ Current Mode:  Preemption: yes Timeslicing: yes
 ==> 11: echo "** Mode - set no timeslicing and no preempt"
 ** Mode - set no timeslicing and no preempt
 ==> 12: task_mode -t -p
+Previous Mode: Preemption: yes Timeslicing: yes
+Current Mode:  Preemption: no Timeslicing: no
+==> 13: echo "** Mode - set timeslicing and preempt"
+** Mode - set timeslicing and preempt
+==> 14: task_mode -T -P
+Previous Mode: Preemption: no Timeslicing: no
+Current Mode:  Preemption: yes Timeslicing: yes
+==> 15: echo "** Mode - query"
+** Mode - query
+==> 16: task_mode
+Previous Mode: Preemption: yes Timeslicing: yes
+==> 17: echo "*** END OF TEST 03 ***"
+*** END OF TEST 03 ***
+==> 18: exit
