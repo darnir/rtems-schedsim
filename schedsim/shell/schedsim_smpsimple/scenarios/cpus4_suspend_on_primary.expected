@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus4_suspend_on_primary.scen
+Script File               : cpus4_suspend_on_primary.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: #  Check blocking self on primary CPU

@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus4_simple_preemption.scen
+Script File               : cpus4_simple_preemption.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: #  Ensure lowest priority is preempted

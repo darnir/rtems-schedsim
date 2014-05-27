@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus1_resume_on_primary.scen
+Script File               : cpus1_resume_on_primary.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: #  Check suspending self, then resuming on primary CPU

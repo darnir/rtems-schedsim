@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus4_pick_older.scen
+Script File               : cpus4_pick_older.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: #  Verify we select the oldest task at a priority
