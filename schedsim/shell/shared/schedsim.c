@@ -57,7 +57,6 @@ int ProcessScript(
   char              *argv[RTEMS_SHELL_MAXIMUM_ARGUMENTS];
   rtems_shell_cmd_t *shell_cmd;
   
- 
   while ( 1 ) {
     cStatus = fgets( buffer, sizeof(buffer), script );
     if ( cStatus == NULL )
@@ -78,7 +77,6 @@ int ProcessScript(
       if (!isblank((int)*c))
         break;
     }
-
 
     if (!strcmp(c,"bye") || !strcmp(c,"exit")) {
       exit( 0 );
@@ -111,14 +109,15 @@ int main(
   char **argv
 )
 {
-  int  sc;  
-  int  opt;
+  int         sc;  
+  int         opt;
+  const char *short_p;
 
   progname = argv[0];
   
   while ((opt = getopt(argc, argv, "v")) != -1) {
     switch (opt) {
-      case 'v': verbose = 0;                break;
+      case 'v': verbose = 0;  break;
       default: /* '?' */
         usage();
     }
@@ -132,13 +131,25 @@ int main(
 
   if ( !strcmp( scriptname, "-" ) ) {
     scriptname = "/dev/stdin";
+    short_p    = scriptname;
+  } else {
+    size_t  slen;
+
+    slen = strlen( scriptname );  /* Should not trust input but what's max? */
+    for ( ; slen > 0 ; slen-- ) {
+      if ( scriptname[slen] == '/' ) {
+        slen++;
+        break;
+      }
+    }
+    short_p = &scriptname[ slen ];
   }
 
   if ( verbose ) {
     printf(
       "Script File               : %s\n"
       "verbose                   : %d\n",
-      scriptname,
+      short_p,
       verbose
     );
   }
