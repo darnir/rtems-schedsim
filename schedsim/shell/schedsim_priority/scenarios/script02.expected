@@ -1,15 +1,23 @@
+Script File               : script02.scen
+verbose                   : 1
+==> 1: echo "*** TEST 02 ***"
 *** TEST 02 ***
+==> 2: rtems_init
   CPU 0: Thread Heir: 0x09010001 priority=255
   CPU 0: Thread Executing: 0x09010001 priority=255
+==> 3: echo "=== Create 0x0a010001 ==="
 === Create 0x0a010001 ===
+==> 4: task_create TA1 1
 Creating task with:  Preemption: yes Timeslicing: no
 Task (TA1) created: id=0x0a010001, priority=1
 Task (TA1) starting: id=0x0a010001, priority=1
   CPU 0: Thread Heir: 0x0a010001 priority=1
   CPU 0: Thread Executing: 0x0a010001 priority=1
+==> 5: task_wake_after 5
 Task (0x0a010001) sleeping for 5 ticks
   CPU 0: Thread Heir: 0x09010001 priority=255
   CPU 0: Thread Executing: 0x09010001 priority=255
+==> 6: clock_tick 7
 ClockTick (1) ...
 ClockTick (2) ...
 ClockTick (3) ...
@@ -19,4 +27,6 @@ ClockTick (5) ...
   CPU 0: Thread Executing: 0x0a010001 priority=1
 ClockTick (6) ...
 ClockTick (7) ...
+==> 7: echo "*** END OF TEST 2 ***"
 *** END OF TEST 2 ***
+==> 8: exit

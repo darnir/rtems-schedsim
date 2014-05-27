@@ -1,26 +1,32 @@
+Script File               : script03.scen
+verbose                   : 1
+==> 1: echo "*** TEST 03 ***"
 *** TEST 03 ***
+==> 2: rtems_init
   CPU 0: Thread Heir: 0x09010001 priority=255
   CPU 0: Thread Executing: 0x09010001 priority=255
+==> 3: echo "=== Create 0x0a010001 ==="
 === Create 0x0a010001 ===
+==> 4: task_create TA1 1
 Creating task with:  Preemption: yes Timeslicing: no
 Task (TA1) created: id=0x0a010001, priority=1
 Task (TA1) starting: id=0x0a010001, priority=1
   CPU 0: Thread Heir: 0x0a010001 priority=1
   CPU 0: Thread Executing: 0x0a010001 priority=1
+==> 5: echo "** Mode - query"
 ** Mode - query
+==> 6: task_mode
 Previous Mode: Preemption: yes Timeslicing: no
+==> 7: echo "** Mode - set no timeslicing"
 ** Mode - set no timeslicing
+==> 8: task_mode -t
 Previous Mode: Preemption: yes Timeslicing: no
 Current Mode:  Preemption: yes Timeslicing: no
+==> 9: echo "** Mode - set timeslicing"
 ** Mode - set timeslicing
+==> 10: task_mode -T
 Previous Mode: Preemption: yes Timeslicing: no
 Current Mode:  Preemption: yes Timeslicing: yes
+==> 11: echo "** Mode - set no timeslicing and no preempt"
 ** Mode - set no timeslicing and no preempt
-Previous Mode: Preemption: yes Timeslicing: yes
-Current Mode:  Preemption: no Timeslicing: no
-** Mode - set timeslicing and preempt
-Previous Mode: Preemption: no Timeslicing: no
-Current Mode:  Preemption: yes Timeslicing: yes
-** Mode - query
-Previous Mode: Preemption: yes Timeslicing: yes
-*** END OF TEST 03 ***
+==> 12: task_mode -t -p

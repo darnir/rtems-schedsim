@@ -1,45 +1,68 @@
+Script File               : script05.scen
+verbose                   : 1
+==> 1: echo "*** TEST 05 ***"
 *** TEST 05 ***
+==> 2: rtems_init
   CPU 0: Thread Heir: 0x09010001 priority=255
   CPU 0: Thread Executing: 0x09010001 priority=255
+==> 3: echo Create 0x0a010001 
 Create 0x0a010001
+==> 4: task_create TA1 1
 Creating task with:  Preemption: yes Timeslicing: no
 Task (TA1) created: id=0x0a010001, priority=1
 Task (TA1) starting: id=0x0a010001, priority=1
   CPU 0: Thread Heir: 0x0a010001 priority=1
   CPU 0: Thread Executing: 0x0a010001 priority=1
+==> 5: task_create TA2 2
 Creating task with:  Preemption: yes Timeslicing: no
 Task (TA2) created: id=0x0a010002, priority=2
 Task (TA2) starting: id=0x0a010002, priority=2
+==> 6: task_create TA3 3
 Creating task with:  Preemption: yes Timeslicing: no
 Task (TA3) created: id=0x0a010003, priority=3
 Task (TA3) starting: id=0x0a010003, priority=3
+==> 7: semaphore_create SEM1
 Semaphore (SEM1) created: id=0x1a010001
+==> 8: semaphore_obtain SEM1 0
 Obtain semaphore (0x1a010001) with timeout 0
   CPU 0: Thread Heir: 0x0a010002 priority=2
   CPU 0: Thread Executing: 0x0a010002 priority=2
+==> 9: semaphore_obtain SEM1 0
 Obtain semaphore (0x1a010001) with timeout 0
   CPU 0: Thread Heir: 0x0a010003 priority=3
   CPU 0: Thread Executing: 0x0a010003 priority=3
+==> 10: semaphore_obtain SEM1 0
 Obtain semaphore (0x1a010001) with timeout 0
   CPU 0: Thread Heir: 0x09010001 priority=255
   CPU 0: Thread Executing: 0x09010001 priority=255
+==> 11: semaphore_flush SEM1
 Flushing semaphore (0x1a010001)
   CPU 0: Thread Heir: 0x0a010001 priority=1
   CPU 0: Thread Executing: 0x0a010001 priority=1
+==> 12: echo "*** Now back to TA1 to do it differently"
 *** Now back to TA1 to do it differently
+==> 13: semaphore_obtain SEM1 0
 Obtain semaphore (0x1a010001) with timeout 0
   CPU 0: Thread Heir: 0x0a010002 priority=2
   CPU 0: Thread Executing: 0x0a010002 priority=2
+==> 14: semaphore_obtain SEM1 0
 Obtain semaphore (0x1a010001) with timeout 0
   CPU 0: Thread Heir: 0x0a010003 priority=3
   CPU 0: Thread Executing: 0x0a010003 priority=3
+==> 15: semaphore_release SEM1
 Releasing semaphore (0x1a010001)
   CPU 0: Thread Heir: 0x0a010001 priority=1
   CPU 0: Thread Executing: 0x0a010001 priority=1
+==> 16: # as TA1
+==> 17: semaphore_obtain SEM1 0
 Obtain semaphore (0x1a010001) with timeout 0
   CPU 0: Thread Heir: 0x0a010003 priority=3
   CPU 0: Thread Executing: 0x0a010003 priority=3
+==> 18: semaphore_delete SEM1
 Deleting semaphore (0x1a010001)
   CPU 0: Thread Heir: 0x0a010001 priority=1
   CPU 0: Thread Executing: 0x0a010001 priority=1
+==> 19: # should preempt
+==> 20: echo "*** END OF TEST 05 ***"
 *** END OF TEST 05 ***
+==> 21: exit
