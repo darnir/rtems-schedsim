@@ -104,6 +104,7 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/schedulerpriorityyield.c
 # Uniprocessor Scheduler Simple
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleblock.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimple.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimplechangepriority.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleschedule.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleunblock.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleyield.c

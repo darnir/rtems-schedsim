@@ -1,7 +1,7 @@
 ACLOCAL_AMFLAGS = -I ./../aclocal
 
-SUBDIRS = shared schedsim_priority
-DIST_SUBDIRS = shared schedsim_priority
+SUBDIRS = shared schedsim_priority schedsim_simple
+DIST_SUBDIRS = shared schedsim_priority schedsim_simple
 
 if HAS_SMP
 SUBDIRS += schedsim_smpsimple

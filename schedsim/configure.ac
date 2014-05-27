@@ -188,6 +188,7 @@ rtems/Makefile
 shell/Makefile
 shell/shared/Makefile
 shell/schedsim_priority/Makefile
+shell/schedsim_simple/Makefile
 shell/schedsim_smpsimple/Makefile
 shell/schedsim_smppriority/Makefile
 shell/schedsim_smppriority_affinity/Makefile
