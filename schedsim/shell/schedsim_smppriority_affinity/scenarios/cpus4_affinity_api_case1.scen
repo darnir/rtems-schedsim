@@ -25,8 +25,3 @@ task_set_affinity smp5 0x04
 task_get_affinity smp5
 task_set_affinity smp5 0x08
 task_get_affinity smp5
-
-# GOAL This should fail.
-task_set_affinity smp5 0x10
-task_get_affinity smp5
-
