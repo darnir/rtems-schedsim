@@ -59,19 +59,25 @@ int ProcessScript(
   
   while ( 1 ) {
     cStatus = fgets( buffer, sizeof(buffer), script );
-    if ( cStatus == NULL )
+    if ( cStatus == NULL ) {
+      sc = 0;
       break;
+    }
+
     // If the last line does not have a CR, then we don't want to
     // arbitrarily clobber an = instead of a \n.
     length = strlen(buffer);
-    if ( buffer[ length - 1] == '\n' )
+    if ( buffer[ length - 1] == '\n' ) {
       buffer[ length - 1] = '\0';
+    }
 
-    if ( verbose )
+    if ( verbose ) {
       printf( "==> %d: %s\n", ++ScriptFileLine, buffer );
+    }
 
-    if ( buffer[0] == '#' )
+    if ( buffer[0] == '#' ) {
       continue;
+    }
 
     for ( c = buffer ; *c ; c++ ) {
       if (!isblank((int)*c))
@@ -79,7 +85,8 @@ int ProcessScript(
     }
 
     if (!strcmp(c,"bye") || !strcmp(c,"exit")) {
-      exit( 0 );
+      sc = 0;
+      break;
     } 
 
     if (rtems_shell_make_args(c, &argc, argv, RTEMS_SHELL_MAXIMUM_ARGUMENTS)) {
@@ -87,21 +94,25 @@ int ProcessScript(
       continue;
     }
 
-    if ( argc == 0 )
+    if ( argc == 0 ) {
       continue;
+    }
 
     shell_cmd = rtems_shell_lookup_cmd(argv[0]);
     if ( !shell_cmd ) {
       fprintf(stderr, "%s is unknown command\n", c );
-      exit( 1 );
+      sc = 1;
+      break;
     }
 
     sc = shell_cmd->command(argc, argv);
     if ( sc != 0 ) {
       fprintf( stderr, "ERROR: Command %s returned %d\n", argv[0], sc );
-      exit( sc );
+      break;
     }
   }
+
+  return sc;
 }
 
 int main(
