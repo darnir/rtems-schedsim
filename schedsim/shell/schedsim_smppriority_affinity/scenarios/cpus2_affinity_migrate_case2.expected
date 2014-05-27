@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus2_affinity_migrate_case2.scen
+Script File               : cpus2_affinity_migrate_case2.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: # Create a second task that is lower priority than

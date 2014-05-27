@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus4_affinity_api_case2.scen
+Script File               : cpus4_affinity_api_case2.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: #  Verify that affinity APIs work with the right values

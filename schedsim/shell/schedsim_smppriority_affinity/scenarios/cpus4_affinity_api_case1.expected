@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus4_affinity_api_case1.scen
+Script File               : cpus4_affinity_api_case1.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: #  Verify that affinity APIs work with the right values
@@ -74,9 +74,3 @@ Task (0x0a010005) Get affinity=0x00000004
 Task (0x0a010005) Set affinity=0x00000008
 ==> 27: task_get_affinity smp5
 Task (0x0a010005) Get affinity=0x00000008
-==> 28: 
-==> 29: # GOAL This should fail.
-==> 30: task_set_affinity smp5 0x10
-==> 31: task_get_affinity smp5
-Task (0x0a010005) Get affinity=0x00000008
-==> 32: 

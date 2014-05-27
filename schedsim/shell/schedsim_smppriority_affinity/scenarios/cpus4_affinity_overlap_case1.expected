@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus4_affinity_overlap_case1.scen
+Script File               : cpus4_affinity_overlap_case1.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: # Create 2 sets of threads one that can run on cpus

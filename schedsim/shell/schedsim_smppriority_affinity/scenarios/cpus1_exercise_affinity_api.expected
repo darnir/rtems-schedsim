@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus1_exercise_affinity_api.scen
+Script File               : cpus1_exercise_affinity_api.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: #  Verify that affinity on 1 core

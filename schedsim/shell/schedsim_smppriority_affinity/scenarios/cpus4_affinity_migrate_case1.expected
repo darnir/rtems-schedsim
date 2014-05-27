@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus4_affinity_migrate_case1.scen
+Script File               : cpus4_affinity_migrate_case1.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: # Create 5 tasks of the same priority.  Then

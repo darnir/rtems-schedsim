@@ -1,4 +1,4 @@
-Script File               : scenarios/cpus4_affinity_migrate_case2.scen
+Script File               : cpus4_affinity_migrate_case2.scen
 verbose                   : 1
 ==> 1: #
 ==> 2: #  Create threads of single cpu affinity to fill the
