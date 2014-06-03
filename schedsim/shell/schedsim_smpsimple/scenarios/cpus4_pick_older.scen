@@ -8,28 +8,28 @@ task_create smp3 7
 task_create smp4 8
 # GOAL: Tasks 0x0a010001 - 0x0a010004 as heir and executing
 # GOAL:    on CPUs 3 - 0 respectively
-cpus
+cpus smp4 smp3 smp2 smp1
 
 task_create smp5 5
 clock_tick 1
 # GOAL: Tasks 0x0a010001, 0x0a010002, 0x0a010003, and 0x0a010005 are
 # GOAL:    heir and executing on CPUs 3 - 0 respectively
-cpus
+cpus smp5 smp3 smp2 smp1
 
 task_create smp6 5
 clock_tick 1
 # GOAL: Tasks 0x0a010001, 0x0a010002, 0x0a010006, and 0x0a010005 are
 # GOAL:    heir and executing on CPUs 3 - 0 respectively
-cpus
+cpus smp5 smp6 smp2 smp1
 
 task_create smp7 5
 clock_tick 1
 # GOAL: Tasks 0x0a010001, 0x0a010007, 0x0a010006, and 0x0a010005 are
 # GOAL:    heir and executing on CPUs 3 - 0 respectively
-cpus
+cpus smp5 smp6 smp7 smp1
 
 # We should pick task smp5 (0x0a010005) on CPU 0
 task_create smp8 4
-# GOAL: Tasks 0x0a010001, 0x0a010007, 0x0a010006, and 0x0a010008 are
+# GOAL: Tasks 0x0a010001, 0x0a010008, 0x0a010006, and 0x0a010005 are
 # GOAL:    heir and executing on CPUs 3 - 0 respectively
-cpus
+cpus smp5 smp6 smp8 smp1

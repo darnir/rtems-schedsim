@@ -13,7 +13,7 @@ Task (smp1) starting: id=0x0a010001, priority=5
   CPU 0: Thread Heir: 0x0a010001 priority=5
   CPU 0: Thread Executing: 0x0a010001 priority=5
 ==> 6: # GOAL: 0x0a010001 is heir and executing on CPU 0
-==> 7: cpus
+==> 7: cpus smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5          false
@@ -24,13 +24,13 @@ Suspending task (0x0a010001)
   CPU 0: Thread Heir: 0x09010001 priority=255
   CPU 0: Thread Executing: 0x09010001 priority=255
 ==> 10: # GOAL: 0x09010001 is heir and executing on CPU 0
-==> 11: cpus
+==> 11: cpus IDLE
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x09010001 @255 / 0x09010001 @255          false
 === End of Ready Set of Threads
 ==> 12: # GOAL: 0x09010001 is heir and executing on CPU 0
-==> 13: cpus
+==> 13: cpus IDLE
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x09010001 @255 / 0x09010001 @255          false
@@ -41,13 +41,13 @@ Resuming task (0x0a010001)
   CPU 0: Thread Heir: 0x0a010001 priority=5
   CPU 0: Thread Executing: 0x0a010001 priority=5
 ==> 16: # GOAL: 0x0a010001 is heir and executing on CPU 0
-==> 17: cpus
+==> 17: cpus smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5          false
 === End of Ready Set of Threads
 ==> 18: # GOAL: 0x0a010001 is heir and executing on CPU 0
-==> 19: cpus
+==> 19: cpus smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5          false

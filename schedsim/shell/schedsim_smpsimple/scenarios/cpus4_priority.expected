@@ -42,7 +42,7 @@ Task (smp5) created: id=0x0a010005, priority=8
 Task (smp5) starting: id=0x0a010005, priority=8
 ==> 10: # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
 ==> 11: # GOAL:   on CPUs 3 - 0 respectively
-==> 12: cpus
+==> 12: cpus smp4 smp3 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010004 @  8 / 0x0a010004 @  8          false
@@ -55,7 +55,7 @@ Task (smp5) starting: id=0x0a010005, priority=8
 Task (0x0a010001) Change Priority from 5 to 4
 ==> 15: # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
 ==> 16: # GOAL:   on CPUs 3 - 0 respectively (no change)
-==> 17: cpus
+==> 17: cpus smp4 smp3 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010004 @  8 / 0x0a010004 @  8          false
@@ -68,7 +68,7 @@ Task (0x0a010001) Change Priority from 5 to 4
 Task (0x0a010001) Change Priority from 4 to 7
 ==> 20: # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
 ==> 21: # GOAL:   on CPUs 3 - 0 respectively (no change)
-==> 22: cpus
+==> 22: cpus smp4 smp3 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010004 @  8 / 0x0a010004 @  8          false
@@ -83,7 +83,7 @@ Task (0x0a010001) Change Priority from 4 to 7
 Task (0x0a010001) Change Priority from 7 to 8
 ==> 25: # GOAL: 0x0a010005, 0x0a010002 - 0x0a010004 are heir and executing
 ==> 26: # GOAL:   on CPUs 3 - 0 respectively
-==> 27: cpus
+==> 27: cpus smp4 smp3 smp2 smp5
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010004 @  8 / 0x0a010004 @  8          false
@@ -98,7 +98,7 @@ Task (0x0a010001) Change Priority from 7 to 8
 Task (0x0a010001) Change Priority from 8 to 5
 ==> 30: # GOAL: 0x0a010001 - 0x0a010004 are heir and executing
 ==> 31: # GOAL:   on CPUs 3 - 0 respectively
-==> 32: cpus
+==> 32: cpus smp4 smp3 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010004 @  8 / 0x0a010004 @  8          false

@@ -18,7 +18,7 @@ Task (smp2) created: id=0x0a010002, priority=8
 Task (smp2) starting: id=0x0a010002, priority=8
 ==> 7: dispatch
 ==> 8: # GOAL: 0x0a010001 is heir and executing on CPU 0
-==> 9: cpus
+==> 9: cpus smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5          false
@@ -27,7 +27,7 @@ Task (smp2) starting: id=0x0a010002, priority=8
 ==> 11: task_priority smp1 4
 Task (0x0a010001) Change Priority from 5 to 4
 ==> 12: # GOAL: 0x0a010001 is still heir and executing on CPU 0
-==> 13: cpus
+==> 13: cpus smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010001 @  4 / 0x0a010001 @  4          false
@@ -36,7 +36,7 @@ Task (0x0a010001) Change Priority from 5 to 4
 ==> 15: task_priority smp1 7
 Task (0x0a010001) Change Priority from 4 to 7
 ==> 16: # GOAL: 0x0a010001 is still heir and executing on CPU 0
-==> 17: cpus
+==> 17: cpus smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010001 @  7 / 0x0a010001 @  7          false
@@ -47,7 +47,7 @@ Task (0x0a010001) Change Priority from 4 to 7
   CPU 0: Thread Executing: 0x0a010002 priority=8
 Task (0x0a010001) Change Priority from 7 to 8
 ==> 20: # GOAL: 0x0a010002 is now heir and executing on CPU 0
-==> 21: cpus
+==> 21: cpus smp2
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010002 @  8 / 0x0a010002 @  8          false
@@ -58,7 +58,7 @@ Task (0x0a010001) Change Priority from 7 to 8
   CPU 0: Thread Executing: 0x0a010001 priority=5
 Task (0x0a010001) Change Priority from 8 to 5
 ==> 24: # GOAL: 0x0a010001 is now heir and executing on CPU 0
-==> 25: cpus
+==> 25: cpus smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5          false

@@ -38,7 +38,7 @@ Task (smp4) starting: id=0x0a010004, priority=8
   CPU 0: Thread Executing: 0x0a010004 priority=8
 ==> 9: # GOAL: Tasks 0x0a010001 - 0x0a010004 as heir and executing
 ==> 10: # GOAL:    on CPUs 3 - 0 respectively
-==> 11: cpus
+==> 11: cpus smp4 smp3 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010004 @  8 / 0x0a010004 @  8          false
@@ -57,7 +57,7 @@ Task (smp5) starting: id=0x0a010005, priority=5
 ClockTick (1) ...
 ==> 15: # GOAL: Tasks 0x0a010001, 0x0a010002, 0x0a010003, and 0x0a010005 are
 ==> 16: # GOAL:    heir and executing on CPUs 3 - 0 respectively
-==> 17: cpus
+==> 17: cpus smp5 smp3 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010005 @  5 / 0x0a010005 @  5          false
@@ -76,7 +76,7 @@ Task (smp6) starting: id=0x0a010006, priority=5
 ClockTick (1) ...
 ==> 21: # GOAL: Tasks 0x0a010001, 0x0a010002, 0x0a010006, and 0x0a010005 are
 ==> 22: # GOAL:    heir and executing on CPUs 3 - 0 respectively
-==> 23: cpus
+==> 23: cpus smp5 smp6 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010005 @  5 / 0x0a010005 @  5          false
@@ -95,7 +95,7 @@ Task (smp7) starting: id=0x0a010007, priority=5
 ClockTick (1) ...
 ==> 27: # GOAL: Tasks 0x0a010001, 0x0a010007, 0x0a010006, and 0x0a010005 are
 ==> 28: # GOAL:    heir and executing on CPUs 3 - 0 respectively
-==> 29: cpus
+==> 29: cpus smp5 smp6 smp7 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010005 @  5 / 0x0a010005 @  5          false
@@ -111,9 +111,9 @@ Task (smp8) created: id=0x0a010008, priority=4
 Task (smp8) starting: id=0x0a010008, priority=4
   CPU 2: Thread Heir: 0x0a010008 priority=4
   CPU 2: Thread Executing: 0x0a010008 priority=4
-==> 33: # GOAL: Tasks 0x0a010001, 0x0a010007, 0x0a010006, and 0x0a010008 are
+==> 33: # GOAL: Tasks 0x0a010001, 0x0a010008, 0x0a010006, and 0x0a010005 are
 ==> 34: # GOAL:    heir and executing on CPUs 3 - 0 respectively
-==> 35: cpus
+==> 35: cpus smp5 smp6 smp8 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010005 @  5 / 0x0a010005 @  5          false

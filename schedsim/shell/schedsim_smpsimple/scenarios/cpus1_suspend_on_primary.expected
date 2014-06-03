@@ -12,7 +12,7 @@ Task (smp1) created: id=0x0a010001, priority=5
 Task (smp1) starting: id=0x0a010001, priority=5
   CPU 0: Thread Heir: 0x0a010001 priority=5
   CPU 0: Thread Executing: 0x0a010001 priority=5
-==> 6: cpus
+==> 6: cpus smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5          false
@@ -22,13 +22,13 @@ Task (smp1) starting: id=0x0a010001, priority=5
 Suspending task (0x0a010001)
   CPU 0: Thread Heir: 0x09010001 priority=255
   CPU 0: Thread Executing: 0x09010001 priority=255
-==> 9: cpus
+==> 9: cpus IDLE
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x09010001 @255 / 0x09010001 @255          false
 === End of Ready Set of Threads
 ==> 10: # GOAL: 0x09010001 is heir and executing on CPU 0
-==> 11: cpus
+==> 11: cpus IDLE
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x09010001 @255 / 0x09010001 @255          false

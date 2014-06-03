@@ -38,7 +38,7 @@ Task (smp4) starting: id=0x0a010004, priority=5
   CPU 0: Thread Executing: 0x0a010004 priority=5
 ==> 9: # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
 ==> 10: # GOAL:   on CPUs 3-0 respectively
-==> 11: cpus
+==> 11: cpus smp4 smp3 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x0a010004 @  5 / 0x0a010004 @  5          false
@@ -51,7 +51,7 @@ Suspending task (0x0a010004)
   CPU 0: Thread Heir: 0x09010001 priority=255
   CPU 0: Thread Executing: 0x09010001 priority=255
 ==> 13: # GOAL: want 0x09010001 as heir and executing on CPU 0
-==> 14: cpus
+==> 14: cpus IDLE smp3 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x09010001 @255 / 0x09010001 @255          false
@@ -60,7 +60,7 @@ Suspending task (0x0a010004)
   CPU 3: 0x0a010001 @  8 / 0x0a010001 @  8          false
 === End of Ready Set of Threads
 ==> 15: # GOAL: want 0x09010001 as heir and executing on CPU 0
-==> 16: cpus
+==> 16: cpus IDLE smp3 smp2 smp1
 === CPU Status
           EXECUTING      /   HEIR             / SWITCH NEEDED
   CPU 0: 0x09010001 @255 / 0x09010001 @255          false

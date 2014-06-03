@@ -8,10 +8,10 @@ task_create smp3 5
 task_create smp4 6
 # GOAL: want 0x0a010001 - 0x0a010004 as heir and executings
 # GOAL:   on CPUs 3-0 respectively
-cpus
+cpus smp4 smp3 smp2 smp1
 # Tasks are created and distributed across CPUs
 task_create smp5 1
 # GOAL: want 0x0a010005 to be heir on CPU 2
-cpus
+cpus smp4 smp3 smp5 smp1
 # GOAL: want 0x0a010005 to be heir AND executing on CPU 2
-cpus
+cpus smp4 smp3 smp5 smp1
