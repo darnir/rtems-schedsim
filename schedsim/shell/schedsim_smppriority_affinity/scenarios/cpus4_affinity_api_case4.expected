@@ -1,0 +1,119 @@
+Script File               : cpus4_affinity_api_case4.scen
+verbose                   : 1
+==> 1: #
+==> 2: #  Verify that affinity APIs work with the right values
+==> 3: #
+==> 4: #  This scenario does **NOT** change the affinity of any thread
+==> 5: #  which ever executes.
+==> 6: #
+==> 7: rtems_init 4
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
+  CPU 1: Thread Heir: 0x09010002 priority=255
+  CPU 1: Thread Executing: 0x09010002 priority=255
+  CPU 2: Thread Heir: 0x09010003 priority=255
+  CPU 2: Thread Executing: 0x09010003 priority=255
+  CPU 3: Thread Heir: 0x09010004 priority=255
+  CPU 3: Thread Executing: 0x09010004 priority=255
+==> 8: task_create smp1 5
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp1) created: id=0x0a010001, priority=5
+Task (smp1) starting: id=0x0a010001, priority=5
+Send Interrupt to cpu 3
+  CPU 3: Thread Heir: 0x0a010001 priority=5
+  CPU 3: Thread Executing: 0x0a010001 priority=5
+==> 9: current_cpu 3
+Changing current CPU from 0 to 3
+==> 10: 
+==> 11: dispatch
+==> 12: cpus IDLE IDLE IDLE smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x09010001 @255 / 0x09010001 @255          false
+  CPU 1: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 2: 0x09010003 @255 / 0x09010003 @255          false
+  CPU 3: 0x0a010001 @  5 / 0x0a010001 @  5          false
+=== End of Ready Set of Threads
+==> 13: 
+==> 14: task_create smp2 4
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp2) created: id=0x0a010002, priority=4
+Task (smp2) starting: id=0x0a010002, priority=4
+Send Interrupt to cpu 2
+  CPU 2: Thread Heir: 0x0a010002 priority=4
+  CPU 2: Thread Executing: 0x0a010002 priority=4
+==> 15: cpus IDLE IDLE smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x09010001 @255 / 0x09010001 @255          false
+  CPU 1: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 2: 0x0a010002 @  4 / 0x0a010002 @  4          false
+  CPU 3: 0x0a010001 @  5 / 0x0a010001 @  5          false
+=== End of Ready Set of Threads
+==> 16: 
+==> 17: task_set_affinity smp2 0x01
+Send Interrupt to cpu 2
+Send Interrupt to cpu 0
+  CPU 0: Thread Heir: 0x0a010002 priority=4
+  CPU 0: Thread Executing: 0x0a010002 priority=4
+  CPU 2: Thread Heir: 0x09010003 priority=255
+  CPU 2: Thread Executing: 0x09010003 priority=255
+Task (0x0a010002) Set affinity=0x00000001
+==> 18: cpus smp2 IDLE IDLE smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010002 @  4 / 0x0a010002 @  4          false
+  CPU 1: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 2: 0x09010003 @255 / 0x09010003 @255          false
+  CPU 3: 0x0a010001 @  5 / 0x0a010001 @  5          false
+=== End of Ready Set of Threads
+==> 19: 
+==> 20: task_set_affinity smp2 0x02
+Send Interrupt to cpu 0
+Send Interrupt to cpu 1
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
+  CPU 1: Thread Heir: 0x0a010002 priority=4
+  CPU 1: Thread Executing: 0x0a010002 priority=4
+Task (0x0a010002) Set affinity=0x00000002
+==> 21: cpus IDLE smp2 IDLE smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x09010001 @255 / 0x09010001 @255          false
+  CPU 1: 0x0a010002 @  4 / 0x0a010002 @  4          false
+  CPU 2: 0x09010003 @255 / 0x09010003 @255          false
+  CPU 3: 0x0a010001 @  5 / 0x0a010001 @  5          false
+=== End of Ready Set of Threads
+==> 22: 
+==> 23: task_set_affinity smp2 0x04
+Send Interrupt to cpu 1
+Send Interrupt to cpu 2
+  CPU 1: Thread Heir: 0x09010002 priority=255
+  CPU 1: Thread Executing: 0x09010002 priority=255
+  CPU 2: Thread Heir: 0x0a010002 priority=4
+  CPU 2: Thread Executing: 0x0a010002 priority=4
+Task (0x0a010002) Set affinity=0x00000004
+==> 24: cpus IDLE IDLE smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x09010001 @255 / 0x09010001 @255          false
+  CPU 1: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 2: 0x0a010002 @  4 / 0x0a010002 @  4          false
+  CPU 3: 0x0a010001 @  5 / 0x0a010001 @  5          false
+=== End of Ready Set of Threads
+==> 25: 
+==> 26: task_set_affinity smp2 0x08
+Send Interrupt to cpu 2
+  CPU 2: Thread Heir: 0x0a010001 priority=5
+  CPU 2: Thread Executing: 0x0a010001 priority=5
+  CPU 3: Thread Heir: 0x0a010002 priority=4
+  CPU 3: Thread Executing: 0x0a010002 priority=4
+Task (0x0a010002) Set affinity=0x00000008
+==> 27: cpus IDLE IDLE smp1 smp2
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x09010001 @255 / 0x09010001 @255          false
+  CPU 1: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 2: 0x0a010001 @  5 / 0x0a010001 @  5          false
+  CPU 3: 0x0a010002 @  4 / 0x0a010002 @  4          false
+=== End of Ready Set of Threads

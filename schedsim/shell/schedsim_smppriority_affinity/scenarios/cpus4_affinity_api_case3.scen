@@ -1,0 +1,32 @@
+#
+#  Verify that affinity APIs work with the right values
+#
+#  This scenario does **NOT** change the affinity of any thread
+#  which ever executes.
+#
+rtems_init 4
+task_create smp1 5
+current_cpu 3
+
+dispatch
+cpus IDLE IDLE IDLE smp1
+
+task_get_affinity smp1
+task_set_affinity smp1 0x08
+task_get_affinity smp1
+cpus IDLE IDLE IDLE smp1
+
+task_set_affinity smp1 0x04
+current_cpu 2
+task_get_affinity smp1
+cpus IDLE IDLE smp1 IDLE
+
+task_set_affinity smp1 0x02
+current_cpu 1
+task_get_affinity smp1
+cpus IDLE smp1 IDLE IDLE
+
+task_set_affinity smp1 0x01
+current_cpu 0
+task_get_affinity smp1
+cpus smp1 IDLE IDLE IDLE
