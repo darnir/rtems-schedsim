@@ -1,0 +1,59 @@
+Script File               : inherit_priority.scen
+verbose                   : 1
+==> 1: #
+==> 2: #  Verify priority inheritance with a priority ceiling mutex
+==> 3: #
+==> 4: echo "*** TEST INHERIT PRIORITY ***"
+*** TEST INHERIT PRIORITY ***
+==> 5: rtems_init
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
+==> 6: echo "=== Create 0x0a010001 at priority 8 ==="
+=== Create 0x0a010001 at priority 8 ===
+==> 7: task_create smp1 8
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp1) created: id=0x0a010001, priority=8
+Task (smp1) starting: id=0x0a010001, priority=8
+  CPU 0: Thread Heir: 0x0a010001 priority=8
+  CPU 0: Thread Executing: 0x0a010001 priority=8
+==> 8: cpus smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010001 @  8 / 0x0a010001 @  8          false
+=== End of Ready Set of Threads
+==> 9: 
+==> 10: # sem1 is binary semaphore (e.g. mutex) with priority ceiling of 5 
+==> 11: echo "Create mutex with priority ceiling of 5
+Create mutex with priority ceiling of 5
+==> 12: semaphore_create -b -p -C 5 -V 1 sem1
+Semaphore (sem1) created: id=0x1a010001
+==> 13: cpus smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010001 @  8 / 0x0a010001 @  8          false
+=== End of Ready Set of Threads
+==> 14: 
+==> 15: semaphore_obtain sem1 0
+Obtain semaphore (0x1a010001) with timeout 0
+==> 16: 
+==> 17: # This should show smp4 has inherited a priority of 5
+==> 18: echo "smp1 should inherit a priority of 5
+smp1 should inherit a priority of 5
+==> 19: cpus smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010001 @  5 / 0x0a010001 @  5          false
+=== End of Ready Set of Threads
+==> 20: 
+==> 21: semaphore_release sem1
+Releasing semaphore (0x1a010001)
+==> 22: # This should show smp1 has its original priority of 8
+==> 23: echo "smp1 should return to a priority of 8
+smp1 should return to a priority of 8
+==> 24: cpus smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010001 @  8 / 0x0a010001 @  8          false
+=== End of Ready Set of Threads
+==> 25: echo "*** END OF TEST INHERIT PRIORITY ***"
+*** END OF TEST INHERIT PRIORITY ***
