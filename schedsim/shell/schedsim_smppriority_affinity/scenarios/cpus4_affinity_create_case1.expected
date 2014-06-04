@@ -1,0 +1,162 @@
+Script File               : cpus4_affinity_create_case1.scen
+verbose                   : 1
+==> 1: #
+==> 2: #  Create threads of single cpu affinity to fill the
+==> 3: #  cpus.  Have a single of the same priority on the
+==> 4: #  ready chain that can run on any cpu.  Change the
+==> 5: #  affinity of one of the running threads forcing it
+==> 6: #  to move to the ready chain and quit running. 
+==> 7: #
+==> 8: rtems_init 4
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
+  CPU 1: Thread Heir: 0x09010002 priority=255
+  CPU 1: Thread Executing: 0x09010002 priority=255
+  CPU 2: Thread Heir: 0x09010003 priority=255
+  CPU 2: Thread Executing: 0x09010003 priority=255
+  CPU 3: Thread Heir: 0x09010004 priority=255
+  CPU 3: Thread Executing: 0x09010004 priority=255
+==> 9: task_create smp1 8
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp1) created: id=0x0a010001, priority=8
+Task (smp1) starting: id=0x0a010001, priority=8
+  CPU 3: Thread Heir: 0x0a010001 priority=8
+  CPU 3: Thread Executing: 0x0a010001 priority=8
+==> 10: current_cpu 3
+Changing current CPU from 0 to 3
+==> 11: 
+==> 12: cpus IDLE IDLE IDLE smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x09010001 @255 / 0x09010001 @255          false
+  CPU 1: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 2: 0x09010003 @255 / 0x09010003 @255          false
+  CPU 3: 0x0a010001 @  8 / 0x0a010001 @  8          false
+=== End of Ready Set of Threads
+==> 13: 
+==> 14: task_create smp2 4 -a 0x4
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp2) created: id=0x0a010002, priority=4
+Task (0x0a010002) Set affinity=0x00000004
+Task (smp2) starting: id=0x0a010002, priority=4
+  CPU 2: Thread Heir: 0x0a010002 priority=4
+  CPU 2: Thread Executing: 0x0a010002 priority=4
+==> 15: cpus IDLE IDLE smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x09010001 @255 / 0x09010001 @255          false
+  CPU 1: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 2: 0x0a010002 @  4 / 0x0a010002 @  4          false
+  CPU 3: 0x0a010001 @  8 / 0x0a010001 @  8          false
+=== End of Ready Set of Threads
+==> 16:  
+==> 17: task_create smp3 4 -a 0x1
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp3) created: id=0x0a010003, priority=4
+Task (0x0a010003) Set affinity=0x00000001
+Task (smp3) starting: id=0x0a010003, priority=4
+  CPU 0: Thread Heir: 0x0a010003 priority=4
+  CPU 0: Thread Executing: 0x0a010003 priority=4
+==> 18: cpus smp3 IDLE smp2 smp1
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010003 @  4 / 0x0a010003 @  4          false
+  CPU 1: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 2: 0x0a010002 @  4 / 0x0a010002 @  4          false
+  CPU 3: 0x0a010001 @  8 / 0x0a010001 @  8          false
+=== End of Ready Set of Threads
+==> 19: 
+==> 20: task_delete smp2
+  CPU 2: Thread Heir: 0x0a010001 priority=8
+  CPU 2: Thread Executing: 0x0a010001 priority=8
+  CPU 3: Thread Heir: 0x09010001 priority=255
+  CPU 3: Thread Executing: 0x09010001 priority=255
+Task (0x0a010002) deleted
+==> 21: cpus smp3 IDLE smp1 IDLE
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010003 @  4 / 0x0a010003 @  4          false
+  CPU 1: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 2: 0x0a010001 @  8 / 0x0a010001 @  8          false
+  CPU 3: 0x09010001 @255 / 0x09010001 @255          false
+=== End of Ready Set of Threads
+==> 22: 
+==> 23: task_create smp4 4 -a 0x8
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp4) created: id=0x0a010004, priority=4
+Task (0x0a010004) Set affinity=0x00000008
+Task (smp4) starting: id=0x0a010004, priority=4
+  CPU 3: Thread Heir: 0x0a010004 priority=4
+  CPU 3: Thread Executing: 0x0a010004 priority=4
+==> 24: current_cpu 2
+Changing current CPU from 3 to 2
+==> 25: cpus smp3 IDLE smp1 smp4
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010003 @  4 / 0x0a010003 @  4          false
+  CPU 1: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 2: 0x0a010001 @  8 / 0x0a010001 @  8          false
+  CPU 3: 0x0a010004 @  4 / 0x0a010004 @  4          false
+=== End of Ready Set of Threads
+==> 26: 
+==> 27: task_delete smp3
+  CPU 0: Thread Heir: 0x0a010001 priority=8
+  CPU 0: Thread Executing: 0x0a010001 priority=8
+  CPU 2: Thread Heir: 0x09010001 priority=255
+  CPU 2: Thread Executing: 0x09010001 priority=255
+Task (0x0a010003) deleted
+==> 28: cpus smp1 IDLE IDLE smp4
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010001 @  8 / 0x0a010001 @  8          false
+  CPU 1: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 2: 0x09010001 @255 / 0x09010001 @255          false
+  CPU 3: 0x0a010004 @  4 / 0x0a010004 @  4          false
+=== End of Ready Set of Threads
+==> 29: 
+==> 30: task_create smp5 4 -a 0x2
+Creating task with:  Preemption: yes Timeslicing: no
+Task (smp5) created: id=0x0a010005, priority=4
+Task (0x0a010005) Set affinity=0x00000002
+Task (smp5) starting: id=0x0a010005, priority=4
+  CPU 1: Thread Heir: 0x0a010005 priority=4
+  CPU 1: Thread Executing: 0x0a010005 priority=4
+==> 31: cpus smp1 smp5 IDLE smp4
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010001 @  8 / 0x0a010001 @  8          false
+  CPU 1: 0x0a010005 @  4 / 0x0a010005 @  4          false
+  CPU 2: 0x09010001 @255 / 0x09010001 @255          false
+  CPU 3: 0x0a010004 @  4 / 0x0a010004 @  4          false
+=== End of Ready Set of Threads
+==> 32: 
+==> 33: task_delete smp4
+  CPU 2: Thread Heir: 0x09010002 priority=255
+  CPU 2: Thread Executing: 0x09010002 priority=255
+  CPU 3: Thread Heir: 0x09010003 priority=255
+  CPU 3: Thread Executing: 0x09010003 priority=255
+Task (0x0a010004) deleted
+==> 34: cpus smp1 smp5 IDLE IDLE
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010001 @  8 / 0x0a010001 @  8          false
+  CPU 1: 0x0a010005 @  4 / 0x0a010005 @  4          false
+  CPU 2: 0x09010002 @255 / 0x09010002 @255          false
+  CPU 3: 0x09010003 @255 / 0x09010003 @255          false
+=== End of Ready Set of Threads
+==> 35: 
+==> 36: task_delete smp5
+  CPU 1: Thread Heir: 0x09010004 priority=255
+  CPU 1: Thread Executing: 0x09010004 priority=255
+  CPU 2: Thread Heir: 0x09010001 priority=255
+  CPU 2: Thread Executing: 0x09010001 priority=255
+Task (0x0a010005) deleted
+==> 37: cpus smp1 IDLE IDLE IDLE
+=== CPU Status
+          EXECUTING      /   HEIR             / SWITCH NEEDED
+  CPU 0: 0x0a010001 @  8 / 0x0a010001 @  8          false
+  CPU 1: 0x09010004 @255 / 0x09010004 @255          false
+  CPU 2: 0x09010001 @255 / 0x09010001 @255          false
+  CPU 3: 0x09010003 @255 / 0x09010003 @255          false
+=== End of Ready Set of Threads
+==> 38: 

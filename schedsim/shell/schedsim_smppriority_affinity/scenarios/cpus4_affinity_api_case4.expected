@@ -19,7 +19,6 @@ verbose                   : 1
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp1) created: id=0x0a010001, priority=5
 Task (smp1) starting: id=0x0a010001, priority=5
-Send Interrupt to cpu 3
   CPU 3: Thread Heir: 0x0a010001 priority=5
   CPU 3: Thread Executing: 0x0a010001 priority=5
 ==> 9: current_cpu 3
@@ -39,7 +38,6 @@ Changing current CPU from 0 to 3
 Creating task with:  Preemption: yes Timeslicing: no
 Task (smp2) created: id=0x0a010002, priority=4
 Task (smp2) starting: id=0x0a010002, priority=4
-Send Interrupt to cpu 2
   CPU 2: Thread Heir: 0x0a010002 priority=4
   CPU 2: Thread Executing: 0x0a010002 priority=4
 ==> 15: cpus IDLE IDLE smp2 smp1
@@ -52,8 +50,6 @@ Send Interrupt to cpu 2
 === End of Ready Set of Threads
 ==> 16: 
 ==> 17: task_set_affinity smp2 0x01
-Send Interrupt to cpu 2
-Send Interrupt to cpu 0
   CPU 0: Thread Heir: 0x0a010002 priority=4
   CPU 0: Thread Executing: 0x0a010002 priority=4
   CPU 2: Thread Heir: 0x09010003 priority=255
@@ -69,8 +65,6 @@ Task (0x0a010002) Set affinity=0x00000001
 === End of Ready Set of Threads
 ==> 19: 
 ==> 20: task_set_affinity smp2 0x02
-Send Interrupt to cpu 0
-Send Interrupt to cpu 1
   CPU 0: Thread Heir: 0x09010001 priority=255
   CPU 0: Thread Executing: 0x09010001 priority=255
   CPU 1: Thread Heir: 0x0a010002 priority=4
@@ -86,8 +80,6 @@ Task (0x0a010002) Set affinity=0x00000002
 === End of Ready Set of Threads
 ==> 22: 
 ==> 23: task_set_affinity smp2 0x04
-Send Interrupt to cpu 1
-Send Interrupt to cpu 2
   CPU 1: Thread Heir: 0x09010002 priority=255
   CPU 1: Thread Executing: 0x09010002 priority=255
   CPU 2: Thread Heir: 0x0a010002 priority=4
@@ -103,7 +95,6 @@ Task (0x0a010002) Set affinity=0x00000004
 === End of Ready Set of Threads
 ==> 25: 
 ==> 26: task_set_affinity smp2 0x08
-Send Interrupt to cpu 2
   CPU 2: Thread Heir: 0x0a010001 priority=5
   CPU 2: Thread Executing: 0x0a010001 priority=5
   CPU 3: Thread Heir: 0x0a010002 priority=4
