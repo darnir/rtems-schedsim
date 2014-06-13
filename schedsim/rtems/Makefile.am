@@ -148,6 +148,7 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/threadqfirstpriority.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadqflush.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadqprocesstimeout.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadqtimeout.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/threadyield.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/timespecaddto.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/timespecdividebyinteger.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/timespecdivide.c
