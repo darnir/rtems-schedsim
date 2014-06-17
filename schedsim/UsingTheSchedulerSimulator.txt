@@ -245,8 +245,30 @@ task_resume Command
 ^^^^^^^^^^^^^^^^^^^
 *Usage*: task_resume name|id
 
-This command is used to suspend the specified task.  It is the equivalent
-of the rtems_task_suspend directive in the Classic API.
+This command is used to resume the specified task.  It is the equivalent
+of the rtems_task_resume directive in the Classic API.
+
+task_set_scheduler
+^^^^^^^^^^^^^^^^^^
+*Usage*: task_set_scheduler Task name|id   Scheduler number
+
+This command is used to modified the select a scheduler cluster.
+
+For example on a system configured with scheduler 0 being a 
+Priority SMP Scheduler and scheduler 1 configured as Priority 
+Affinity SMP Scheduler
+
+The following is the output from the invocation task_set_scheduler TA1 1
+
+-------------------------------------------------------------
+Task (0x0a010001) on Priority Affinity SMP Scheduler
+-------------------------------------------------------------
+
+The following is the output from the invocation task_set_scheduler TA1 0 
+
+-------------------------------------------------------------
+Task (0x0a010001) on Priority SMP Scheduler
+-------------------------------------------------------------
 
 task_suspend Command
 ^^^^^^^^^^^^^^^^^^^^

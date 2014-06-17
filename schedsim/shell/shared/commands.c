@@ -28,6 +28,7 @@ extern rtems_shell_cmd_t rtems_shell_TASK_CREATE_Command;
 extern rtems_shell_cmd_t rtems_shell_TASK_DELETE_Command;
 extern rtems_shell_cmd_t rtems_shell_TASK_MODE_Command;
 extern rtems_shell_cmd_t rtems_shell_TASK_PRIORITY_Command;
+extern rtems_shell_cmd_t rtems_shell_TASK_SET_SCHEDULER_Command;
 extern rtems_shell_cmd_t rtems_shell_TASK_SUSPEND_Command;
 extern rtems_shell_cmd_t rtems_shell_TASK_RESUME_Command;
 extern rtems_shell_cmd_t rtems_shell_TASK_WAKE_AFTER_Command;
@@ -62,6 +63,7 @@ rtems_shell_cmd_t *rtems_shell_Initial_commands[] = {
   &rtems_shell_TASK_DELETE_Command,
   &rtems_shell_TASK_MODE_Command,
   &rtems_shell_TASK_PRIORITY_Command,
+  &rtems_shell_TASK_SET_SCHEDULER_Command,
   &rtems_shell_TASK_SUSPEND_Command,
   &rtems_shell_TASK_RESUME_Command,
   &rtems_shell_TASK_WAKE_AFTER_Command,

@@ -48,6 +48,7 @@ libschedsim_a_SOURCES += main_taskdelete.c
 libschedsim_a_SOURCES += main_taskmode.c
 libschedsim_a_SOURCES += main_taskpriority.c
 libschedsim_a_SOURCES += main_taskresume.c
+libschedsim_a_SOURCES += main_taskscheduler.c
 libschedsim_a_SOURCES += main_tasksuspend.c
 libschedsim_a_SOURCES += main_taskwakeafter.c
 libschedsim_a_SOURCES += printheir_executing.c

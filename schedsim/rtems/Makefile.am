@@ -111,6 +111,36 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleschedule.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleunblock.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersimpleyield.c
 
+# Uniprocessor Scheduler CBS
+librtems_a_SOURCES += $(cpukitdir)/score/src
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbsattachthread.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbscreateserver.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbsgetapprovedbudget.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbsgetremainingbudget.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbsreleasejob.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbs.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbsdestroyserver.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbsgetexecutiontime.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbsgetserverid.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbssetparameters.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbscleanup.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbsdetachthread.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbsgetparameters.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbsnodeinit.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/schedulercbsunblock.c
+
+# Uniprocessor Scheduler EDF
+librtems_a_SOURCES += $(cpukitdir)/score/src/scheduleredfblock.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/scheduleredfchangepriority.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/scheduleredfprioritycompare.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/scheduleredfschedule.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/scheduleredfupdate.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/scheduleredf.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/scheduleredfnodeinit.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/scheduleredfreleasejob.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/scheduleredfunblock.c
+librtems_a_SOURCES += $(cpukitdir)/score/src/scheduleredfyield.c
+
 librtems_a_SOURCES += $(cpukitdir)/score/src/thread.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadchangepriority.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/threadclearstate.c
@@ -255,6 +285,9 @@ librtems_a_SOURCES += $(cpukitdir)/score/src/schedulersmpstartidle.c
 librtems_a_SOURCES += $(cpukitdir)/score/src/cpuset.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/taskgetaffinity.c
 librtems_a_SOURCES += $(cpukitdir)/rtems/src/tasksetaffinity.c
+librtems_a_SOURCES += $(cpukitdir)/rtems/src/schedulerident.c
+librtems_a_SOURCES += $(cpukitdir)/rtems/src/schedulergetprocessorset.c
+librtems_a_SOURCES += $(cpukitdir)/rtems/src/tasksetscheduler.c
 endif
 
 schedsim_includedir = $(includedir)/schedsim

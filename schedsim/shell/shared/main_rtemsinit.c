@@ -32,6 +32,8 @@ int rtems_shell_main_rtems_init(
   char *argv[]
 )
 {
+  int i;
+
 #if defined(RTEMS_SMP)
   long cpus = 1;
 
@@ -43,6 +45,11 @@ int rtems_shell_main_rtems_init(
   }
   Schedsim_Maximum_CPUs_From_Command_Line = cpus;
 #endif
+
+  for (i=0; strcmp("", shell_scheduler_list[i]) != 0; i++)
+  {
+    printf("Scheduler %d: %s\n", i, shell_scheduler_list[i]);
+  }
 
   //
   // Initialize RTEMS

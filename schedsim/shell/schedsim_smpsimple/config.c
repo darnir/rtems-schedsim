@@ -5,6 +5,11 @@
  */
 
 #include <rtems.h>
+#include <schedsim_shell.h>
+
+shell_scheduler_name shell_scheduler_list[] = {
+""
+};
 
 #define CONFIGURE_INIT
 #define CONFIGURE_MAXIMUM_TASKS             1000

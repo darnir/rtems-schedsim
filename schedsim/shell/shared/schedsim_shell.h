@@ -25,6 +25,11 @@
 extern "C" {
 #endif
 
+#define SCHED_NAME(i) rtems_build_name(' ', ' ', ' ', (char) ('A' + (i)))
+
+typedef char * shell_scheduler_name;
+extern shell_scheduler_name shell_scheduler_list[];
+
 Thread_Control *get_thread_executing(void);
 Thread_Control *get_thread_heir(void);
 
