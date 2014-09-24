@@ -963,7 +963,7 @@ extern int _CPU_ISR_level_on_sched_cpu;
  *
  *  XXX document implementation including references if appropriate
  */
-#define _CPU_Fatal_halt( _error ) \
+#define _CPU_Fatal_halt( _source, _err )  \
   { \
   }
 
