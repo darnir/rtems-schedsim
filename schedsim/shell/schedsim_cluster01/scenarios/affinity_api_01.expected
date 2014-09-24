@@ -1,0 +1,68 @@
+Script File               : affinity_api_01.scen
+verbose                   : 1
+==> 1: #Create 2 cores on Priority SMP Scheuler
+==> 2: #   and 2 cores on Priority Affinity SMP Scheduler
+==> 3: rtems_init 4
+Scheduler 0: Priority SMP Scheduler
+Scheduler 1: Priority Affinity SMP Scheduler
+  CPU 0: Thread Heir: 0x09010001 priority=255
+  CPU 0: Thread Executing: 0x09010001 priority=255
+  CPU 1: Thread Heir: 0x09010002 priority=255
+  CPU 1: Thread Executing: 0x09010002 priority=255
+  CPU 2: Thread Heir: 0x09010003 priority=255
+  CPU 2: Thread Executing: 0x09010003 priority=255
+  CPU 3: Thread Heir: 0x09010004 priority=255
+  CPU 3: Thread Executing: 0x09010004 priority=255
+==> 4: 
+==> 5: #create task on Priority SMP scheduler with affinity of 0xf
+==> 6: task_create TA1 200 -a 0xf
+Creating task with:  Preemption: yes Timeslicing: no
+Task (TA1) created: id=0x0a010001, priority=200
+Task (0x0a010001) Set affinity=0x0000000f
+Task (TA1) starting: id=0x0a010001, priority=200
+  CPU 1: Thread Heir: 0x0a010001 priority=200
+  CPU 1: Thread Executing: 0x0a010001 priority=200
+==> 7: task_get_affinity TA1
+Task (0x0a010001) Get affinity=0x00000003
+==> 8: 
+==> 9: #Change the scheduler to Priority Affinity SMP Scheduler
+==> 10: task_set_scheduler TA1 0
+Task (0x0a010001) on Priority SMP Scheduler
+==> 11: task_get_affinity TA1
+Task (0x0a010001) Get affinity=0x00000003
+==> 12: 
+==> 13: #Change the scheduler to Priority SMP scheduler 
+==> 14: task_set_scheduler TA1 1
+Task (0x0a010001) on Priority Affinity SMP Scheduler
+  CPU 1: Thread Heir: 0x09010002 priority=255
+  CPU 1: Thread Executing: 0x09010002 priority=255
+  CPU 3: Thread Heir: 0x0a010001 priority=200
+  CPU 3: Thread Executing: 0x0a010001 priority=200
+==> 15: task_get_affinity TA1
+Task (0x0a010001) Get affinity=0x0000000f
+==> 16: 
+==> 17: #Change the Affinity
+==> 18: task_set_affinity TA1 0xe
+Task (0x0a010001) Set affinity=0x0000000e
+==> 19: task_get_affinity TA1
+Task (0x0a010001) Get affinity=0x0000000e
+==> 20: 
+==> 21: #Change the scheduler to Priority Affinity SMP Scheduler
+==> 22: task_set_scheduler TA1 0
+Task (0x0a010001) on Priority SMP Scheduler
+  CPU 1: Thread Heir: 0x0a010001 priority=200
+  CPU 1: Thread Executing: 0x0a010001 priority=200
+  CPU 3: Thread Heir: 0x09010004 priority=255
+  CPU 3: Thread Executing: 0x09010004 priority=255
+==> 23: task_get_affinity TA1
+Task (0x0a010001) Get affinity=0x00000003
+==> 24: 
+==> 25: #Change the scheduler to Priority SMP scheduler 
+==> 26: task_set_scheduler TA1 1
+Task (0x0a010001) on Priority Affinity SMP Scheduler
+  CPU 1: Thread Heir: 0x09010002 priority=255
+  CPU 1: Thread Executing: 0x09010002 priority=255
+  CPU 3: Thread Heir: 0x0a010001 priority=200
+  CPU 3: Thread Executing: 0x0a010001 priority=200
+==> 27: task_get_affinity TA1
+Task (0x0a010001) Get affinity=0x0000000f

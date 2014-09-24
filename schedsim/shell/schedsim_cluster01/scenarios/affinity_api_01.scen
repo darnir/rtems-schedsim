@@ -1,0 +1,27 @@
+#Create 2 cores on Priority SMP Scheuler
+#   and 2 cores on Priority Affinity SMP Scheduler
+rtems_init 4
+
+#create task on Priority SMP scheduler with affinity of 0xf
+task_create TA1 200 -a 0xf
+task_get_affinity TA1
+
+#Change the scheduler to Priority Affinity SMP Scheduler
+task_set_scheduler TA1 0
+task_get_affinity TA1
+
+#Change the scheduler to Priority SMP scheduler 
+task_set_scheduler TA1 1
+task_get_affinity TA1
+
+#Change the Affinity
+task_set_affinity TA1 0xe
+task_get_affinity TA1
+
+#Change the scheduler to Priority Affinity SMP Scheduler
+task_set_scheduler TA1 0
+task_get_affinity TA1
+
+#Change the scheduler to Priority SMP scheduler 
+task_set_scheduler TA1 1
+task_get_affinity TA1
