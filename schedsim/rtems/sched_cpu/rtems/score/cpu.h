@@ -567,7 +567,7 @@ typedef struct {
  *
  *  XXX document implementation including references if appropriate
  */
-SCORE_EXTERN Context_Control_fp  _CPU_Null_fp_context;
+extern Context_Control_fp  _CPU_Null_fp_context;
 
 /**
  *  @defgroup CPUInterrupt Processor Dependent Interrupt Management
@@ -593,14 +593,14 @@ SCORE_EXTERN Context_Control_fp  _CPU_Null_fp_context;
  *  This variable points to the lowest physical address of the interrupt
  *  stack.
  */
-SCORE_EXTERN void               *_CPU_Interrupt_stack_low;
+extern void               *_CPU_Interrupt_stack_low;
 
 /**
  *  @ingroup CPUInterrupt
  *  This variable points to the lowest physical address of the interrupt
  *  stack.
  */
-SCORE_EXTERN void               *_CPU_Interrupt_stack_high;
+extern void               *_CPU_Interrupt_stack_high;
 
 /*
  *  Nothing prevents the porter from declaring more CPU specific variables.
