@@ -297,7 +297,8 @@ schedsim_include_HEADERS  = \
   sched_cpu/machine/_default_types.h \
   sched_cpu/sys/features.h \
   sched_cpu/sys/lock.h \
-  sched_cpu/sys/cpuset.h
+  sched_cpu/sys/cpuset.h \
+  sched_cpu/sys/tree.h
 
 schedsim_rtems_include_HEADERS  = \
   ${cpukitdir}/score/include//rtems/seterr.h \
