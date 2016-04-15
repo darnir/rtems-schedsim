@@ -47,7 +47,7 @@
 #endif
 */
 
-#define	__unused   /* --jla */
+/* #define	__unused   /1* --jla *1/ */
 #define	_Atomic(T)		struct { T volatile __val; }     /* --jla */
 
 /*
