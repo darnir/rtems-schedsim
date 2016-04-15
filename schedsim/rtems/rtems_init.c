@@ -23,7 +23,7 @@
 #include <rtems/system.h>
 #include <rtems/score/assert.h>
 #include <rtems/config.h>
-#include <rtems/debug.h>
+/* #include <rtems/debug.h> */
 #include <rtems/extensionimpl.h>
 #include <rtems/fatal.h>
 #include <rtems/init.h>
